@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
+import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
 
@@ -38,6 +38,15 @@ public class MainFragment extends Fragment {
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    public static TransactionItem mItem;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
 
     @Nullable
     @Override
@@ -90,11 +99,11 @@ public class MainFragment extends Fragment {
                 });
             }
         });
-
         ArrayList<TransactionItem> itemList = new ArrayList<>();
         itemList.add(new TransactionItem(R.drawable.ic_euro, "Mensa Aufladung", "-10,00 €"));
         itemList.add(new TransactionItem(R.drawable.ic_dollar, "Google Pay Aufladung", "-20,00 $"));
         itemList.add(new TransactionItem(R.drawable.ic_euro, "Vapiano SE", "-9,00 €"));
+
 
         //Initialize RecyclerView
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
