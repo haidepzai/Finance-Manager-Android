@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package de.hdmstuttgart.financemanager.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import de.hdmstuttgart.financemanager.R;
+import de.hdmstuttgart.financemanager.TransactionItem;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -33,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mItemList = itemList;
     }
 
+    //Methode wird aufgerufen, sobald ViewHolder initialisiert werden muss
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return vh;
     }
 
-    //Pass Values to the items on the RecyclerView
+    //Übergibt die Werte in den RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TransactionItem currentItem = mItemList.get(position);
@@ -51,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mText2.setText(currentItem.getmText2());
     }
 
-    //How many items are in the list
+    //Anzahl der Elemente in der Liste (Größe der Liste)
     @Override
     public int getItemCount() {
         return mItemList.size();
