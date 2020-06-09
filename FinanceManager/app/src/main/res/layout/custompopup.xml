@@ -83,7 +83,6 @@
             android:layout_marginTop="160dp"
             android:layout_toEndOf="@+id/logo3"
             android:hint="Wie viel?"
-            android:inputType="numberDecimal"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />

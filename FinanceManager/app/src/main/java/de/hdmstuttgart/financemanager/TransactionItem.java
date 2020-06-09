@@ -17,7 +17,7 @@ public class TransactionItem {
     }
 
     public static void addEntry(TransactionItem item){
-        itemList.add(item);
+        itemList.add(0, item);
     }
 
     public int getmImageResource() {
