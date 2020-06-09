@@ -32,7 +32,7 @@ import de.hdmstuttgart.financemanager.TransactionItem;
 
 public class MainFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    public static RecyclerView.Adapter mAdapter;
+    public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FloatingActionButton fab;
