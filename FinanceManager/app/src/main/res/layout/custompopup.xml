@@ -23,41 +23,65 @@
         android:layout_margin="4dp">
 
         <ImageView
-            android:id="@+id/logo1"
+            android:id="@+id/logoPurpose"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_info"
             android:padding="2dp" />
 
         <EditText
-            android:id="@+id/input1"
+            android:id="@+id/inputPurpose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/logo1"
+            android:layout_toEndOf="@+id/logoPurpose"
             android:hint="Was?"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
+
         <ImageView
-            android:id="@+id/logo2"
+            android:id="@+id/logoAmount"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@id/logo1"
+            android:layout_below="@id/logoPurpose"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_euro"
+            android:padding="2dp" />
+
+        <EditText
+            android:id="@+id/inputAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputPurpose"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="80dp"
+            android:layout_toEndOf="@+id/logoAmount"
+            android:hint="Wie viel?"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/logoDate"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/logoAmount"
             android:layout_marginTop="30dp"
             android:background="@drawable/ic_date"
             android:padding="2dp" />
 
         <TextView
-            android:id="@+id/input2"
+            android:id="@+id/inputDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/input1"
+            android:layout_below="@id/inputAmount"
             android:layout_alignParentTop="true"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="81dp"
-            android:layout_toEndOf="@+id/logo2"
+            android:layout_marginTop="160dp"
+            android:layout_toEndOf="@+id/logoDate"
             android:hint="Wann?"
             android:inputType="date"
             android:textColor="@android:color/white"
@@ -65,46 +89,23 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/logo3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/logo2"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ic_euro"
-            android:padding="2dp" />
-
-        <EditText
-            android:id="@+id/input3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/input1"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="160dp"
-            android:layout_toEndOf="@+id/logo3"
-            android:hint="Wie viel?"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/logo4"
+            android:id="@+id/logoMethod"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_credit"
-            android:layout_below="@id/logo3"
+            android:layout_below="@id/logoDate"
             android:padding="2dp"
             android:layout_marginTop="30dp"/>
 
         <EditText
-            android:id="@+id/input4"
+            android:id="@+id/inputMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/input1"
+            android:layout_below="@id/inputDate"
             android:layout_alignParentTop="true"
             android:layout_marginStart="1dp"
             android:layout_marginTop="240dp"
-            android:layout_toEndOf="@+id/logo4"
+            android:layout_toEndOf="@+id/logoMethod"
             android:hint="Zahlungsmethode?"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -112,7 +113,7 @@
 
         <Button
             android:id="@+id/addBill"
-            android:layout_below="@id/logo4"
+            android:layout_below="@id/logoMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

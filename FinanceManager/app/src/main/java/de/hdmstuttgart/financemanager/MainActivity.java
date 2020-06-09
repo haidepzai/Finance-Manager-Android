@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //TODO: Dummy items, später löschen
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Mensa Aufladung", "-10,00 €"));
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_dollar, "Google Pay Aufladung", "-20,00 $"));
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Vapiano SE", "-9,00 €"));
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Mensa Aufladung", "-10,00 €", "08.06.2020", "PayPal"));
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_dollar, "Google Pay Aufladung", "-20,00 $", "01.06.2020", "Kreditkarte"));
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Vapiano SE", "-9,00 €", "28.05.2020", "EC"));
 
         //Initialisierung DrawerLayout
         drawer = findViewById(R.id.drawer_layout);

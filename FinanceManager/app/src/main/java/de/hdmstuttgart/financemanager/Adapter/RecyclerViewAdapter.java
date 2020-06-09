@@ -72,8 +72,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TransactionItem currentItem = mItemList.get(position);
 
         holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mText1.setText(currentItem.getmText1());
-        holder.mText2.setText(currentItem.getmText2());
+        holder.mText1.setText(currentItem.getmPurpose());
+        holder.mText2.setText(currentItem.getmAmount());
     }
 
     //Anzahl der Elemente in der Liste (Größe der Liste)
@@ -101,7 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 //Iterate in full List to check match
                 for (TransactionItem item : mItemListFull){
-                    if(item.getmText1().toLowerCase().contains(filterPattern)){
+                    if(item.getmPurpose().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }

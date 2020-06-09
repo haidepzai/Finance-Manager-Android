@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class TransactionItem {
     private int mImageResource; //int because R.drawable Images are saved as integers
-    private String mText1;
-    private String mText2;
+    private String mPurpose;
+    private String mAmount;
+    private String mDate;
+    private String mMethod;
 
     //Die Liste, die im MainFragment angezeigt wird.
     public static ArrayList<TransactionItem> itemList = new ArrayList<>();
 
-    public TransactionItem(int imageResource, String text1, String text2){
+    public TransactionItem(int imageResource, String purpose, String amount, String date, String method){
         this.mImageResource = imageResource;
-        this.mText1 = text1;
-        this.mText2 = text2;
+        this.mPurpose = purpose;
+        this.mAmount = amount;
+        this.mDate = date;
+        this.mMethod = method;
     }
 
     public static void addEntry(TransactionItem item){
@@ -24,23 +28,19 @@ public class TransactionItem {
         return mImageResource;
     }
 
-    public String getmText1() {
-        return mText1;
+    public String getmPurpose() {
+        return mPurpose;
     }
 
-    public String getmText2() {
-        return mText2;
+    public String getmAmount() {
+        return mAmount;
     }
 
-    public void setmImageResource(int mImageResource) {
-        this.mImageResource = mImageResource;
+    public String getmDate() {
+        return mDate;
     }
 
-    public void setmText1(String mText1) {
-        this.mText1 = mText1;
-    }
-
-    public void setmText2(String mText2) {
-        this.mText2 = mText2;
+    public String getmMethod() {
+        return mMethod;
     }
 }

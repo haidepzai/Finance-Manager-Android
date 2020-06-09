@@ -2,6 +2,7 @@ package de.hdmstuttgart.financemanager.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
+import de.hdmstuttgart.financemanager.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
@@ -39,7 +40,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private FloatingActionButton fab;
     private Dialog myDialog; //Popup Fenster
 
-    private TextView mDisplayDate;
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     public static TransactionItem mItem;
@@ -47,8 +48,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private Button addBill;
 
     private EditText payPurpose;
-    private TextView payDate;
     private EditText payAmount;
+    private TextView mDisplayDate;
     private EditText payMethod;
 
     @Override
@@ -68,7 +69,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mDisplayDate = myDialog.findViewById(R.id.input2);
+                mDisplayDate = myDialog.findViewById(R.id.inputDate);
                 month = month + 1;
                 String date = dayOfMonth + "." + month + "." + year;
                 mDisplayDate.setText(date);
@@ -91,10 +92,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 });
                 myDialog.show();
 
-                payPurpose = myDialog.findViewById(R.id.input1);
-                payAmount = myDialog.findViewById(R.id.input3);
-                payMethod = myDialog.findViewById(R.id.input4);
-                mDisplayDate = myDialog.findViewById(R.id.input2);
+                payPurpose = myDialog.findViewById(R.id.inputPurpose);
+                payAmount = myDialog.findViewById(R.id.inputAmount);
+                payMethod = myDialog.findViewById(R.id.inputMethod);
+                mDisplayDate = myDialog.findViewById(R.id.inputDate);
                 //Öffnet Datum-Feld
                 mDisplayDate.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,7 +120,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     public void onClick(View v) {
                         TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black,
                                 payPurpose.getText().toString(),
-                                payAmount.getText().toString()
+                                payAmount.getText().toString(),
+                                mDisplayDate.getText().toString(),
+                                payMethod.getText().toString()
                                 ));
                         mAdapter.notifyDataSetChanged();
                         myDialog.dismiss();
@@ -160,10 +163,14 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         return rootView;
     }
 
-    //TODO: Vielleicht Datum anzeigen oder irgendwas cooles, wenn man auf ein Item klickt
+    //Wechselt in ItemDetailActivity und zeigt ausführliche Infos an
     @Override
     public void onNoteClick(int position) {
-        Toast.makeText(getActivity(), "KEIN BOCK MEHR",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+        intent.putExtra("Purpose", TransactionItem.itemList.get(position).getmPurpose());
+        intent.putExtra("Amount", TransactionItem.itemList.get(position).getmAmount());
+        intent.putExtra("Date", TransactionItem.itemList.get(position).getmDate());
+        intent.putExtra("Method", TransactionItem.itemList.get(position).getmMethod());
+        startActivity(intent);
     }
 }
