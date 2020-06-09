@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
     }
 
     //Wechselt Fragmente, je nachdem welches Menu Item man in der Nav auswählt

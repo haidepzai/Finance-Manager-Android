@@ -20,24 +20,41 @@ import de.hdmstuttgart.financemanager.TransactionItem;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private ArrayList<TransactionItem> mItemList;
-    private ArrayList<TransactionItem> mItemListFull;
+    private ArrayList<TransactionItem> mItemListFull; //Kopie der Liste (Für Suchen)
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    private OnNoteListener mOnNoteListener; //Click Listener für die einzelnen Elemente
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mImageView;
         public TextView mText1;
         public TextView mText2;
 
-        public ViewHolder(@NonNull View itemView) {
+        OnNoteListener onNoteListener;
+
+        public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mText1 = itemView.findViewById(R.id.text1);
             mText2 = itemView.findViewById(R.id.text2);
+
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition()); //Position des angeklickten Element wird übergeben
         }
     }
+    //Interface für OnClickListener
+    public interface OnNoteListener{
+        void onNoteClick(int position); //Diese Methode ist zu implementieren (MainFragment)
+    }
 
-    public RecyclerViewAdapter(ArrayList<TransactionItem> itemList) {
+    public RecyclerViewAdapter(ArrayList<TransactionItem> itemList, OnNoteListener onNoteListener) {
         this.mItemList = itemList;
         this.mItemListFull = new ArrayList<>(mItemList); //Kopie der Liste um eigenständig zu nutzen
+        this.mOnNoteListener = onNoteListener;
     }
 
     //Methode wird aufgerufen, sobald ViewHolder initialisiert werden muss
@@ -45,7 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v, mOnNoteListener);
         return vh;
     }
 
@@ -95,6 +112,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             return results;
         }
+
         //Neue Liste wird angezeigt, je nach dem was man sucht
         @Override
         protected void publishResults (CharSequence constraint, FilterResults results){

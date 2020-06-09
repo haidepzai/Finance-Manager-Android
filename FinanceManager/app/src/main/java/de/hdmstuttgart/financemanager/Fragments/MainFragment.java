@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +31,7 @@ import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -131,7 +132,7 @@ public class MainFragment extends Fragment {
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new RecyclerViewAdapter(TransactionItem.itemList);
+        mAdapter = new RecyclerViewAdapter(TransactionItem.itemList, this);
 
         //Swiper
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) { //Linker Swipe
@@ -157,5 +158,12 @@ public class MainFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
+    }
+
+    //TODO: Vielleicht Datum anzeigen oder irgendwas cooles, wenn man auf ein Item klickt
+    @Override
+    public void onNoteClick(int position) {
+        Toast.makeText(getActivity(), "KEIN BOCK MEHR",
+                Toast.LENGTH_LONG).show();
     }
 }
