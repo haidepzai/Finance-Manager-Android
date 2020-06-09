@@ -29,17 +29,17 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private Button editBill;
-
+    //TextView welches in der Activity angezeigt wird
     private TextView mPurpose;
     private TextView mAmount;
     private TextView mDate;
     private TextView mMethod;
-
+    //EditText in dem Popup Dialog
     private EditText payPurpose;
     private EditText payAmount;
     private TextView mDisplayDate;
     private EditText payMethod;
-
+    //position des aktuellen Eintrages in der Liste
     private int position;
 
     @Override
