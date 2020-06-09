@@ -8,12 +8,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Wechselt Fragmente, je nachdem welches Menu Item man in der Nav auswählt
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.d("-AG-", "In onNavigationItemSelected");
         switch(item.getItemId()){
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -64,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_chart:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticFragment()).commit();
+                break;
+            case R.id.nav_impressum:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ImpressumFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

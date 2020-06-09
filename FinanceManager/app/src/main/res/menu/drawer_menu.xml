@@ -22,6 +22,10 @@
             android:id="@+id/nav_chart"
             android:icon="@drawable/ic_chart"
             android:title="Statistik" />
+        <item
+            android:id="@+id/nav_impressum"
+            android:icon="@drawable/black_info"
+            android:title="Impressum" />
     </group>
 
 </menu>
