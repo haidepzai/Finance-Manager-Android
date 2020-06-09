@@ -7,6 +7,7 @@ public class TransactionItem {
     private String mText1;
     private String mText2;
 
+    //Die Liste, die im MainFragment angezeigt wird.
     public static ArrayList<TransactionItem> itemList = new ArrayList<>();
 
     public TransactionItem(int imageResource, String text1, String text2){

@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro, "Mensa Aufladung", "-10,00 €"));
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_dollar, "Google Pay Aufladung", "-20,00 $"));
+        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro, "Vapiano SE", "-9,00 €"));
+
         //Initialisierung DrawerLayout
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

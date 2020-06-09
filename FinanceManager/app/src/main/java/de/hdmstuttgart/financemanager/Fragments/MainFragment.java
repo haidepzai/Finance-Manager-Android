@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -99,17 +98,12 @@ public class MainFragment extends Fragment {
                 });
             }
         });
-        ArrayList<TransactionItem> itemList = new ArrayList<>();
-        itemList.add(new TransactionItem(R.drawable.ic_euro, "Mensa Aufladung", "-10,00 €"));
-        itemList.add(new TransactionItem(R.drawable.ic_dollar, "Google Pay Aufladung", "-20,00 $"));
-        itemList.add(new TransactionItem(R.drawable.ic_euro, "Vapiano SE", "-9,00 €"));
-
 
         //Initialize RecyclerView
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new RecyclerViewAdapter(itemList);
+        mAdapter = new RecyclerViewAdapter(TransactionItem.itemList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
