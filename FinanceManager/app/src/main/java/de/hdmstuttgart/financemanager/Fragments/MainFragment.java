@@ -76,7 +76,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             }
         };
         //Floating Action Button unten rechts
-        fab = rootView.findViewById(R.id.fab1);
+        fab = rootView.findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +91,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
                 myDialog.show();
-
+                //Initialisierung der TextViews in dem Dialog
                 payPurpose = myDialog.findViewById(R.id.inputPurpose);
                 payAmount = myDialog.findViewById(R.id.inputAmount);
                 payMethod = myDialog.findViewById(R.id.inputMethod);
@@ -171,6 +171,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         intent.putExtra("Amount", TransactionItem.itemList.get(position).getmAmount());
         intent.putExtra("Date", TransactionItem.itemList.get(position).getmDate());
         intent.putExtra("Method", TransactionItem.itemList.get(position).getmMethod());
+        intent.putExtra("Position", position);
         startActivity(intent);
     }
 }
