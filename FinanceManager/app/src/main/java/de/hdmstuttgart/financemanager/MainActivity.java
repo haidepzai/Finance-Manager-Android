@@ -116,4 +116,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nav_Menu.findItem(R.id.action_search).setVisible(false); //Suche nicht im Hamburger Menü anzeigen!
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    //Das Menü (3-dots Menü oben rechts) ausblenden
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem home_item = menu.findItem(R.id.nav_home);
+        home_item.setVisible(false);
+        MenuItem chart_item = menu.findItem(R.id.nav_chart);
+        chart_item.setVisible(false);
+        MenuItem impressum_item = menu.findItem(R.id.nav_impressum);
+        impressum_item.setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+        return true;
+    }
 }
