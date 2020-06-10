@@ -8,8 +8,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,8 +31,9 @@ public class ItemDetailActivity extends AppCompatActivity {
     //TextView welches in der Activity angezeigt wird
     private EditText mPurpose;
     private EditText mAmount;
-    private TextView mDate;
+    private EditText mDate;
     private EditText mMethod;
+    private ImageButton calendarButton;
 
     //position des aktuellen Eintrages in der Liste
     private int position;
@@ -62,6 +65,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         mAmount = findViewById(R.id.detailAmount);
         mDate = findViewById(R.id.detailDate);
         mMethod = findViewById(R.id.detailMethod);
+        calendarButton = findViewById(R.id.calendarButton);
+        calendarButton.setVisibility(View.INVISIBLE);
 
         mPurpose.setText(purpose);
         mAmount.setText(amount);
@@ -81,8 +86,12 @@ public class ItemDetailActivity extends AppCompatActivity {
                 mPurpose.setFocusable(true);
                 mAmount.setFocusableInTouchMode(true);
                 mAmount.setFocusable(true);
-                mDate.setClickable(true);
-                mDate.setOnClickListener(new View.OnClickListener() {
+                mAmount.setFocusableInTouchMode(true);
+                mDate.setFocusable(true);
+                mDate.setFocusableInTouchMode(true);
+                calendarButton.setVisibility(View.VISIBLE);
+
+                calendarButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar cal = Calendar.getInstance();
@@ -126,6 +135,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                 deactivateText();
                 fab_done.hide();
+                calendarButton.setVisibility(View.INVISIBLE);
                 MainFragment.mAdapter.notifyDataSetChanged();
             }
         });
@@ -135,10 +145,13 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void deactivateText() {
 
         mPurpose.setFocusable(false);
+        mPurpose.setFocusableInTouchMode(false);
         mAmount.setFocusable(false);
+        mAmount.setFocusableInTouchMode(false);
         mDate.setFocusable(false);
-        mDate.setClickable(false);
+        mDate.setFocusableInTouchMode(false);
         mMethod.setFocusable(false);
+        mMethod.setFocusableInTouchMode(false);
 
         mPurpose.setBackground(null);
         mAmount.setBackground(null);
