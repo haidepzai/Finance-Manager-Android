@@ -8,4 +8,20 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/kontoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kontostand:"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/kontostandView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="25,000 €"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 </LinearLayout>

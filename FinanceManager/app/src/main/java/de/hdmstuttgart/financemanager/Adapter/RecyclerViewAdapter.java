@@ -25,17 +25,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private OnNoteListener mOnNoteListener; //Click Listener für die einzelnen Elemente
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView mImageView;
-        public TextView mText1;
-        public TextView mText2;
+        public ImageView mIcon;
+        public TextView mPurpose;
+        public TextView mAmount;
+        public TextView mDate;
 
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView);
-            mText1 = itemView.findViewById(R.id.text1);
-            mText2 = itemView.findViewById(R.id.text2);
+            mIcon = itemView.findViewById(R.id.imageView);
+            mPurpose = itemView.findViewById(R.id.text1);
+            mAmount = itemView.findViewById(R.id.text2);
+            mDate = itemView.findViewById(R.id.text3);
 
             this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
@@ -71,9 +73,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TransactionItem currentItem = mItemList.get(position);
 
-        holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mText1.setText(currentItem.getmPurpose());
-        holder.mText2.setText(currentItem.getmAmount());
+        holder.mIcon.setImageResource(currentItem.getmImageResource());
+        holder.mPurpose.setText(currentItem.getmPurpose());
+        holder.mAmount.setText(currentItem.getmAmount());
+        holder.mDate.setText(currentItem.getmDate());
     }
 
     //Anzahl der Elemente in der Liste (Größe der Liste)
