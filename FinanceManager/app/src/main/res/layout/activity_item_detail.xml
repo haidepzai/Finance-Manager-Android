@@ -7,107 +7,104 @@
     android:layout_height="match_parent"
     tools:context=".ItemDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/detailPurpose"
-            android:layout_width="275dp"
-            android:layout_height="21dp"
-            android:layout_marginEnd="44dp"
-            android:text="Was"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.246" />
-
-        <TextView
-            android:id="@+id/detailDate"
-            android:layout_width="275dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="44dp"
-            android:text="Wann"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailPurpose"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/detailAmount"
-            android:layout_width="275dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="44dp"
-            android:text="Betrag"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailDate"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/detailMethod"
-            android:layout_width="275dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="44dp"
-            android:text="Zahlungsmethode"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailAmount"
-            app:layout_constraintVertical_bias="0.008" />
-
-        <ImageView
-            android:id="@+id/detailIcon1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detailPurpose"
-            app:layout_constraintHorizontal_bias="0.572"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.243"
-            app:srcCompat="@drawable/black_info" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/detailIcon2"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/detailIcon1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@drawable/black_info" />
+
+            <EditText
+                android:id="@+id/detailPurpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Was" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detailDate"
-            app:layout_constraintHorizontal_bias="0.573"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailIcon1"
-            app:layout_constraintVertical_bias="0.15"
-            app:srcCompat="@drawable/black_date" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/detailIcon3"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/detailIcon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@drawable/black_date" />
+
+            <EditText
+                android:id="@+id/detailDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wann" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detailAmount"
-            app:layout_constraintHorizontal_bias="0.573"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailIcon2"
-            app:layout_constraintVertical_bias="0.195"
-            app:srcCompat="@drawable/ic_euro_black" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/detailIcon4"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/detailIcon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@drawable/ic_euro_black" />
+
+            <EditText
+                android:id="@+id/detailAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Betrag" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detailMethod"
-            app:layout_constraintHorizontal_bias="0.573"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailIcon3"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/black_credit" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/detailIcon4"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@drawable/black_credit" />
+
+            <EditText
+                android:id="@+id/detailMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zahlungsmethode" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_edit"
@@ -119,5 +116,18 @@
         app:fabSize="normal"
         android:backgroundTint="@color/colorPrimary"
         android:elevation="6dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        app:elevation="6dp"
+        app:srcCompat="@drawable/done"
+        tools:srcCompat="@drawable/doneoutline" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
