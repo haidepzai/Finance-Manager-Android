@@ -21,7 +21,7 @@ public class TransactionItem {
     }
 
     public static void addEntry(TransactionItem item){
-        itemList.add(0, item);
+        itemList.add(0, item); //0 = an oberster Stelle der Liste
     }
 
     public int getmImageResource() {

@@ -100,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(mItemListFull);
             } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
+                String filterPattern = constraint.toString().toLowerCase().trim(); //trim = ignoriert whitespace am Anfang/Ende
 
                 //Iterate in full List to check match
                 for (TransactionItem item : mItemListFull){
