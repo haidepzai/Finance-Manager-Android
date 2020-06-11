@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class PaymentMethods {
 
    public static ArrayList<String> SpinnerList = new ArrayList<>();
-
+    //Führt den Block instant aus, sobald die Klasse aufgerufen wird
     static {
         SpinnerList.add("EC");
         SpinnerList.add("Bank");

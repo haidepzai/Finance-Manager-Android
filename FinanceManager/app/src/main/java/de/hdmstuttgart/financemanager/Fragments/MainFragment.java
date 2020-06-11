@@ -44,7 +44,6 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private FloatingActionButton fab;
     private Dialog myDialog; //Popup Fenster
 
-
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     public static TransactionItem mItem;
@@ -63,14 +62,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+        //Dialog (Popup Fenster) zum Hinzufügen weitere Elemente
         myDialog = new Dialog(Objects.requireNonNull(getContext()));
 
         //Change Date
@@ -83,6 +75,13 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 mDisplayDate.setText(date);
             }
         };
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
         //Floating Action Button unten rechts
         fab = rootView.findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -175,10 +174,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         return rootView;
     }
-
     //Wechselt in ItemDetailActivity und zeigt ausführliche Infos an
     @Override
     public void onNoteClick(int position) {
+        //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(getContext(), ItemDetailActivity.class);
         intent.putExtra("Purpose", TransactionItem.itemList.get(position).getmPurpose());
         intent.putExtra("Amount", TransactionItem.itemList.get(position).getmAmount());
@@ -187,7 +186,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         intent.putExtra("Position", position);
         startActivity(intent);
     }
-
+    //Verhalten des Spinners
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Weist die Variable paymentMethod das ausgewählt Item zu

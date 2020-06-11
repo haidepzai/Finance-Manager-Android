@@ -180,6 +180,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mMethod.setBackground(null);
     }
 
+    //Verhalten des Spinners
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Weist die Variable paymentMethod das ausgewählt Item zu
