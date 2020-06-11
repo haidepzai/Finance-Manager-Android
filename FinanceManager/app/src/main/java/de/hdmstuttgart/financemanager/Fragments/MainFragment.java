@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,11 +31,12 @@ import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.ItemDetailActivity;
+import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
 
-public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
+public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener, AdapterView.OnItemSelectedListener{
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -50,7 +54,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private EditText payPurpose;
     private EditText payAmount;
     private TextView mDisplayDate;
-    private EditText payMethod;
+    private Spinner payMethod;
+
+    private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
+
+    private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +121,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                         dialog.show();
                     }
                 });
+
+                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.SpinnerList);
+                payMethod.setOnItemSelectedListener(MainFragment.this);
+                payMethod.setAdapter(mSpinner);
+
                 //Button im Dialog um Rechnung hinzuzufügen
                 addBill = myDialog.findViewById(R.id.addBill);
                 addBill.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +135,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                                 payPurpose.getText().toString(),
                                 payAmount.getText().toString(),
                                 mDisplayDate.getText().toString(),
-                                payMethod.getText().toString()
+                                paymentMethod
                                 ));
                         mAdapter.notifyDataSetChanged();
                         myDialog.dismiss();
@@ -173,5 +186,16 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         intent.putExtra("Method", TransactionItem.itemList.get(position).getmMethod());
         intent.putExtra("Position", position);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //Weist die Variable paymentMethod das ausgewählt Item zu
+        paymentMethod = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

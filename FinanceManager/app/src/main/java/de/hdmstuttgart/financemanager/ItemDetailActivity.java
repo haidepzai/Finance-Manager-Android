@@ -38,7 +38,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
 
     private int position; //position des aktuellen Eintrages in der Liste
 
-    public static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
 
@@ -75,7 +75,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mAmount.setText(amount);
         mDate.setText(date);
         //Initialisierung des Spinners
-        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.SpinnerList);
+        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.SpinnerList);
         mMethod.setOnItemSelectedListener(this);
         //Nicht anklickbar
         mMethod.setEnabled(false);

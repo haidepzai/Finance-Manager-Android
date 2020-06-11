@@ -18,7 +18,7 @@
         <shape android:shape="rectangle"> <!-- Standardeigenschaften -->
             <corners android:radius="20dip" />
             <stroke android:width="5dip" android:color="#979797" />
-            <solid android:color="#36DA08" />
+            <solid android:color="#00ffffff" />
         </shape>
     </item>
 </selector>

@@ -3,7 +3,7 @@
     android:layout_width="350dp"
     android:layout_height="475dp"
     android:layout_gravity="center"
-    android:background="#606060"
+    android:background="#EFF0F1"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -14,7 +14,7 @@
         android:layout_gravity="end"
         android:gravity="center"
         android:text="X"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <RelativeLayout
@@ -26,7 +26,7 @@
             android:id="@+id/logoPurpose"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_info"
+            android:background="@drawable/black_info"
             android:padding="2dp" />
 
         <EditText
@@ -36,7 +36,7 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/logoPurpose"
             android:hint="Was?"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
             android:layout_height="50dp"
             android:layout_below="@id/logoPurpose"
             android:layout_marginTop="30dp"
-            android:background="@drawable/ic_euro"
+            android:background="@drawable/ic_euro_black"
             android:padding="2dp" />
 
         <EditText
@@ -60,7 +60,7 @@
             android:layout_marginTop="80dp"
             android:layout_toEndOf="@+id/logoAmount"
             android:hint="Wie viel?"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
             android:layout_height="50dp"
             android:layout_below="@id/logoAmount"
             android:layout_marginTop="30dp"
-            android:background="@drawable/ic_date"
+            android:background="@drawable/black_date"
             android:padding="2dp" />
 
         <TextView
@@ -84,7 +84,7 @@
             android:layout_toEndOf="@+id/logoDate"
             android:hint="Wann?"
             android:inputType="date"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -92,12 +92,12 @@
             android:id="@+id/logoMethod"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_credit"
+            android:background="@drawable/black_credit"
             android:layout_below="@id/logoDate"
             android:padding="2dp"
             android:layout_marginTop="30dp"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/inputMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_marginTop="240dp"
             android:layout_toEndOf="@+id/logoMethod"
             android:hint="Zahlungsmethode?"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/round_button"
             android:text="Hinzufügen"
-            android:textColor="#FFFFFF"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             android:typeface="monospace" />
