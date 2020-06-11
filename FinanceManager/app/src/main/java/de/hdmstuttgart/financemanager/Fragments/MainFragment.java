@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
+import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
@@ -59,6 +60,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
+    private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,9 +135,13 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 addBill.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String number = payAmount.getText().toString();
+                        if(!number.equals("")){
+                            formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                        }
                         TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black,
                                 payPurpose.getText().toString(),
-                                payAmount.getText().toString(),
+                                "-" + formattedCurrency + " €",
                                 mDisplayDate.getText().toString(),
                                 paymentMethod
                                 ));

@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
+import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 
 
 public class ItemDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -44,6 +46,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
     private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
+    private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
 
         Intent in = this.getIntent();
         String purpose = in.getStringExtra("Purpose");
-        String amount = in.getStringExtra("Amount");
+        final String amount = in.getStringExtra("Amount");
         String date = in.getStringExtra("Date");
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
@@ -97,6 +100,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         fab_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAmount.setText(amount.replaceAll("[-€]", "")); //Nur der Wert wird angezeigt (ohne - und €)
                 //Elemente sind anklickbar
                 mPurpose.setFocusableInTouchMode(true);
                 mPurpose.setFocusable(true);
@@ -151,12 +155,22 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
                 mMethod.setAdapter(mSpinner);
                 mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Neuer Wert
 
+                String number = mAmount.getText().toString();
+                String newOutputText = mAmount.getText().toString();
+                if(!number.equals("")){
+                    formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                    newOutputText = "-" + formattedCurrency + " €";
+                } else {
+                    Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
+                            Toast.LENGTH_LONG).show();
+                }
                 TransactionItem.itemList.set(position, new TransactionItem(R.drawable.ic_euro_black,
                         mPurpose.getText().toString(),
-                        mAmount.getText().toString(),
+                        "-" + formattedCurrency + " €",
                         mDate.getText().toString(),
                         paymentMethod
                 ));
+                mAmount.setText(newOutputText);
 
                 deactivateText();
                 fab_done.hide();
