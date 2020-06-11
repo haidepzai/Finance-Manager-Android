@@ -7,123 +7,126 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txtClose"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:gravity="center"
-        android:text="X"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_gravity="right"
+        android:text="x" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/logoPurpose"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/black_info"
-            android:padding="2dp" />
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/black_info" />
 
         <EditText
             android:id="@+id/inputPurpose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/logoPurpose"
-            android:hint="Was?"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/detail_placeholder_what"
+            android:padding="10dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/logoAmount"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@id/logoPurpose"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ic_euro_black"
-            android:padding="2dp" />
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_euro_black" />
 
         <EditText
             android:id="@+id/inputAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/inputPurpose"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="80dp"
-            android:layout_toEndOf="@+id/logoAmount"
-            android:hint="Wie viel?"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/detail_placeholder_amount"
+            android:padding="10dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/logoDate"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@id/logoAmount"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/black_date"
-            android:padding="2dp" />
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/black_date" />
 
-        <TextView
+        <EditText
             android:id="@+id/inputDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/inputAmount"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="160dp"
-            android:layout_toEndOf="@+id/logoDate"
-            android:hint="Wann?"
-            android:inputType="date"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/detail_placeholder_when"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/logoMethod"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/black_credit"
-            android:layout_below="@id/logoDate"
-            android:padding="2dp"
-            android:layout_marginTop="30dp"/>
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/black_credit" />
 
         <Spinner
             android:id="@+id/inputMethod"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/inputDate"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="240dp"
-            android:layout_toEndOf="@+id/logoMethod"
-            android:hint="Zahlungsmethode?"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/detail_placeholder_payment"
+            android:padding="10dp"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/addBill"
-            android:layout_below="@id/logoMethod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_button"
-            android:text="Hinzufügen"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-    </RelativeLayout>
+    <Button
+        android:id="@+id/addBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:text="Hinzufügen"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
 </LinearLayout>

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -73,6 +76,8 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
 
         mPurpose.setText(purpose);
         mAmount.setText(amount);
+
+        //Add currency filter to amount input field
         mDate.setText(date);
         //Initialisierung des Spinners
         mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.SpinnerList);
@@ -191,4 +196,5 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

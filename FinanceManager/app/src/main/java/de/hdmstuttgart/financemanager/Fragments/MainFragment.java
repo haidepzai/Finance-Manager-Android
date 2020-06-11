@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,7 +52,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
     private EditText payPurpose;
     private EditText payAmount;
-    private TextView mDisplayDate;
+    private EditText mDisplayDate;
     private Spinner payMethod;
 
     private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
@@ -87,11 +87,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView txtClose;
+                Button btnClose;
                 myDialog.setContentView(R.layout.custompopup);
 
-                txtClose = myDialog.findViewById(R.id.txtClose);
-                txtClose.setOnClickListener(new View.OnClickListener() {
+                btnClose = myDialog.findViewById(R.id.btnClose);
+                btnClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         myDialog.dismiss();
@@ -101,8 +101,16 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 //Initialisierung der TextViews in dem Dialog
                 payPurpose = myDialog.findViewById(R.id.inputPurpose);
                 payAmount = myDialog.findViewById(R.id.inputAmount);
+
                 payMethod = myDialog.findViewById(R.id.inputMethod);
                 mDisplayDate = myDialog.findViewById(R.id.inputDate);
+
+                payPurpose.setBackgroundResource(R.drawable.edit_border);
+                payAmount.setBackgroundResource(R.drawable.edit_border);
+                mDisplayDate.setBackgroundResource(R.drawable.edit_border);
+                payMethod.setBackgroundResource(R.drawable.edit_border);
+
+
                 //Öffnet Datum-Feld
                 mDisplayDate.setOnClickListener(new View.OnClickListener() {
                     @Override
