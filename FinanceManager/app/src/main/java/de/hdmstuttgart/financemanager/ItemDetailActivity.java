@@ -178,6 +178,11 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mDate.setFocusableInTouchMode(false);
         mMethod.setFocusable(false);
         mMethod.setFocusableInTouchMode(false);
+
+        mPurpose.setBackgroundColor(Color.TRANSPARENT);
+        mAmount.setBackgroundColor(Color.TRANSPARENT);
+        mDate.setBackgroundColor(Color.TRANSPARENT);
+        mMethod.setBackgroundColor(Color.TRANSPARENT);
     }
 
     //Verhalten des Spinners
