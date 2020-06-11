@@ -1,16 +1,19 @@
 package de.hdmstuttgart.financemanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,7 +23,7 @@ import java.util.Objects;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 
 
-public class ItemDetailActivity extends AppCompatActivity {
+public class ItemDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private FloatingActionButton fab_done;
 
@@ -30,11 +33,14 @@ public class ItemDetailActivity extends AppCompatActivity {
     private EditText mPurpose;
     private EditText mAmount;
     private EditText mDate;
-    private EditText mMethod;
+    private Spinner mMethod;
     private ImageButton calendarButton;
 
-    //position des aktuellen Eintrages in der Liste
-    private int position;
+    private int position; //position des aktuellen Eintrages in der Liste
+
+    public static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
+
+    private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         String purpose = in.getStringExtra("Purpose");
         String amount = in.getStringExtra("Amount");
         String date = in.getStringExtra("Date");
-        String method = in.getStringExtra("Method");
+        paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
 
         //Change Date
@@ -68,17 +74,25 @@ public class ItemDetailActivity extends AppCompatActivity {
         mPurpose.setText(purpose);
         mAmount.setText(amount);
         mDate.setText(date);
-        mMethod.setText(method);
+        //Initialisierung des Spinners
+        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.SpinnerList);
+        mMethod.setOnItemSelectedListener(this);
+        //Nicht anklickbar
+        mMethod.setEnabled(false);
+        mMethod.setClickable(false);
+        mMethod.setAdapter(mSpinner);
+        mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Default Wert des Spinners
 
         deactivateText();
 
         fab_done = findViewById(R.id.fab_done);
         fab_done.hide();
+
         FloatingActionButton fab_edit = findViewById(R.id.fab_edit);
         fab_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Elemente sind anklickbar
                 mPurpose.setFocusableInTouchMode(true);
                 mPurpose.setFocusable(true);
                 mAmount.setFocusableInTouchMode(true);
@@ -87,6 +101,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                 mDate.setFocusable(true);
                 mDate.setFocusableInTouchMode(true);
                 calendarButton.setVisibility(View.VISIBLE);
+                //Bei onClick des fab_edit -> Spinner Auswahl möglich
+                mMethod.setEnabled(true);
+                mMethod.setClickable(true);
+                mMethod.setAdapter(mSpinner);
+                mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Default Wert des Spinners
 
                 calendarButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,7 +132,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                 mMethod.setBackgroundResource(R.drawable.edit_border);
 
                 fab_done.show();
-
             }
 
 
@@ -122,12 +140,17 @@ public class ItemDetailActivity extends AppCompatActivity {
         fab_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Nicht anklickbar
+                mMethod.setEnabled(false);
+                mMethod.setClickable(false);
+                mMethod.setAdapter(mSpinner);
+                mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Neuer Wert
 
                 TransactionItem.itemList.set(position, new TransactionItem(R.drawable.ic_euro_black,
                         mPurpose.getText().toString(),
                         mAmount.getText().toString(),
                         mDate.getText().toString(),
-                        mMethod.getText().toString()
+                        paymentMethod
                 ));
 
                 deactivateText();
@@ -139,6 +162,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
+    //Focus der Elemente deaktivieren
     private void deactivateText() {
 
         mPurpose.setFocusable(false);
@@ -154,5 +178,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         mAmount.setBackground(null);
         mDate.setBackground(null);
         mMethod.setBackground(null);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //Weist die Variable paymentMethod das ausgewählt Item zu
+        paymentMethod = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

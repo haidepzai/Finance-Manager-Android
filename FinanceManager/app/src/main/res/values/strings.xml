@@ -2,4 +2,14 @@
     <string name="app_name">FinanceManager</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="paymentMethod">
+        <item>Bar</item>
+        <item>EC</item>
+        <item>Kreditkarte</item>
+        <item>PayPal</item>
+        <item>Überweisung</item>
+        <item>Sonstige</item>
+    </string-array>
+
 </resources>

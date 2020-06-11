@@ -125,7 +125,7 @@
                 android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/black_credit" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/detailMethod"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
