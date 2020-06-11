@@ -80,7 +80,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         //Add currency filter to amount input field
         mDate.setText(date);
         //Initialisierung des Spinners
-        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.SpinnerList);
+        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.DetailSpinnerList);
         mMethod.setOnItemSelectedListener(this);
         //Nicht anklickbar
         mMethod.setEnabled(false);
@@ -178,11 +178,6 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mDate.setFocusableInTouchMode(false);
         mMethod.setFocusable(false);
         mMethod.setFocusableInTouchMode(false);
-
-        mPurpose.setBackground(null);
-        mAmount.setBackground(null);
-        mDate.setBackground(null);
-        mMethod.setBackground(null);
     }
 
     //Verhalten des Spinners

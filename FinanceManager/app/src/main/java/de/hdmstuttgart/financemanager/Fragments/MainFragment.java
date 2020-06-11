@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,12 +106,6 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 payMethod = myDialog.findViewById(R.id.inputMethod);
                 mDisplayDate = myDialog.findViewById(R.id.inputDate);
 
-                payPurpose.setBackgroundResource(R.drawable.edit_border);
-                payAmount.setBackgroundResource(R.drawable.edit_border);
-                mDisplayDate.setBackgroundResource(R.drawable.edit_border);
-                payMethod.setBackgroundResource(R.drawable.edit_border);
-
-
                 //Öffnet Datum-Feld
                 mDisplayDate.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -129,7 +124,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
 
-                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.SpinnerList);
+                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.MainSpinnerList);
                 payMethod.setOnItemSelectedListener(MainFragment.this);
                 payMethod.setAdapter(mSpinner);
 
