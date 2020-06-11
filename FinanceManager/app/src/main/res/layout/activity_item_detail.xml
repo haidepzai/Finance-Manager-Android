@@ -40,15 +40,15 @@
 
             <EditText
                 android:id="@+id/detailPurpose"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
                 android:inputType="text"
                 android:lines="1"
                 android:maxLines="1"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:background="@android:color/transparent"
                 android:text="@string/detail_placeholder_what"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -70,7 +70,7 @@
 
             <EditText
                 android:id="@+id/detailDate"
-                android:layout_width="300dp"
+                android:layout_width="295dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
@@ -108,11 +108,11 @@
 
             <EditText
                 android:id="@+id/detailAmount"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:lines="1"
                 android:background="@android:color/transparent"
+                android:lines="1"
                 android:maxLines="1"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -137,7 +137,7 @@
 
             <Spinner
                 android:id="@+id/detailMethod"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center_vertical"
                 android:lines="1"

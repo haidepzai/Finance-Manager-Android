@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private EditText payAmount;
     private EditText mDisplayDate;
     private Spinner payMethod;
+    private ImageButton calendar_btn;
 
     private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
 
@@ -102,12 +104,12 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 //Initialisierung der TextViews in dem Dialog
                 payPurpose = myDialog.findViewById(R.id.inputPurpose);
                 payAmount = myDialog.findViewById(R.id.inputAmount);
-
                 payMethod = myDialog.findViewById(R.id.inputMethod);
                 mDisplayDate = myDialog.findViewById(R.id.inputDate);
+                calendar_btn = myDialog.findViewById(R.id.calendar_btn);
 
                 //Öffnet Datum-Feld
-                mDisplayDate.setOnClickListener(new View.OnClickListener() {
+                calendar_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar cal = Calendar.getInstance();
