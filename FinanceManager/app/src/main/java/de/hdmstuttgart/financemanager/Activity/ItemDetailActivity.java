@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package de.hdmstuttgart.financemanager.Activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -23,6 +23,9 @@ import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
+import de.hdmstuttgart.financemanager.PaymentMethods;
+import de.hdmstuttgart.financemanager.R;
+import de.hdmstuttgart.financemanager.TransactionItem;
 
 public class ItemDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

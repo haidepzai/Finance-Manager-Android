@@ -33,7 +33,7 @@ import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
-import de.hdmstuttgart.financemanager.ItemDetailActivity;
+import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;

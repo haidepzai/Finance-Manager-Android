@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package de.hdmstuttgart.financemanager.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,6 +18,8 @@ import com.google.android.material.navigation.NavigationView;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
+import de.hdmstuttgart.financemanager.R;
+import de.hdmstuttgart.financemanager.TransactionItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer; //DrawerLayout für Navigation
