@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -164,6 +165,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mLayoutManager = new LinearLayoutManager(getContext());
         mAdapter = new RecyclerViewAdapter(TransactionItem.itemList, this);
 
+        final TransactionItem[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
         //Swiper
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) { //Linker Swipe
             //Andere Swipe Richtungen (0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP)
@@ -172,13 +174,22 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
-            //Swipe löschen
+            //Swipe löschen (mit Möglichkeit Rückgänig zu machen)
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from list and notify the RecyclerView
-                int position = viewHolder.getAdapterPosition();
+                final int position = viewHolder.getAdapterPosition();
+                deletedTransaction[0] = TransactionItem.itemList.get(position); //Zwischenspeichern des gelöschten Elements
                 TransactionItem.itemList.remove(position);
                 mAdapter.notifyDataSetChanged();
+                Snackbar.make(mRecyclerView, deletedTransaction[0].getmPurpose() + " gelöscht", Snackbar.LENGTH_LONG)
+                        .setAction("undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                TransactionItem.itemList.add(position, deletedTransaction[0]);
+                                mAdapter.notifyItemInserted(position);
+                            }
+                        }).show();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
