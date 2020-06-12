@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark">
+    android:background="@android:color/darker_gray">
 
     <TextView
         android:id="@+id/totalAmountView"
@@ -20,13 +20,14 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <TextView
         android:id="@+id/totalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="632dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -36,5 +37,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalAmountView"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <de.hdmstuttgart.financemanager.View.StatisticView
+        android:id="@+id/statisticView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalAmount"
+        app:layout_constraintVertical_bias="0.844" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

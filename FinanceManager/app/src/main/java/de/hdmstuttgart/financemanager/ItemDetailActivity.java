@@ -74,7 +74,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mDate.setText(date);
 
         //Initialisierung des Spinners
-        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.methodSpinnerDetail);
+        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
         mMethod.setOnItemSelectedListener(this);
 
         deactivateText(); //Anklicken der Textfelder nicht möglich
