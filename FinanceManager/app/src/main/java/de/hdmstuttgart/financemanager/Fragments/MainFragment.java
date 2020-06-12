@@ -124,7 +124,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
 
-                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.MainSpinnerList);
+                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.methodSpinnerMain);
                 mMethod.setOnItemSelectedListener(MainFragment.this);
                 mMethod.setAdapter(mSpinner);
 
