@@ -23,6 +23,5 @@ public class PaymentMethods {
         DetailSpinnerList.add("PayPal");
         DetailSpinnerList.add("Überweisung");
         DetailSpinnerList.add("Sonstige");
-
     }
 }

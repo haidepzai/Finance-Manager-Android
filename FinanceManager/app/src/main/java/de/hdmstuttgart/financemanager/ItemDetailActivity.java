@@ -30,12 +30,12 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    //TextView welches in der Activity angezeigt wird
+    //Textfelder welche in der Activity angezeigt wird
     private EditText mPurpose;
     private EditText mAmount;
     private EditText mDate;
     private Spinner mMethod;
-    private ImageButton calendarButton;
+    private ImageButton calenderBtn;
 
     private int position; //position des aktuellen Eintrages in der Liste
 
@@ -50,9 +50,9 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_item_detail);
 
         Intent in = this.getIntent();
-        String purpose = in.getStringExtra("Purpose");
+        final String purpose = in.getStringExtra("Purpose");
         final String amount = in.getStringExtra("Amount");
-        String date = in.getStringExtra("Date");
+        final String date = in.getStringExtra("Date");
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
 
@@ -66,28 +66,18 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
             }
         };
 
-        mPurpose = findViewById(R.id.detailPurpose);
-        mAmount = findViewById(R.id.detailAmount);
-        mDate = findViewById(R.id.detailDate);
-        mMethod = findViewById(R.id.detailMethod);
-        calendarButton = findViewById(R.id.calendarButton);
-        calendarButton.setVisibility(View.INVISIBLE);
+        initializeText(); //(findViewById)
 
         mPurpose.setText(purpose);
         mAmount.setText(amount);
-
         //Add currency filter to amount input field
         mDate.setText(date);
+
         //Initialisierung des Spinners
         mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item_detail, PaymentMethods.DetailSpinnerList);
         mMethod.setOnItemSelectedListener(this);
-        //Nicht anklickbar
-        mMethod.setEnabled(false);
-        mMethod.setClickable(false);
-        mMethod.setAdapter(mSpinner);
-        mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Default Wert des Spinners
 
-        deactivateText();
+        deactivateText(); //Anklicken der Textfelder nicht möglich
 
         fab_done = findViewById(R.id.fab_done);
         fab_done.hide();
@@ -97,22 +87,9 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
                 mAmount.setText(amount.replaceAll("[-€]", "")); //Nur der Wert wird angezeigt (ohne - und €)
-                //Elemente sind anklickbar
-                mPurpose.setFocusableInTouchMode(true);
-                mPurpose.setFocusable(true);
-                mAmount.setFocusableInTouchMode(true);
-                mAmount.setFocusable(true);
-                mAmount.setFocusableInTouchMode(true);
-                mDate.setFocusable(true);
-                mDate.setFocusableInTouchMode(true);
-                calendarButton.setVisibility(View.VISIBLE);
-                //Bei onClick des fab_edit -> Spinner Auswahl möglich
-                mMethod.setEnabled(true);
-                mMethod.setClickable(true);
-                mMethod.setAdapter(mSpinner);
-                mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Default Wert des Spinners
-
-                calendarButton.setOnClickListener(new View.OnClickListener() {
+                activateText(); //Erlaubt das Anklicken der Textfelder
+                //Calender Button
+                calenderBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar cal = Calendar.getInstance();
@@ -128,13 +105,8 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
                         dialog.show();
                     }
                 });
-                mMethod.setFocusableInTouchMode(true);
-                mMethod.setFocusable(true);
 
-                mPurpose.setBackgroundResource(R.drawable.edit_border);
-                mAmount.setBackgroundResource(R.drawable.edit_border);
-                mDate.setBackgroundResource(R.drawable.edit_border);
-                mMethod.setBackgroundResource(R.drawable.edit_border);
+                setGreenFieldBorder();
 
                 fab_done.show();
             }
@@ -145,41 +117,77 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         fab_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Nicht anklickbar
-                mMethod.setEnabled(false);
-                mMethod.setClickable(false);
-                mMethod.setAdapter(mSpinner);
-                mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Neuer Wert
 
-                String number = mAmount.getText().toString();
-                String newOutputText = mAmount.getText().toString();
-                if(!number.equals("")){
-                    formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                    newOutputText = "-" + formattedCurrency + " €";
-                } else {
-                    Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
+                setGreenFieldBorder();
+                checkEmptyField();
+
+                if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
+                        mDate.getText().toString().equals("")) {
+                    Toast.makeText(ItemDetailActivity.this, "Bitte die rot markierten Felder ausfüllen",
                             Toast.LENGTH_LONG).show();
                 }
-                TransactionItem.itemList.set(position, new TransactionItem(R.drawable.ic_euro_black,
-                        mPurpose.getText().toString(),
-                        "-" + formattedCurrency + " €",
-                        mDate.getText().toString(),
-                        paymentMethod
-                ));
-                mAmount.setText(newOutputText);
+                else {
+                    setGreenFieldBorder();
+                    String number = mAmount.getText().toString();
+                    StringBuilder str = new StringBuilder(); //StringBuilder: bessere Performance als String (immutable)
+                    if (!number.equals("")) {
+                        formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                        str.append("-").append(formattedCurrency).append(" €");
+                    } else {
+                        Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    //Liste aktualisieren
+                    TransactionItem.itemList.set(position, new TransactionItem(R.drawable.ic_euro_black,
+                            mPurpose.getText().toString(),
+                            "-" + formattedCurrency + " €",
+                            mDate.getText().toString(),
+                            paymentMethod
+                    ));
+                    mAmount.setText(str);
 
-                deactivateText();
-                fab_done.hide();
-                calendarButton.setVisibility(View.INVISIBLE);
-                MainFragment.mAdapter.notifyDataSetChanged();
+                    deactivateText();
+                    fab_done.hide();
+                    calenderBtn.setVisibility(View.INVISIBLE);
+                    MainFragment.mAdapter.notifyDataSetChanged();
+                }
             }
         });
+    }
 
+    private void initializeText(){
+        mPurpose = findViewById(R.id.detailPurpose);
+        mAmount = findViewById(R.id.detailAmount);
+        mDate = findViewById(R.id.detailDate);
+        mMethod = findViewById(R.id.detailMethod);
+        calenderBtn = findViewById(R.id.calendarButton);
+        calenderBtn.setVisibility(View.INVISIBLE);
+    }
+
+    //Focus der Elemente aktivieren
+    private void activateText(){
+        //Elemente sind anklickbar
+        mPurpose.setFocusableInTouchMode(true);
+        mPurpose.setFocusable(true);
+        mAmount.setFocusableInTouchMode(true);
+        mAmount.setFocusable(true);
+        mAmount.setFocusableInTouchMode(true);
+        mDate.setFocusable(true);
+        mDate.setFocusableInTouchMode(true);
+        mMethod.setFocusableInTouchMode(true);
+        mMethod.setFocusable(true);
+        calenderBtn.setVisibility(View.VISIBLE);
+        //Bei onClick des fab_edit -> Spinner Auswahl möglich
+        mMethod.setEnabled(true);
+        mMethod.setClickable(true);
+        mMethod.setAdapter(mSpinner);
+        //Aktueller Wert des Spinners wird angezeigt (Im Bearbeitungsmodus, sonst erscheint immer Position 0: EC)
+        mMethod.setSelection(mSpinner.getPosition(paymentMethod));
     }
 
     //Focus der Elemente deaktivieren
     private void deactivateText() {
-
+        //Elemente nicht anklickbar
         mPurpose.setFocusable(false);
         mPurpose.setFocusableInTouchMode(false);
         mAmount.setFocusable(false);
@@ -188,11 +196,35 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mDate.setFocusableInTouchMode(false);
         mMethod.setFocusable(false);
         mMethod.setFocusableInTouchMode(false);
+        //Spinner Nicht anklickbar
+        mMethod.setEnabled(false);
+        mMethod.setClickable(false);
+        mMethod.setAdapter(mSpinner);
+        mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Output der Zahlungsmethode (Spinner)
 
         mPurpose.setBackgroundColor(Color.TRANSPARENT);
         mAmount.setBackgroundColor(Color.TRANSPARENT);
         mDate.setBackgroundColor(Color.TRANSPARENT);
         mMethod.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    private void checkEmptyField(){
+        if (mPurpose.getText().toString().equals("")) {
+            mPurpose.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mAmount.getText().toString().equals("")) {
+            mAmount.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mDate.getText().toString().equals("")) {
+            mDate.setBackgroundResource(R.drawable.edit_border_red);
+        }
+    }
+
+    private void setGreenFieldBorder() {
+        mPurpose.setBackgroundResource(R.drawable.edit_border);
+        mAmount.setBackgroundResource(R.drawable.edit_border);
+        mDate.setBackgroundResource(R.drawable.edit_border);
+        mMethod.setBackgroundResource(R.drawable.edit_border);
     }
 
     //Verhalten des Spinners

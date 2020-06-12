@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,13 +50,13 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
     public static TransactionItem mItem;
 
+    //Textfelder, welche im Dialog angezeigt werden
+    private EditText mPurpose;
+    private EditText mAmount;
+    private EditText mDate;
+    private Spinner mMethod;
+    private ImageButton calenderBtn;
     private Button addBill;
-
-    private EditText payPurpose;
-    private EditText payAmount;
-    private EditText mDisplayDate;
-    private Spinner payMethod;
-    private ImageButton calendar_btn;
 
     private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
 
@@ -72,10 +73,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mDisplayDate = myDialog.findViewById(R.id.inputDate);
+                mDate = myDialog.findViewById(R.id.inputDate);
                 month = month + 1;
                 String date = dayOfMonth + "." + month + "." + year;
-                mDisplayDate.setText(date);
+                mDate.setText(date);
             }
         };
     }
@@ -101,15 +102,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
                 myDialog.show();
-                //Initialisierung der TextViews in dem Dialog
-                payPurpose = myDialog.findViewById(R.id.inputPurpose);
-                payAmount = myDialog.findViewById(R.id.inputAmount);
-                payMethod = myDialog.findViewById(R.id.inputMethod);
-                mDisplayDate = myDialog.findViewById(R.id.inputDate);
-                calendar_btn = myDialog.findViewById(R.id.calendar_btn);
+
+                initializeText(); //Initialisierung der TextViews in dem Dialog
 
                 //Öffnet Datum-Feld
-                calendar_btn.setOnClickListener(new View.OnClickListener() {
+                calenderBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar cal = Calendar.getInstance();
@@ -127,26 +124,35 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 });
 
                 mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item_main, PaymentMethods.MainSpinnerList);
-                payMethod.setOnItemSelectedListener(MainFragment.this);
-                payMethod.setAdapter(mSpinner);
+                mMethod.setOnItemSelectedListener(MainFragment.this);
+                mMethod.setAdapter(mSpinner);
 
                 //Button im Dialog um Rechnung hinzuzufügen
                 addBill = myDialog.findViewById(R.id.addBill);
                 addBill.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String number = payAmount.getText().toString();
-                        if(!number.equals("")){
-                            formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                        setGreenFieldBorder();
+                        checkEmptyField();
+
+                        if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
+                                mDate.getText().toString().equals("") || mSpinner.getPosition(paymentMethod) == 0 || mSpinner.getPosition(paymentMethod) == 1) {
+                            Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            String number = mAmount.getText().toString();
+                            if(!number.equals("")){
+                                formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                            }
+                            TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black,
+                                    mPurpose.getText().toString(),
+                                    "-" + formattedCurrency + " €",
+                                    mDate.getText().toString(),
+                                    paymentMethod
+                            ));
+                            mAdapter.notifyDataSetChanged();
+                            myDialog.dismiss();
                         }
-                        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black,
-                                payPurpose.getText().toString(),
-                                "-" + formattedCurrency + " €",
-                                mDisplayDate.getText().toString(),
-                                paymentMethod
-                                ));
-                        mAdapter.notifyDataSetChanged();
-                        myDialog.dismiss();
                     }
                 });
             }
@@ -183,6 +189,16 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         return rootView;
     }
+
+
+    private void initializeText(){
+        mPurpose = myDialog.findViewById(R.id.inputPurpose);
+        mAmount = myDialog.findViewById(R.id.inputAmount);
+        mMethod = myDialog.findViewById(R.id.inputMethod);
+        mDate = myDialog.findViewById(R.id.inputDate);
+        calenderBtn = myDialog.findViewById(R.id.calendar_btn);
+    }
+
     //Wechselt in ItemDetailActivity und zeigt ausführliche Infos an
     @Override
     public void onNoteClick(int position) {
@@ -205,5 +221,27 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void checkEmptyField(){
+        if (mPurpose.getText().toString().equals("")) {
+            mPurpose.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mAmount.getText().toString().equals("")) {
+            mAmount.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mDate.getText().toString().equals("")) {
+            mDate.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mSpinner.getPosition(paymentMethod) == 0 || mSpinner.getPosition(paymentMethod) == 1) {
+            mMethod.setBackgroundResource(R.drawable.edit_border_red);
+        }
+    }
+
+    private void setGreenFieldBorder() {
+        mPurpose.setBackgroundResource(R.drawable.edit_border);
+        mAmount.setBackgroundResource(R.drawable.edit_border);
+        mDate.setBackgroundResource(R.drawable.edit_border);
+        mMethod.setBackgroundResource(R.drawable.edit_border);
     }
 }
