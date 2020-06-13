@@ -14,20 +14,20 @@ import java.text.DecimalFormat;
 
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
-import de.hdmstuttgart.financemanager.View.StatisticView;
+import de.hdmstuttgart.financemanager.View.BarChartView;
 
 
 public class StatisticFragment extends Fragment {
 
     private double totalAmount;
-    private StatisticView mStatisticView;
+    private BarChartView mBarChartView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        mStatisticView = (StatisticView) rootView.findViewById(R.id.statisticView);
+        mBarChartView = (BarChartView) rootView.findViewById(R.id.statisticView);
         TextView totalAmountView = rootView.findViewById(R.id.totalAmount);
 
         for(TransactionItem item : TransactionItem.itemList){
