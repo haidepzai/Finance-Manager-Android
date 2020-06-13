@@ -27,7 +27,7 @@ public class StatisticFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        mBarChartView = (BarChartView) rootView.findViewById(R.id.statisticView);
+        mBarChartView = rootView.findViewById(R.id.barChartView);
         TextView totalAmountView = rootView.findViewById(R.id.totalAmount);
 
         for(TransactionItem item : TransactionItem.itemList){
