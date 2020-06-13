@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
+import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.PaymentMethods;
@@ -39,7 +40,7 @@ import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
 
-public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener, AdapterView.OnItemSelectedListener{
+public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -55,14 +56,18 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private EditText mPurpose;
     private EditText mAmount;
     private EditText mDate;
+    private Spinner mCategory;
     private Spinner mMethod;
     private ImageButton calenderBtn;
     private Button addBill;
 
-    private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerMethod; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerCategory; //Adapter für Spinner Kategorie (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
+
+    private String category;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,9 +129,37 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
 
-                mSpinner = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
-                mMethod.setOnItemSelectedListener(MainFragment.this);
-                mMethod.setAdapter(mSpinner);
+                mSpinnerMethod = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
+                mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    //Verhalten des Spinners
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //Weist die Variable paymentMethod das ausgewählt Item zu
+                        paymentMethod = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                mMethod.setAdapter(mSpinnerMethod);
+
+                mSpinnerCategory= new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
+                mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    //Verhalten des Spinners
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //Weist die Variable paymentMethod das ausgewählt Item zu
+                        category = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                mCategory.setAdapter(mSpinnerCategory);
 
                 //Button im Dialog um Rechnung hinzuzufügen
                 addBill = myDialog.findViewById(R.id.addBill);
@@ -137,7 +170,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                         checkEmptyField();
 
                         if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
-                                mDate.getText().toString().equals("") || mSpinner.getPosition(paymentMethod) == 0 || mSpinner.getPosition(paymentMethod) == 1) {
+                                mDate.getText().toString().equals("") || mSpinnerMethod.getPosition(paymentMethod) == 0 ||
+                                mSpinnerMethod.getPosition(paymentMethod) == 1 || mSpinnerCategory.getPosition(paymentMethod) == 0 ||
+                                mSpinnerCategory.getPosition(paymentMethod) == 1) {
                             Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
                                     Toast.LENGTH_LONG).show();
                         } else {
@@ -149,6 +184,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                                     mPurpose.getText().toString(),
                                     "-" + formattedCurrency + " €",
                                     mDate.getText().toString(),
+                                    category,
                                     paymentMethod
                             ));
                             mAdapter.notifyDataSetChanged();
@@ -206,6 +242,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mPurpose = myDialog.findViewById(R.id.inputPurpose);
         mAmount = myDialog.findViewById(R.id.inputAmount);
         mMethod = myDialog.findViewById(R.id.inputMethod);
+        mCategory = myDialog.findViewById((R.id.inputCategory));
         mDate = myDialog.findViewById(R.id.inputDate);
         calenderBtn = myDialog.findViewById(R.id.calendar_btn);
     }
@@ -218,20 +255,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         intent.putExtra("Purpose", TransactionItem.itemList.get(position).getmPurpose());
         intent.putExtra("Amount", TransactionItem.itemList.get(position).getmAmount());
         intent.putExtra("Date", TransactionItem.itemList.get(position).getmDate());
+        intent.putExtra("Category", TransactionItem.itemList.get(position).getmCategory());
         intent.putExtra("Method", TransactionItem.itemList.get(position).getmMethod());
         intent.putExtra("Position", position);
         startActivity(intent);
-    }
-    //Verhalten des Spinners
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Weist die Variable paymentMethod das ausgewählt Item zu
-        paymentMethod = parent.getItemAtPosition(position).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     private void checkEmptyField(){
@@ -244,7 +271,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         if (mDate.getText().toString().equals("")) {
             mDate.setBackgroundResource(R.drawable.edit_border_red);
         }
-        if (mSpinner.getPosition(paymentMethod) == 0 || mSpinner.getPosition(paymentMethod) == 1) {
+        if (mSpinnerCategory.getPosition(category) == 0 || mSpinnerCategory.getPosition(category) == 1) {
+            mCategory.setBackgroundResource(R.drawable.edit_border_red);
+        }
+        if (mSpinnerMethod.getPosition(paymentMethod) == 0 || mSpinnerMethod.getPosition(paymentMethod) == 1) {
             mMethod.setBackgroundResource(R.drawable.edit_border_red);
         }
     }
@@ -253,6 +283,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mPurpose.setBackgroundResource(R.drawable.edit_border);
         mAmount.setBackgroundResource(R.drawable.edit_border);
         mDate.setBackgroundResource(R.drawable.edit_border);
+        mCategory.setBackgroundResource(R.drawable.edit_border);
         mMethod.setBackgroundResource(R.drawable.edit_border);
     }
 }

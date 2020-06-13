@@ -15,6 +15,7 @@
     <string name="detail_placeholder_what">Was?</string>
     <string name="detail_placeholder_when">Wann?</string>
     <string name="detail_placeholder_amount">Betrag?</string>
+    <string name="detail_placeholder_category">Kategorie?</string>
     <string name="detail_placeholder_payment">Zahlungsmethode?</string>
 
 </resources>

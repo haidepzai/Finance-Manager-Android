@@ -7,16 +7,18 @@ public class TransactionItem {
     private String mPurpose;
     private String mAmount;
     private String mDate;
+    private String mCategory;
     private String mMethod;
 
     //Die Liste, die im MainFragment angezeigt wird.
     public static ArrayList<TransactionItem> itemList = new ArrayList<>();
 
-    public TransactionItem(int imageResource, String purpose, String amount, String date, String method){
+    public TransactionItem(int imageResource, String purpose, String amount, String date, String category, String method){
         this.mImageResource = imageResource;
         this.mPurpose = purpose;
         this.mAmount = amount;
         this.mDate = date;
+        this.mCategory = category;
         this.mMethod = method;
     }
 
@@ -43,4 +45,9 @@ public class TransactionItem {
     public String getmMethod() {
         return mMethod;
     }
+
+    public String getmCategory() {
+        return mCategory;
+    }
+
 }

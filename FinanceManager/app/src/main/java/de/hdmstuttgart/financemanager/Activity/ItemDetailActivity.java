@@ -21,13 +21,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Calendar;
 import java.util.Objects;
 
+import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
 
-public class ItemDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ItemDetailActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_done;
 
@@ -37,15 +38,19 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
     private EditText mPurpose;
     private EditText mAmount;
     private EditText mDate;
+    private Spinner mCategory;
     private Spinner mMethod;
     private ImageButton calenderBtn;
 
     private int position; //position des aktuellen Eintrages in der Liste
 
-    private static ArrayAdapter<String> mSpinner; //Adapter für Spinner (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerMethod; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerCategory; //Adapter für Spinner Kategorie (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
+
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         final String purpose = in.getStringExtra("Purpose");
         final String amount = in.getStringExtra("Amount");
         final String date = in.getStringExtra("Date");
+        category = in.getStringExtra("Category");
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
 
@@ -77,8 +83,35 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mDate.setText(date);
 
         //Initialisierung des Spinners
-        mSpinner = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
-        mMethod.setOnItemSelectedListener(this);
+        mSpinnerMethod = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
+        mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //Verhalten des Spinners
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Weist die Variable paymentMethod das ausgewählt Item zu
+                paymentMethod = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mSpinnerCategory = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.categorySpinnerDetail);
+        mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //Verhalten des Spinners
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Weist die Variable paymentMethod das ausgewählt Item zu
+                category = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         deactivateText(); //Anklicken der Textfelder nicht möglich
 
@@ -145,6 +178,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
                             mPurpose.getText().toString(),
                             "-" + formattedCurrency + " €",
                             mDate.getText().toString(),
+                            category,
                             paymentMethod
                     ));
                     mAmount.setText(str);
@@ -162,6 +196,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mPurpose = findViewById(R.id.detailPurpose);
         mAmount = findViewById(R.id.detailAmount);
         mDate = findViewById(R.id.detailDate);
+        mCategory = findViewById(R.id.detailCategory);
         mMethod = findViewById(R.id.detailMethod);
         calenderBtn = findViewById(R.id.calendarButton);
         calenderBtn.setVisibility(View.INVISIBLE);
@@ -177,15 +212,22 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mAmount.setFocusableInTouchMode(true);
         mDate.setFocusable(true);
         mDate.setFocusableInTouchMode(true);
+        mCategory.setFocusableInTouchMode(true);
+        mCategory.setFocusable(true);
         mMethod.setFocusableInTouchMode(true);
         mMethod.setFocusable(true);
         calenderBtn.setVisibility(View.VISIBLE);
         //Bei onClick des fab_edit -> Spinner Auswahl möglich
         mMethod.setEnabled(true);
         mMethod.setClickable(true);
-        mMethod.setAdapter(mSpinner);
+        mMethod.setAdapter(mSpinnerMethod);
         //Aktueller Wert des Spinners wird angezeigt (Im Bearbeitungsmodus, sonst erscheint immer Position 0: EC)
-        mMethod.setSelection(mSpinner.getPosition(paymentMethod));
+        mMethod.setSelection(mSpinnerMethod.getPosition(paymentMethod));
+        mCategory.setEnabled(true);
+        mCategory.setClickable(true);
+        mCategory.setAdapter(mSpinnerCategory);
+        //Aktueller Wert des Spinners wird angezeigt (Im Bearbeitungsmodus, sonst erscheint immer Position 0: Einkauf)
+        mCategory.setSelection(mSpinnerCategory.getPosition(category));
     }
 
     //Focus der Elemente deaktivieren
@@ -197,17 +239,24 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mAmount.setFocusableInTouchMode(false);
         mDate.setFocusable(false);
         mDate.setFocusableInTouchMode(false);
+        mCategory.setFocusable(false);
+        mCategory.setFocusableInTouchMode(false);
         mMethod.setFocusable(false);
         mMethod.setFocusableInTouchMode(false);
         //Spinner Nicht anklickbar
         mMethod.setEnabled(false);
         mMethod.setClickable(false);
-        mMethod.setAdapter(mSpinner);
-        mMethod.setSelection(mSpinner.getPosition(paymentMethod)); //Output der Zahlungsmethode (Spinner)
+        mMethod.setAdapter(mSpinnerMethod);
+        mMethod.setSelection(mSpinnerMethod.getPosition(paymentMethod)); //Output der Zahlungsmethode (Spinner)
+        mCategory.setEnabled(false);
+        mCategory.setClickable(false);
+        mCategory.setAdapter(mSpinnerCategory);
+        mCategory.setSelection(mSpinnerCategory.getPosition(category)); //Output der Zahlungsmethode (Spinner)
 
         mPurpose.setBackgroundColor(Color.TRANSPARENT);
         mAmount.setBackgroundColor(Color.TRANSPARENT);
         mDate.setBackgroundColor(Color.TRANSPARENT);
+        mCategory.setBackgroundColor(Color.TRANSPARENT);
         mMethod.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -227,18 +276,7 @@ public class ItemDetailActivity extends AppCompatActivity implements AdapterView
         mPurpose.setBackgroundResource(R.drawable.edit_border);
         mAmount.setBackgroundResource(R.drawable.edit_border);
         mDate.setBackgroundResource(R.drawable.edit_border);
+        mCategory.setBackgroundResource(R.drawable.edit_border);
         mMethod.setBackgroundResource(R.drawable.edit_border);
-    }
-
-    //Verhalten des Spinners
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Weist die Variable paymentMethod das ausgewählt Item zu
-        paymentMethod = parent.getItemAtPosition(position).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
