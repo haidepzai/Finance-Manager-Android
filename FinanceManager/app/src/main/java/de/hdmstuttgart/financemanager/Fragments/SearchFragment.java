@@ -1,15 +1,21 @@
 package de.hdmstuttgart.financemanager.Fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +24,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
@@ -31,6 +43,9 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener1;
+    private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     private ArrayList<TransactionItem> resultList;
 
@@ -48,10 +63,10 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private String paymentMethod;
 
     private EditText searchPurpose;
-    //TODO: Evtl noch nach Datum suchen
-    private EditText searchDate;
     private EditText searchAmount1;
     private EditText searchAmount2;
+    private TextView searchDate1;
+    private TextView searchDate2;
 
     private Button searchButton;
 
@@ -64,6 +79,25 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchSpinnerList.add("Kategorie");
         searchSpinnerList.add("Zahlungsmethode");
         searchSpinnerList.add("Betrag");
+        searchSpinnerList.add("Datum");
+
+        mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = dayOfMonth + "." + month + "." + year;
+                searchDate1.setText(date);
+            }
+        };
+
+        mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = dayOfMonth + "." + month + "." + year;
+                searchDate2.setText(date);
+            }
+        };
 
     }
 
@@ -79,6 +113,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchMethodSpinner = rootView.findViewById(R.id.searchMethod);
         searchAmount1 = rootView.findViewById(R.id.searchAmount1);
         searchAmount2 = rootView.findViewById(R.id.searchAmount2);
+        searchDate1 = rootView.findViewById(R.id.searchDate1);
+        searchDate2 = rootView.findViewById(R.id.searchDate2);
 
         //Spinner für Suchbegriff
         mSpinnerSearchAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, searchSpinnerList);
@@ -96,6 +132,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchMethodSpinner.setVisibility(View.GONE);
                         searchAmount1.setVisibility(View.GONE);
                         searchAmount2.setVisibility(View.GONE);
+                        searchDate1.setVisibility(View.GONE);
+                        searchDate2.setVisibility(View.GONE);
                         break;
                     case "Kategorie":
                         searchPurpose.setVisibility(View.GONE);
@@ -103,6 +141,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchMethodSpinner.setVisibility(View.GONE);
                         searchAmount1.setVisibility(View.GONE);
                         searchAmount2.setVisibility(View.GONE);
+                        searchDate1.setVisibility(View.GONE);
+                        searchDate2.setVisibility(View.GONE);
                         break;
                     case "Zahlungsmethode":
                         searchPurpose.setVisibility(View.GONE);
@@ -110,6 +150,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchMethodSpinner.setVisibility(View.VISIBLE);
                         searchAmount1.setVisibility(View.GONE);
                         searchAmount2.setVisibility(View.GONE);
+                        searchDate1.setVisibility(View.GONE);
+                        searchDate2.setVisibility(View.GONE);
                         break;
                     case "Betrag":
                         searchPurpose.setVisibility(View.GONE);
@@ -117,6 +159,16 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchMethodSpinner.setVisibility(View.GONE);
                         searchAmount1.setVisibility(View.VISIBLE);
                         searchAmount2.setVisibility(View.VISIBLE);
+                        searchDate1.setVisibility(View.GONE);
+                        searchDate2.setVisibility(View.GONE);
+                    case "Datum":
+                        searchPurpose.setVisibility(View.GONE);
+                        searchCategorySpinner.setVisibility(View.GONE);
+                        searchMethodSpinner.setVisibility(View.GONE);
+                        searchAmount1.setVisibility(View.GONE);
+                        searchAmount2.setVisibility(View.GONE);
+                        searchDate1.setVisibility(View.VISIBLE);
+                        searchDate2.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -157,6 +209,39 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             }
         });
         searchMethodSpinner.setAdapter(mSpinnerSearchMethodAdapter);
+
+        searchDate1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                        mDateSetListener1,
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+            }
+        });
+        searchDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                        mDateSetListener2,
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+            }
+        });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +332,32 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             }
             if (counter == 0) {
                 Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
+            }
+        } else if (searchItem.equals("Datum")){
+            int counter = 0;
+            resultList.clear();
+
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+                Date date1 = sdf.parse(searchDate1.getText().toString());
+                Date date2 = sdf.parse(searchDate2.getText().toString());
+
+                for(TransactionItem item : TransactionItem.itemList){
+                    Date itemDate = sdf.parse(item.getmDate());
+                    assert itemDate != null;
+                    if(!(itemDate.before(date1) || itemDate.after(date2))){
+                        resultList.add(item);
+                        counter++;
+                    }
+                }
+                if (counter == 0) {
+                    Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
+                }
+            } catch (ParseException e){
+                Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+                Log.d("Error: ", e.toString());
             }
         }
     }
