@@ -161,6 +161,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchAmount2.setVisibility(View.VISIBLE);
                         searchDate1.setVisibility(View.GONE);
                         searchDate2.setVisibility(View.GONE);
+                        break;
                     case "Datum":
                         searchPurpose.setVisibility(View.GONE);
                         searchCategorySpinner.setVisibility(View.GONE);
@@ -169,6 +170,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchAmount2.setVisibility(View.GONE);
                         searchDate1.setVisibility(View.VISIBLE);
                         searchDate2.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
             @Override
@@ -338,7 +340,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             resultList.clear();
 
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
 
                 Date date1 = sdf.parse(searchDate1.getText().toString());
                 Date date2 = sdf.parse(searchDate2.getText().toString());
