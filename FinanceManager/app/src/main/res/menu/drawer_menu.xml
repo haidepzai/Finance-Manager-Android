@@ -23,6 +23,10 @@
             android:icon="@drawable/ic_chart"
             android:title="Statistik" />
         <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Erweiterte Suche" />
+        <item
             android:id="@+id/nav_impressum"
             android:icon="@drawable/black_info"
             android:title="Impressum" />

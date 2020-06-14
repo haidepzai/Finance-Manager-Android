@@ -10,6 +10,8 @@ public class TransactionItem {
     private String mCategory;
     private String mMethod;
 
+    private double amountNumber;
+
     //Die Liste, die im MainFragment angezeigt wird.
     public static ArrayList<TransactionItem> itemList = new ArrayList<>();
 

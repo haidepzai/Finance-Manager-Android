@@ -26,7 +26,8 @@
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"/>
+            android:layout_toEndOf="@+id/imageView"
+            android:fontFamily="@font/font"/>
 
         <TextView
             android:id="@+id/text2"

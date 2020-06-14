@@ -61,8 +61,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private ImageButton calenderBtn;
     private Button addBill;
 
-    private static ArrayAdapter<String> mSpinnerMethod; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
-    private static ArrayAdapter<String> mSpinnerCategory; //Adapter für Spinner Kategorie (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerMethodAdapter; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerCategoryAdapter; //Adapter für Spinner Kategorie (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
@@ -129,7 +129,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     }
                 });
 
-                mSpinnerMethod = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
+                mSpinnerMethodAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
                 mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     //Verhalten des Spinners
                     @Override
@@ -143,9 +143,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
                     }
                 });
-                mMethod.setAdapter(mSpinnerMethod);
+                mMethod.setAdapter(mSpinnerMethodAdapter);
 
-                mSpinnerCategory= new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
+                mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
                 mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     //Verhalten des Spinners
                     @Override
@@ -159,7 +159,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
                     }
                 });
-                mCategory.setAdapter(mSpinnerCategory);
+                mCategory.setAdapter(mSpinnerCategoryAdapter);
 
                 //Button im Dialog um Rechnung hinzuzufügen
                 addBill = myDialog.findViewById(R.id.addBill);
@@ -170,9 +170,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                         checkEmptyField();
 
                         if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
-                                mDate.getText().toString().equals("") || mSpinnerMethod.getPosition(paymentMethod) == 0 ||
-                                mSpinnerMethod.getPosition(paymentMethod) == 1 || mSpinnerCategory.getPosition(paymentMethod) == 0 ||
-                                mSpinnerCategory.getPosition(paymentMethod) == 1) {
+                                mDate.getText().toString().equals("") || mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 ||
+                                mSpinnerMethodAdapter.getPosition(paymentMethod) == 1 || mSpinnerCategoryAdapter.getPosition(paymentMethod) == 0 ||
+                                mSpinnerCategoryAdapter.getPosition(paymentMethod) == 1) {
                             Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
                                     Toast.LENGTH_LONG).show();
                         } else {
@@ -271,10 +271,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         if (mDate.getText().toString().equals("")) {
             mDate.setBackgroundResource(R.drawable.edit_border_red);
         }
-        if (mSpinnerCategory.getPosition(category) == 0 || mSpinnerCategory.getPosition(category) == 1) {
+        if (mSpinnerCategoryAdapter.getPosition(category) == 0 || mSpinnerCategoryAdapter.getPosition(category) == 1) {
             mCategory.setBackgroundResource(R.drawable.edit_border_red);
         }
-        if (mSpinnerMethod.getPosition(paymentMethod) == 0 || mSpinnerMethod.getPosition(paymentMethod) == 1) {
+        if (mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 || mSpinnerMethodAdapter.getPosition(paymentMethod) == 1) {
             mMethod.setBackgroundResource(R.drawable.edit_border_red);
         }
     }

@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
+import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.TransactionItem;
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_chart:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticFragment()).commit();
+                break;
+            case R.id.nav_search:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SearchFragment()).commit();
                 break;
             case R.id.nav_impressum:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

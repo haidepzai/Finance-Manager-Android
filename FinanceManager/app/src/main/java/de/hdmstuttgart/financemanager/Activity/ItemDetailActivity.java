@@ -44,8 +44,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private int position; //position des aktuellen Eintrages in der Liste
 
-    private static ArrayAdapter<String> mSpinnerMethod; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
-    private static ArrayAdapter<String> mSpinnerCategory; //Adapter für Spinner Kategorie (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerMethodAdapter; //Adapter für Spinner Zahlungsmethode (Dropdown Liste)
+    private static ArrayAdapter<String> mSpinnerCategoryAdapter; //Adapter für Spinner Kategorie (Dropdown Liste)
 
     private String paymentMethod; //Neue Zahlungsmethode wird in dieser Variable gespeichert
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
@@ -83,7 +83,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         mDate.setText(date);
 
         //Initialisierung des Spinners
-        mSpinnerMethod = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
+        mSpinnerMethodAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
         mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -98,7 +98,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
 
-        mSpinnerCategory = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.categorySpinnerDetail);
+        mSpinnerCategoryAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.categorySpinnerDetail);
         mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -220,14 +220,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         //Bei onClick des fab_edit -> Spinner Auswahl möglich
         mMethod.setEnabled(true);
         mMethod.setClickable(true);
-        mMethod.setAdapter(mSpinnerMethod);
+        mMethod.setAdapter(mSpinnerMethodAdapter);
         //Aktueller Wert des Spinners wird angezeigt (Im Bearbeitungsmodus, sonst erscheint immer Position 0: EC)
-        mMethod.setSelection(mSpinnerMethod.getPosition(paymentMethod));
+        mMethod.setSelection(mSpinnerMethodAdapter.getPosition(paymentMethod));
         mCategory.setEnabled(true);
         mCategory.setClickable(true);
-        mCategory.setAdapter(mSpinnerCategory);
+        mCategory.setAdapter(mSpinnerCategoryAdapter);
         //Aktueller Wert des Spinners wird angezeigt (Im Bearbeitungsmodus, sonst erscheint immer Position 0: Einkauf)
-        mCategory.setSelection(mSpinnerCategory.getPosition(category));
+        mCategory.setSelection(mSpinnerCategoryAdapter.getPosition(category));
     }
 
     //Focus der Elemente deaktivieren
@@ -246,12 +246,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         //Spinner Nicht anklickbar
         mMethod.setEnabled(false);
         mMethod.setClickable(false);
-        mMethod.setAdapter(mSpinnerMethod);
-        mMethod.setSelection(mSpinnerMethod.getPosition(paymentMethod)); //Output der Zahlungsmethode (Spinner)
+        mMethod.setAdapter(mSpinnerMethodAdapter);
+        mMethod.setSelection(mSpinnerMethodAdapter.getPosition(paymentMethod)); //Output der Zahlungsmethode (Spinner)
         mCategory.setEnabled(false);
         mCategory.setClickable(false);
-        mCategory.setAdapter(mSpinnerCategory);
-        mCategory.setSelection(mSpinnerCategory.getPosition(category)); //Output der Zahlungsmethode (Spinner)
+        mCategory.setAdapter(mSpinnerCategoryAdapter);
+        mCategory.setSelection(mSpinnerCategoryAdapter.getPosition(category)); //Output der Zahlungsmethode (Spinner)
 
         mPurpose.setBackgroundColor(Color.TRANSPARENT);
         mAmount.setBackgroundColor(Color.TRANSPARENT);

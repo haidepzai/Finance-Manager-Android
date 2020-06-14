@@ -40,6 +40,7 @@
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:fontFamily="@font/font"
             />
     </LinearLayout>
 
@@ -68,7 +69,8 @@
             android:inputType="numberDecimal"
             android:padding="10dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:fontFamily="@font/font"/>
     </LinearLayout>
 
     <LinearLayout
@@ -95,7 +97,8 @@
             android:hint="@string/detail_placeholder_when"
             android:inputType="date"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:fontFamily="@font/font"/>
 
         <ImageButton
             android:id="@+id/calendar_btn"
