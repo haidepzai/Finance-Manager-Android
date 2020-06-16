@@ -74,7 +74,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
     private Switch incomingPayment;
 
-    private String billType = "-"; //Eingang + / Ausgang -
+    private String billType; //Eingang + / Ausgang -
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +119,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
                 initializeText(); //Initialisierung der TextViews in dem Dialog
 
+                billType = "-"; //Standardwert
                 //Switch (Zahlungseingang / Zahlungsausgang)
                 incomingPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override

@@ -156,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         home_item.setVisible(false);
         MenuItem chart_item = menu.findItem(R.id.nav_chart);
         chart_item.setVisible(false);
+        MenuItem extended_search = menu.findItem(R.id.nav_search);
+        extended_search.setVisible(false);
         MenuItem impressum_item = menu.findItem(R.id.nav_impressum);
         impressum_item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
