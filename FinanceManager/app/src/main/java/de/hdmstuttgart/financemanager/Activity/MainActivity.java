@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +21,7 @@ import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer; //DrawerLayout für Navigation
@@ -35,9 +36,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //TODO: Dummy items, später löschen
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Mensa Aufladung", "-10.00 €", "08.06.2020", "Studium/Beruf", "PayPal"));
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Google Pay Aufladung", "-20.00 €", "01.06.2020", "Freizeit", "Kreditkarte"));
-        TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black, "Vapiano SE", "-9.00 €", "28.05.2020", "Essen", "EC"));
+        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Mensa Aufladung", "-10.00 €", "8.6.2020", "Studium/Beruf", "PayPal"));
+        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Google Pay Aufladung", "-20.00 €", "1.6.2020", "Freizeit", "Kreditkarte"));
+        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Vapiano SE", "-9.00 €", "28.5.2020", "Essen", "EC"));
+        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Bosch Gehalt", "+1,500.00 €", "15.6.2020", "Lohn/Gehalt", "Überweisung"));
+
+        new Thread(() -> {
+            for(Transaction item : Transaction.itemList){
+                if(item.getmAmount().contains("-")){
+                    Transaction.outcomingBills.add(item);
+                } else {
+                    Transaction.incomingBills.add(item);
+                }
+            }
+        }).start();
+
 
         //Initialisierung DrawerLayout
         drawer = findViewById(R.id.drawer_layout);

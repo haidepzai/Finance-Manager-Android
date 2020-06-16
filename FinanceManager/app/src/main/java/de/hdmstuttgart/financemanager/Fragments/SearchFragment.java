@@ -37,17 +37,17 @@ import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private DatePickerDialog.OnDateSetListener mDateSetListener1;
-    private DatePickerDialog.OnDateSetListener mDateSetListener2;
+    private DatePickerDialog.OnDateSetListener mDateSetListener1; //Min Datum
+    private DatePickerDialog.OnDateSetListener mDateSetListener2; //Max Datum
 
-    private ArrayList<TransactionItem> resultList;
+    private ArrayList<Transaction> resultList;
 
     private Spinner searchSpinner;
     private static ArrayAdapter<String> mSpinnerSearchAdapter;
@@ -63,10 +63,10 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private String paymentMethod;
 
     private EditText searchPurpose;
-    private EditText searchAmount1;
-    private EditText searchAmount2;
-    private TextView searchDate1;
-    private TextView searchDate2;
+    private EditText searchAmount1; //Min Betrag
+    private EditText searchAmount2; //Max Betrag
+    private TextView searchDate1; //Min Datum
+    private TextView searchDate2; //Max Datum
 
     private Button searchButton;
 
@@ -212,6 +212,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         });
         searchMethodSpinner.setAdapter(mSpinnerSearchMethodAdapter);
 
+        //Min Datum
         searchDate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,6 +229,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                 dialog.show();
             }
         });
+        //Max Datum
         searchDate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,65 +280,50 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
     private void filterItems() {
 
+        int counter = 0; //if counter = 0 -> No entries
+
         if (searchItem.equals("Zweck")) {
-            int counter = 0;
             resultList.clear();
             if (searchPurpose.getText().toString().equals("")) {
                 Toast.makeText(getContext(), "Bitte einen Suchbegriff angeben", Toast.LENGTH_LONG).show();
             } else {
-                for (TransactionItem item : TransactionItem.itemList) {
+                for (Transaction item : Transaction.itemList) {
                     if (item.getmPurpose().toLowerCase().contains(searchPurpose.getText().toString().toLowerCase())) {
                         resultList.add(item);
                         counter++;
                     }
                 }
-                if (counter == 0) {
-                    Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
-                }
             }
         } else if (searchItem.equals("Kategorie")) {
-            int counter = 0;
             resultList.clear();
-            for (TransactionItem item : TransactionItem.itemList) {
+            for (Transaction item : Transaction.itemList) {
                 if (item.getmCategory().matches(category)) {
                     resultList.add(item);
                     counter++;
                 }
             }
-            if (counter == 0) {
-                Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
-            }
         } else if (searchItem.equals("Zahlungsmethode")) {
-            int counter = 0;
             resultList.clear();
-            for (TransactionItem item : TransactionItem.itemList) {
+            for (Transaction item : Transaction.itemList) {
                 if (item.getmMethod().matches(paymentMethod)) {
                     resultList.add(item);
                     counter++;
                 }
             }
-            if (counter == 0) {
-                Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
-            }
         } else if (searchItem.equals("Betrag")) {
-            int counter = 0;
             resultList.clear();
 
             double amount1 = Double.parseDouble(searchAmount1.getText().toString());
             double amount2 = Double.parseDouble(searchAmount2.getText().toString());
 
-            for (TransactionItem item : TransactionItem.itemList) {
-                double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€]", ""));
+            for (Transaction item : Transaction.itemList) {
+                double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€+,]", ""));
                 if (currentAmount >= amount1 && currentAmount <= amount2) {
                     resultList.add(item);
                     counter++;
                 }
             }
-            if (counter == 0) {
-                Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
-            }
         } else if (searchItem.equals("Datum")){
-            int counter = 0;
             resultList.clear();
 
             try {
@@ -345,7 +332,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                 Date date1 = sdf.parse(searchDate1.getText().toString());
                 Date date2 = sdf.parse(searchDate2.getText().toString());
 
-                for(TransactionItem item : TransactionItem.itemList){
+                for(Transaction item : Transaction.itemList){
                     Date itemDate = sdf.parse(item.getmDate());
                     assert itemDate != null;
                     if(!(itemDate.before(date1) || itemDate.after(date2))){
@@ -353,14 +340,14 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         counter++;
                     }
                 }
-                if (counter == 0) {
-                    Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
-                }
             } catch (ParseException e){
                 Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
                 Log.d("Error: ", e.toString());
             }
+        }
+        if (counter == 0) {
+            Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
         }
     }
 }

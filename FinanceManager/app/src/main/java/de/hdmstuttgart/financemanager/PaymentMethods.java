@@ -6,6 +6,7 @@ public class PaymentMethods {
 
     public static ArrayList<String> methodSpinnerMain = new ArrayList<>();
     public static ArrayList<String> methodSpinnerDetail = new ArrayList<>();
+
     //Führt den Block instant aus, sobald die Klasse aufgerufen wird
     static {
         methodSpinnerMain.add("Zahlmethode wählen...");

@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,7 +39,7 @@ import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 
 
 public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
@@ -50,7 +52,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    public static TransactionItem mItem;
+    public static Transaction mItem;
 
     //Textfelder, welche im Dialog angezeigt werden
     private EditText mPurpose;
@@ -68,6 +70,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
 
     private String category;
+
+    private Switch incomingPayment;
+
+    private String billType; //Eingang + / Ausgang -
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,21 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 myDialog.show();
 
                 initializeText(); //Initialisierung der TextViews in dem Dialog
+
+                //Switch (Zahlungseingang / Zahlungsausgang)
+                incomingPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            billType = "+";
+                            mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.incomingTypeSpinnerMain);
+                        } else {
+                            billType = "-";
+                            mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
+                        }
+                        mCategory.setAdapter(mSpinnerCategoryAdapter);
+                    }
+                });
 
                 //Öffnet Datum-Feld
                 calenderBtn.setOnClickListener(new View.OnClickListener() {
@@ -180,9 +201,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             if(!number.equals("")){
                                 formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
                             }
-                            TransactionItem.addEntry(new TransactionItem(R.drawable.ic_euro_black,
+                            Transaction.addEntry(new Transaction(R.drawable.ic_euro_black,
                                     mPurpose.getText().toString(),
-                                    "-" + formattedCurrency + " €",
+                                    billType + formattedCurrency + "€",
                                     mDate.getText().toString(),
                                     category,
                                     paymentMethod
@@ -199,9 +220,9 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new RecyclerViewAdapter(TransactionItem.itemList, this);
+        mAdapter = new RecyclerViewAdapter(Transaction.itemList, this);
 
-        final TransactionItem[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
+        final Transaction[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
         //Swiper
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) { //Linker Swipe
             //Andere Swipe Richtungen (0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP)
@@ -215,14 +236,14 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from list and notify the RecyclerView
                 final int position = viewHolder.getAdapterPosition();
-                deletedTransaction[0] = TransactionItem.itemList.get(position); //Zwischenspeichern des gelöschten Elements
-                TransactionItem.itemList.remove(position);
+                deletedTransaction[0] = Transaction.itemList.get(position); //Zwischenspeichern des gelöschten Elements
+                Transaction.itemList.remove(position);
                 mAdapter.notifyDataSetChanged();
                 Snackbar.make(mRecyclerView, deletedTransaction[0].getmPurpose() + " gelöscht", Snackbar.LENGTH_LONG)
                         .setAction("undo", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                TransactionItem.itemList.add(position, deletedTransaction[0]);
+                                Transaction.itemList.add(position, deletedTransaction[0]);
                                 mAdapter.notifyItemInserted(position);
                             }
                         }).show();
@@ -245,6 +266,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mCategory = myDialog.findViewById((R.id.inputCategory));
         mDate = myDialog.findViewById(R.id.inputDate);
         calenderBtn = myDialog.findViewById(R.id.calendar_btn);
+        incomingPayment = myDialog.findViewById(R.id.switch1);
     }
 
     //Wechselt in ItemDetailActivity und zeigt ausführliche Infos an
@@ -252,11 +274,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     public void onNoteClick(int position) {
         //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(getContext(), ItemDetailActivity.class);
-        intent.putExtra("Purpose", TransactionItem.itemList.get(position).getmPurpose());
-        intent.putExtra("Amount", TransactionItem.itemList.get(position).getmAmount());
-        intent.putExtra("Date", TransactionItem.itemList.get(position).getmDate());
-        intent.putExtra("Category", TransactionItem.itemList.get(position).getmCategory());
-        intent.putExtra("Method", TransactionItem.itemList.get(position).getmMethod());
+        intent.putExtra("Purpose", Transaction.itemList.get(position).getmPurpose());
+        intent.putExtra("Amount", Transaction.itemList.get(position).getmAmount());
+        intent.putExtra("Date", Transaction.itemList.get(position).getmDate());
+        intent.putExtra("Category", Transaction.itemList.get(position).getmCategory());
+        intent.putExtra("Method", Transaction.itemList.get(position).getmMethod());
         intent.putExtra("Position", position);
         startActivity(intent);
     }

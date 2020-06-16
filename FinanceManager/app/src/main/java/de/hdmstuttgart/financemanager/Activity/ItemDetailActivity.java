@@ -26,7 +26,7 @@ import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -52,6 +52,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private String category;
 
+    private boolean isIncomingBill = false;
+    private String billType; //Eingang + / Ausgang -
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,22 @@ public class ItemDetailActivity extends AppCompatActivity {
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
 
+        initializeText(); //(findViewById)
+
+        assert amount != null;
+        if(amount.contains("+")){
+            isIncomingBill = true;
+        }
+
+        if(isIncomingBill){
+            billType = "+";
+            mSpinnerCategoryAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.incomingTypeSpinnerDetail);
+        } else {
+            billType = "-";
+            mSpinnerCategoryAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.categorySpinnerDetail);
+        }
+        mCategory.setAdapter(mSpinnerCategoryAdapter);
+
         //Change Date
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -74,8 +93,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                 mDate.setText(date);
             }
         };
-
-        initializeText(); //(findViewById)
 
         mPurpose.setText(purpose);
         mAmount.setText(amount);
@@ -98,7 +115,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
 
-        mSpinnerCategoryAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.categorySpinnerDetail);
         mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -122,7 +138,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         fab_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAmount.setText(amount.replaceAll("[-€]", "")); //Nur der Wert wird angezeigt (ohne - und €)
+                mAmount.setText(amount.replaceAll("[-€+,]", "")); //Nur der Wert wird angezeigt (ohne - und €)
                 activateText(); //Erlaubt das Anklicken der Textfelder
                 //Calender Button
                 calenderBtn.setOnClickListener(new View.OnClickListener() {
@@ -174,9 +190,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                     //Liste aktualisieren
-                    TransactionItem.itemList.set(position, new TransactionItem(R.drawable.ic_euro_black,
+                    Transaction.itemList.set(position, new Transaction(R.drawable.ic_euro_black,
                             mPurpose.getText().toString(),
-                            "-" + formattedCurrency + " €",
+                            billType + formattedCurrency + " €",
                             mDate.getText().toString(),
                             category,
                             paymentMethod
@@ -251,7 +267,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         mCategory.setEnabled(false);
         mCategory.setClickable(false);
         mCategory.setAdapter(mSpinnerCategoryAdapter);
-        mCategory.setSelection(mSpinnerCategoryAdapter.getPosition(category)); //Output der Zahlungsmethode (Spinner)
+        mCategory.setSelection(mSpinnerCategoryAdapter.getPosition(category)); //Output Kategorie (Spinner)
 
         mPurpose.setBackgroundColor(Color.TRANSPARENT);
         mAmount.setBackgroundColor(Color.TRANSPARENT);

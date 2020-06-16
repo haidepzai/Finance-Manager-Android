@@ -31,18 +31,18 @@
 
         <TextView
             android:id="@+id/text2"
-            android:layout_width="121dp"
-            android:layout_height="38dp"
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/text1"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="216dp"
-            android:layout_marginTop="-20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="175dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginEnd="11dp"
             android:layout_toEndOf="@+id/imageView"
             android:text="Line 2"
             android:textAlignment="textEnd"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView

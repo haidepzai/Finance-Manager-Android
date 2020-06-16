@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import java.text.DecimalFormat;
 
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.View.BarChartView;
 
 
@@ -30,8 +30,8 @@ public class StatisticFragment extends Fragment {
         mBarChartView = rootView.findViewById(R.id.barChartView);
         TextView totalAmountView = rootView.findViewById(R.id.totalAmount);
 
-        for(TransactionItem item : TransactionItem.itemList){
-            String valueOfAmount = item.getmAmount().replaceAll("[-€]", "");
+        for(Transaction item : Transaction.outcomingBills){
+            String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalAmount += Double.parseDouble(valueOfAmount);
         }
 

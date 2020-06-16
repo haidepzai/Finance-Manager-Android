@@ -1,5 +1,6 @@
 package de.hdmstuttgart.financemanager.Adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.TransactionItem;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
 
-    private ArrayList<TransactionItem> mItemList;
-    private ArrayList<TransactionItem> mItemListFull; //Kopie der Liste (Für Suchen)
+    private ArrayList<Transaction> mItemList;
+    private ArrayList<Transaction> mItemListFull; //Kopie der Liste (Für Suchen)
 
     private OnNoteListener mOnNoteListener; //Click Listener für die einzelnen Elemente
 
@@ -53,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onNoteClick(int position); //Diese Methode ist zu implementieren (MainFragment)
     }
 
-    public RecyclerViewAdapter(ArrayList<TransactionItem> itemList, OnNoteListener onNoteListener) {
+    public RecyclerViewAdapter(ArrayList<Transaction> itemList, OnNoteListener onNoteListener) {
         this.mItemList = itemList;
         this.mItemListFull = new ArrayList<>(mItemList); //Kopie der Liste um eigenständig zu nutzen
         this.mOnNoteListener = onNoteListener;
@@ -71,12 +72,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //Übergibt die Werte in den RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TransactionItem currentItem = mItemList.get(position);
+        Transaction currentItem = mItemList.get(position);
 
         holder.mIcon.setImageResource(currentItem.getmImageResource());
         holder.mPurpose.setText(currentItem.getmPurpose());
         holder.mAmount.setText(currentItem.getmAmount());
         holder.mDate.setText(currentItem.getmDate());
+
+        if(holder.mAmount.getText().toString().contains("+")){
+            holder.mAmount.setTextColor(Color.parseColor("#00BF27"));
+        } else {
+            holder.mAmount.setTextColor(Color.RED);
+        }
     }
 
     //Anzahl der Elemente in der Liste (Größe der Liste)
@@ -94,7 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Filter itemFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<TransactionItem> filteredList = new ArrayList<>(); //Liste mit gefiltereten Items
+            List<Transaction> filteredList = new ArrayList<>(); //Liste mit gefiltereten Items
 
             //Wenn nichts angegeben ist, alles anzeigen
             if (constraint == null || constraint.length() == 0) {
@@ -103,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String filterPattern = constraint.toString().toLowerCase().trim(); //trim = ignoriert whitespace am Anfang/Ende
 
                 //Iterate in full List to check match
-                for (TransactionItem item : mItemListFull){
+                for (Transaction item : mItemListFull){
                     if(item.getmPurpose().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }

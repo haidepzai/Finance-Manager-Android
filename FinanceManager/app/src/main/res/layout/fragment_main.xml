@@ -6,10 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
-   
+
+   <LinearLayout
+       android:id="@+id/mainHeader"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/textView3"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:fontFamily="@font/font"
+          android:gravity="center_vertical"
+          android:text="Letzte Transaktionen"
+          android:textSize="18sp"
+          android:layout_marginStart="10dp"/>
+   </LinearLayout>
+
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="wrap_content"
+       android:layout_marginTop="50dp">
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerView"

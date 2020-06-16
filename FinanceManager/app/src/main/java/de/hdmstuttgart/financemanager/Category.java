@@ -6,6 +6,12 @@ public class Category {
 
     public static ArrayList<String> categorySpinnerMain = new ArrayList<>();
     public static ArrayList<String> categorySpinnerDetail = new ArrayList<>();
+
+    public static ArrayList<String> incomingTypeSpinnerMain = new ArrayList<>();
+    public static ArrayList<String> incomingTypeSpinnerDetail = new ArrayList<>();
+
+    public static ArrayList<String> searchFragmentSpinner = new ArrayList<>();
+
     //Führt den Block instant aus, sobald die Klasse aufgerufen wird
     static {
         categorySpinnerMain.add("Kategorie auswählen...");
@@ -23,7 +29,15 @@ public class Category {
         categorySpinnerDetail.add("Freizeit");
         categorySpinnerDetail.add("Gebühren");
         categorySpinnerDetail.add("Sonstige");
+
+        incomingTypeSpinnerMain.add("Kategorie auswählen...");
+        incomingTypeSpinnerMain.add("-----");
+        incomingTypeSpinnerMain.add("Lohn/Gehalt");
+        incomingTypeSpinnerMain.add("Geschenk");
+        incomingTypeSpinnerMain.add("Sonstige");
+
+        incomingTypeSpinnerDetail.add("Lohn/Gehalt");
+        incomingTypeSpinnerDetail.add("Geschenk");
+        incomingTypeSpinnerDetail.add("Sonstige");
     }
-
-
 }
