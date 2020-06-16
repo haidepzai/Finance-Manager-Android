@@ -185,7 +185,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                     StringBuilder str = new StringBuilder(); //StringBuilder: bessere Performance als String (immutable)
                     if (!number.equals("")) {
                         formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                        str.append("-").append(formattedCurrency).append(" €");
+                        if(isIncomingBill){
+                            str.append("+").append(formattedCurrency).append(" €");
+                        } else {
+                            str.append("-").append(formattedCurrency).append(" €");
+                        }
                     } else {
                         Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
                                 Toast.LENGTH_LONG).show();

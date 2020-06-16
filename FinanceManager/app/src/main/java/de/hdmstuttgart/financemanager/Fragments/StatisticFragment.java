@@ -52,11 +52,12 @@ public class StatisticFragment extends Fragment {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalAmount += Double.parseDouble(valueOfAmount);
         }
-
-
-        totalAmountView.setText(new DecimalFormat("#,###.00").format(totalAmount));
+        if(totalAmount != 0){
+            totalAmountView.setText(new DecimalFormat("#,###.00").format(totalAmount));
+        } else {
+            totalAmountView.setText("0.00 €");
+        }
 
         return rootView;
-
     }
 }
