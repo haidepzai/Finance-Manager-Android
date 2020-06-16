@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdmstuttgart.financemanager.Database.AppDatabase;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private NavigationView navigationView;
 
+    public static AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +39,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "transaction").allowMainThreadQueries().build();
+
+        /*
         //TODO: Dummy items, später löschen
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Mensa Aufladung", "-10.00 €", "8.6.2020", "Studium/Beruf", "PayPal"));
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Google Pay Aufladung", "-20.00 €", "1.6.2020", "Freizeit", "Kreditkarte"));
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Vapiano SE", "-9.00 €", "28.5.2020", "Essen", "EC"));
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Bosch Gehalt", "+1,500.00 €", "15.6.2020", "Lohn/Gehalt", "Überweisung"));
+*/
 
         new Thread(() -> {
+            Transaction.itemList.addAll(db.transactionDetailDao().getList());
+        }).start();
+
+        new Thread(() -> {
+            Transaction.outcomingBills.clear();
+            Transaction.incomingBills.clear();
             for(Transaction item : Transaction.itemList){
                 if(item.getmAmount().contains("-")){
                     Transaction.outcomingBills.add(item);
@@ -50,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         }).start();
-
 
         //Initialisierung DrawerLayout
         drawer = findViewById(R.id.drawer_layout);

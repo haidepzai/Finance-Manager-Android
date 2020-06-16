@@ -61,6 +61,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
 
         Intent in = this.getIntent();
+        final int id_Position = in.getIntExtra("ID", 0);
         final String purpose = in.getStringExtra("Purpose");
         final String amount = in.getStringExtra("Amount");
         final String date = in.getStringExtra("Date");
@@ -197,6 +198,13 @@ public class ItemDetailActivity extends AppCompatActivity {
                             category,
                             paymentMethod
                     ));
+                    //Datenbank aktualisieren
+                    MainActivity.db.transactionDetailDao().updatePurpose(id_Position, mPurpose.getText().toString());
+                    MainActivity.db.transactionDetailDao().updateAmount(id_Position, billType + formattedCurrency + " €");
+                    MainActivity.db.transactionDetailDao().updateCategory(id_Position, category);
+                    MainActivity.db.transactionDetailDao().updateDate(id_Position, mDate.getText().toString());
+                    MainActivity.db.transactionDetailDao().updateMethod(id_Position, paymentMethod);
+
                     mAmount.setText(str);
 
                     deactivateText();

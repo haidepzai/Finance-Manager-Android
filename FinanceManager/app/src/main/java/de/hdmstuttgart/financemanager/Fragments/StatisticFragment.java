@@ -22,6 +22,24 @@ public class StatisticFragment extends Fragment {
     private double totalAmount;
     private BarChartView mBarChartView;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        new Thread(() -> {
+            Transaction.outcomingBills.clear();
+            Transaction.incomingBills.clear();
+            for(Transaction item : Transaction.itemList){
+                if(item.getmAmount().contains("-")){
+                    Transaction.outcomingBills.add(item);
+                } else {
+                    Transaction.incomingBills.add(item);
+                }
+            }
+        }).start();
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +52,7 @@ public class StatisticFragment extends Fragment {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalAmount += Double.parseDouble(valueOfAmount);
         }
+
 
         totalAmountView.setText(new DecimalFormat("#,###.00").format(totalAmount));
 

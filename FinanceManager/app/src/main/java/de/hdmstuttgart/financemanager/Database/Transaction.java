@@ -12,6 +12,7 @@ public class Transaction {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
+    @ColumnInfo(name = "image")
     public int mImageResource; //int because R.drawable Images are saved as integers
     @ColumnInfo(name = "purpose")
     public String mPurpose;

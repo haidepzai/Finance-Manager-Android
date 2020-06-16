@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdmstuttgart.financemanager.Activity.MainActivity;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 
@@ -66,6 +67,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_item, parent, false);
         ViewHolder vh = new ViewHolder(v, mOnNoteListener);
+
+        List<Transaction> transactions = MainActivity.db.transactionDetailDao().getList();
+
+        Transaction.itemList.clear();
+        Transaction.itemList.addAll(transactions);
+
         return vh;
     }
 
@@ -101,7 +108,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Filter itemFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Transaction> filteredList = new ArrayList<>(); //Liste mit gefiltereten Items
+            List<Transaction> filteredList = new ArrayList<>(); //Liste mit gefilterten Items
 
             //Wenn nichts angegeben ist, alles anzeigen
             if (constraint == null || constraint.length() == 0) {

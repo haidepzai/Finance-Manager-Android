@@ -33,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 import java.util.Objects;
 
+import de.hdmstuttgart.financemanager.Activity.MainActivity;
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
@@ -73,11 +74,12 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
     private Switch incomingPayment;
 
-    private String billType; //Eingang + / Ausgang -
+    private String billType = "-"; //Eingang + / Ausgang -
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Dialog (Popup Fenster) zum Hinzufügen weitere Elemente
         myDialog = new Dialog(Objects.requireNonNull(getContext()));
 
@@ -207,7 +209,13 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                                     mDate.getText().toString(),
                                     category,
                                     paymentMethod
-                            ));
+                            )); //Add into Database
+                            addEntry(new Transaction(R.drawable.ic_euro_black,
+                                    mPurpose.getText().toString(),
+                                    billType + formattedCurrency + "€",
+                                    mDate.getText().toString(),
+                                    category,
+                                    paymentMethod));
                             mAdapter.notifyDataSetChanged();
                             myDialog.dismiss();
                         }
@@ -220,6 +228,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
+        //mAdapter = new RecyclerViewAdapter((ArrayList<Transaction>) db.transactionDetailDao().getAll(), this);
         mAdapter = new RecyclerViewAdapter(Transaction.itemList, this);
 
         final Transaction[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
@@ -236,7 +245,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from list and notify the RecyclerView
                 final int position = viewHolder.getAdapterPosition();
+                int id_Position = Transaction.itemList.get(position).uid; //ID Database
                 deletedTransaction[0] = Transaction.itemList.get(position); //Zwischenspeichern des gelöschten Elements
+                deleteEntry(Transaction.itemList.get(position)); //Delete Entry in Database
+                //MainActivity.db.transactionDetailDao().deleteItem(id_Position);
                 Transaction.itemList.remove(position);
                 mAdapter.notifyDataSetChanged();
                 Snackbar.make(mRecyclerView, deletedTransaction[0].getmPurpose() + " gelöscht", Snackbar.LENGTH_LONG)
@@ -244,6 +256,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             @Override
                             public void onClick(View v) {
                                 Transaction.itemList.add(position, deletedTransaction[0]);
+                                MainActivity.db.transactionDetailDao().insertItem(id_Position, deletedTransaction[0].mImageResource, deletedTransaction[0].mPurpose,
+                                        deletedTransaction[0].mAmount, deletedTransaction[0].mDate, deletedTransaction[0].mCategory, deletedTransaction[0].mMethod);
                                 mAdapter.notifyItemInserted(position);
                             }
                         }).show();
@@ -280,6 +294,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         intent.putExtra("Category", Transaction.itemList.get(position).getmCategory());
         intent.putExtra("Method", Transaction.itemList.get(position).getmMethod());
         intent.putExtra("Position", position);
+        intent.putExtra("ID", Transaction.itemList.get(position).uid);
         startActivity(intent);
     }
 
@@ -307,5 +322,17 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         mDate.setBackgroundResource(R.drawable.edit_border);
         mCategory.setBackgroundResource(R.drawable.edit_border);
         mMethod.setBackgroundResource(R.drawable.edit_border);
+    }
+
+    public void addEntry(Transaction transactionDetail) {
+        new Thread(() -> {
+            MainActivity.db.transactionDetailDao().insert(transactionDetail);
+        }).start();
+    }
+
+    public void deleteEntry(Transaction transactionDetail) {
+        new Thread(() -> {
+            MainActivity.db.transactionDetailDao().delete(transactionDetail);
+        }).start();
     }
 }
