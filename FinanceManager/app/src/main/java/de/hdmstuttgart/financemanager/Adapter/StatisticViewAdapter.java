@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
 
-import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.R;
 
 public class StatisticViewAdapter extends RecyclerView.Adapter<StatisticViewAdapter.StatisticViewHolder> {
@@ -19,13 +18,13 @@ public class StatisticViewAdapter extends RecyclerView.Adapter<StatisticViewAdap
     private HashMap<String, String> mItemList;
 
     public static class StatisticViewHolder extends RecyclerView.ViewHolder {
-        //public ImageView mIcon;
+        public ImageView mIcon;
         public TextView mCategory;
         public TextView mAmount;
 
         public StatisticViewHolder(@NonNull View itemView) {
             super(itemView);
-            //mIcon = itemView.findViewById(R.id.imageView);
+            mIcon = itemView.findViewById(R.id.imageView);
             mCategory = itemView.findViewById(R.id.text1);
             mAmount = itemView.findViewById(R.id.text2);
         }
@@ -47,7 +46,7 @@ public class StatisticViewAdapter extends RecyclerView.Adapter<StatisticViewAdap
 
     @Override
     public void onBindViewHolder(@NonNull StatisticViewHolder holder, int position) {
-        String currentItem = mItemList.get(position);
+        //String currentItem = mItemList.get(position);
 
         //holder.mIcon.setImageResource(currentItem.getmImageResource());
         //holder.mCategory.setText(currentItem.toString());

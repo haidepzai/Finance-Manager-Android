@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         new Thread(() -> {
             Transaction.itemList.addAll(db.transactionDetailDao().getList());
-        }).start();
-
-        new Thread(() -> {
             Transaction.outcomingBills.clear();
             Transaction.incomingBills.clear();
             for(Transaction item : Transaction.itemList){
