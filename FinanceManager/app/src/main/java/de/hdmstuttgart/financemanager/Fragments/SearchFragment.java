@@ -275,6 +275,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         intent.putExtra("Category", resultList.get(position).getmCategory());
         intent.putExtra("Method", resultList.get(position).getmMethod());
         intent.putExtra("Position", position);
+        intent.putExtra("ID", Transaction.itemList.get(position).uid);
         startActivity(intent);
     }
 

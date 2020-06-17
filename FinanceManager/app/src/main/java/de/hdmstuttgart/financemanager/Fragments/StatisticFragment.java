@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -26,6 +27,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import de.hdmstuttgart.financemanager.Activity.BarChartActivity;
+import de.hdmstuttgart.financemanager.Activity.CategoryDetailActivity;
+import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.View.BarChartView;
@@ -34,7 +37,7 @@ import de.hdmstuttgart.financemanager.View.BarChartView;
 public class StatisticFragment extends Fragment {
     private ListView listView;
 
-    private HashMap<String, String> categoryAmount = new HashMap<>();
+    private LinkedHashMap<String, String> categoryAmount = new LinkedHashMap<>();
 
     public static float totalAmount; //Gesamtbetrag Zahlungsausgang
     public static float maxValue; //Höchster Gesamtbetrag unter den Kategorien
@@ -112,6 +115,16 @@ public class StatisticFragment extends Fragment {
         }
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
+                String categoryKey = String.valueOf(categoryAmount.keySet().toArray()[position]);
+                intent.putExtra("CategoryKey", categoryKey);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }
