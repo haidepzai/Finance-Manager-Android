@@ -14,12 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,10 +34,10 @@ import de.hdmstuttgart.financemanager.View.BarChartView;
 public class StatisticFragment extends Fragment {
     private ListView listView;
 
-    private HashMap<String, String> categoryAmount = new HashMap<String, String>();
+    private HashMap<String, String> categoryAmount = new HashMap<>();
 
-    public static float totalAmount;
-    public static float maxValue;
+    public static float totalAmount; //Gesamtbetrag Zahlungsausgang
+    public static float maxValue; //Höchster Gesamtbetrag unter den Kategorien
 
     private BarChartView mBarChartView;
     private TextView totalAmountView;
@@ -91,26 +91,23 @@ public class StatisticFragment extends Fragment {
         totalAmountView = rootView.findViewById(R.id.totalAmount);
 
         calcTotalAmount();
-        maxAmount();
         calcGrocery();
         calcFood();
         calcEducation();
         calcLeisure();
         calcFee();
         calcMisc();
+        maxAmount();
 
         List<LinkedHashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(getContext(), listItems, R.layout.statistic_item,
-                new String[]{"First Line", "Second Line"}, //Keys
+                new String[]{"Category", "Amount"}, //Keys
                 new int[]{R.id.statisticCategory, R.id.statisticAmount});
         //Durch HashMap iterieren
-        Iterator it = categoryAmount.entrySet().iterator();
-        //Durch die Liste/HashMap japDe iterieren
-        while(it.hasNext()){
+        for (Map.Entry<String, String> stringStringEntry : categoryAmount.entrySet()) {
             LinkedHashMap<String, String> resultMap = new LinkedHashMap<>();
-            Map.Entry pair = (Map.Entry)it.next(); //nächstes Element von der Liste/HashMap (japDe)
-            resultMap.put("First Line", pair.getKey().toString()); //Key
-            resultMap.put("Second Line", pair.getValue().toString()); //Value
+            resultMap.put("Category", ((Map.Entry) stringStringEntry).getKey().toString()); //Key
+            resultMap.put("Amount", ((Map.Entry) stringStringEntry).getValue().toString()); //Value
             listItems.add(resultMap);
         }
 
@@ -233,12 +230,10 @@ public class StatisticFragment extends Fragment {
 
         maxValue = 0;
 
-        for(Transaction item : Transaction.outcomingBills){
-            String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
-            float currentValue = Float.parseFloat(valueOfAmount);
-            if(currentValue >= maxValue) {
-                maxValue = currentValue;
-            }
-        }
+        ArrayList<Float> maxAmountCategory = new ArrayList<>(
+                Arrays.asList(totalGrocery, totalFood, totalEducation, totalLeisure, totalFee, totalMisc)
+        );
+
+        maxValue = Collections.max(maxAmountCategory);
     }
 }

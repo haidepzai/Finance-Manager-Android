@@ -36,7 +36,7 @@ public class BarChartActivity extends AppCompatActivity {
             yAxisMax.setVisibility(View.VISIBLE);
             yAxisHalf.setVisibility(View.VISIBLE);
             //yAxisMax.setText(totalAmountView.getText().toString());
-            yAxisMax.setText(String.valueOf(StatisticFragment.maxValue+(StatisticFragment.maxValue*0.1)));
+            yAxisMax.setText(new DecimalFormat("#,###.00").format((StatisticFragment.maxValue+(StatisticFragment.maxValue*0.1))));
             yAxisHalf.setText(new DecimalFormat("#,###.00").format((StatisticFragment.maxValue+(StatisticFragment.maxValue*0.1))/2));
         } else {
             totalAmountView.setText("0.00 €");
