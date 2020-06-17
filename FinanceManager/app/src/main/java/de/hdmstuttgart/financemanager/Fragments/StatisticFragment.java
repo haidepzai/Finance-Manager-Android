@@ -20,7 +20,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 
 import de.hdmstuttgart.financemanager.Activity.BarChartActivity;
 import de.hdmstuttgart.financemanager.Activity.CategoryDetailActivity;
-import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.View.BarChartView;
@@ -154,7 +152,8 @@ public class StatisticFragment extends Fragment {
             totalGrocery += Double.parseDouble(valueOfAmount);
         }
         if(totalGrocery != 0){
-            categoryAmount.put("Einkauf", "-" + totalGrocery + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalGrocery);
+            categoryAmount.put("Einkauf", "-" + formattedCurrency + " €");
         }
         Log.d("Grocery", String.valueOf(totalGrocery));
     }
@@ -170,7 +169,8 @@ public class StatisticFragment extends Fragment {
             totalFood += Double.parseDouble(valueOfAmount);
         }
         if(totalFood != 0){
-            categoryAmount.put("Essen", "-" + totalFood + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalFood);
+            categoryAmount.put("Essen", "-" + formattedCurrency + " €");
         }
         Log.d("Food", String.valueOf(totalFood));
     }
@@ -186,7 +186,8 @@ public class StatisticFragment extends Fragment {
             totalEducation += Double.parseDouble(valueOfAmount);
         }
         if(totalEducation != 0){
-            categoryAmount.put("Studium/Beruf", "-" + totalEducation + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalEducation);
+            categoryAmount.put("Studium/Beruf", "-" + formattedCurrency + " €");
         }
         Log.d("Education", String.valueOf(totalEducation));
     }
@@ -202,7 +203,8 @@ public class StatisticFragment extends Fragment {
             totalLeisure += Double.parseDouble(valueOfAmount);
         }
         if(totalLeisure != 0){
-            categoryAmount.put("Freizeit", "-" + totalLeisure + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalLeisure);
+            categoryAmount.put("Freizeit", "-" + formattedCurrency + " €");
         }
         Log.d("Leisure", String.valueOf(totalLeisure));
     }
@@ -218,7 +220,8 @@ public class StatisticFragment extends Fragment {
             totalFee += Double.parseDouble(valueOfAmount);
         }
         if(totalFee != 0){
-            categoryAmount.put("Gebühren", "-" + totalFee + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalFee);
+            categoryAmount.put("Gebühren", "-" + formattedCurrency + " €");
         }
         Log.d("Fee", String.valueOf(totalFee));
     }
@@ -234,7 +237,8 @@ public class StatisticFragment extends Fragment {
             totalMisc += Double.parseDouble(valueOfAmount);
         }
         if(totalMisc != 0){
-            categoryAmount.put("Sonstige", "-" + totalMisc + " €");
+            String formattedCurrency = new DecimalFormat("#,###.00").format(totalMisc);
+            categoryAmount.put("Sonstige", "-" + formattedCurrency + " €");
         }
         Log.d("Misc", String.valueOf(totalMisc));
     }

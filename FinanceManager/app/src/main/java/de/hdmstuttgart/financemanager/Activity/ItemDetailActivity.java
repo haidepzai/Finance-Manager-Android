@@ -23,6 +23,7 @@ import java.util.Objects;
 
 import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
+import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
@@ -61,7 +62,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
 
         Intent in = this.getIntent();
-        final int id_Position = in.getIntExtra("ID", 0);
+        final int id_Position = in.getIntExtra("ID", 0); //ID Database
         final String purpose = in.getStringExtra("Purpose");
         final String amount = in.getStringExtra("Amount");
         final String date = in.getStringExtra("Date");
@@ -215,6 +216,12 @@ public class ItemDetailActivity extends AppCompatActivity {
                     fab_done.hide();
                     calenderBtn.setVisibility(View.INVISIBLE);
                     MainFragment.mAdapter.notifyDataSetChanged();
+                    if(CategoryDetailActivity.mAdapter != null){
+                        CategoryDetailActivity.mAdapter.notifyDataSetChanged();
+                    }
+                    if(SearchFragment.mAdapter != null){
+                        SearchFragment.mAdapter.notifyDataSetChanged();
+                    }
                 }
             }
         });

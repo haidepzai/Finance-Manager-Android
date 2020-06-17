@@ -41,7 +41,7 @@ import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
+    public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener1; //Min Datum
@@ -267,15 +267,32 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     //Click Listener der Items in der RecyclerView
     @Override
     public void onNoteClick(int position) {
-        //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+
+        //Übergibt die Informationen mit putExtra
+
+        /**
+         * Mittels For Loop die richtige ID finden in der Hauptliste
+         * Da die Position und ID des Item in dieser Activity nicht mit dem in der Hauptliste übereinstimmen,
+         * führt es zum Fehler, falls man später in der ItemDetailActivity den Eintrag ändert
+         * Lösung: ID und Position des gesuchten Eintrages in der Hauptliste finden:
+         *
+         * Falls Item ID (in dieser Activity) mit dem in der Hauptliste übereinstimmt
+         * -> Dessen ID und Listenindex als intent übergeben
+         * Ist notwendig, da man sonst den falschen Eintrag in der ItemDetailActivity ändert!!
+         */
+        for(Transaction item : Transaction.itemList){
+            if(resultList.get(position).uid == item.uid){
+                intent.putExtra("ID", item.uid);
+                int index = Transaction.itemList.indexOf(item);
+                intent.putExtra("Position", index);
+            }
+        }
         intent.putExtra("Purpose", resultList.get(position).getmPurpose());
         intent.putExtra("Amount", resultList.get(position).getmAmount());
         intent.putExtra("Date", resultList.get(position).getmDate());
         intent.putExtra("Category", resultList.get(position).getmCategory());
         intent.putExtra("Method", resultList.get(position).getmMethod());
-        intent.putExtra("Position", position);
-        intent.putExtra("ID", Transaction.itemList.get(position).uid);
         startActivity(intent);
     }
 
