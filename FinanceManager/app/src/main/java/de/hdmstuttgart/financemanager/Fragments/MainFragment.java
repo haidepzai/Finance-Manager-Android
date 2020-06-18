@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,6 +40,7 @@ import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
+import de.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
 
 
 public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
@@ -228,8 +228,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         //Initialize RecyclerView
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        //mAdapter = new RecyclerViewAdapter((ArrayList<Transaction>) db.transactionDetailDao().getAll(), this);
+        mLayoutManager = new WrapContentLinearLayoutManager(getContext());
+        //mAdapter = new RecyclerViewAdapter((ArrayList<Transaction>) MainActivity.db.transactionDetailDao().getAll(), this);
         mAdapter = new RecyclerViewAdapter(Transaction.itemList, this);
 
         final Transaction[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
