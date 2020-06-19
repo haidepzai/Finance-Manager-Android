@@ -9,19 +9,27 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 import de.hdmstuttgart.financemanager.Database.AppDatabase;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
+import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 
@@ -29,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer; //DrawerLayout für Navigation
 
     private NavigationView navigationView;
-
+    private Double total_saldo = 0.00;
     public static AppDatabase db;
 
     @Override
@@ -68,7 +76,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Hamburger Menü
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close); //Verhalten beim öffnen/schließen
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            //Set animated total saldo in navigation menu
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+                setTotalSaldo();
+                TextView total_money_view = navigationView.getHeaderView(0).findViewById(R.id.kontostandView);
+
+                ValueAnimator animator = new  ValueAnimator();
+                animator.setObjectValues(0d, total_saldo); //double value
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        total_money_view.setText(String.format("%s€", animation.getAnimatedValue()));
+                    }
+                });
+                animator.setEvaluator(new TypeEvaluator<Double>() { // problem here
+                    @Override
+                    public Double evaluate(float fraction, Double startValue, Double endValue) {
+                        return  Math.round((startValue + (double)((endValue - startValue) * fraction))*100.00)/100.00;
+                    }
+                });
+                animator.setDuration(500);
+                animator.start();
+
+                //Set total saldo back to 0, otherwise it would constantly count up
+                total_saldo = 0.00;
+            }
+
+        }; //Verhalten beim öffnen/schließen
         drawer.addDrawerListener(toggle);
         toggle.syncState(); //Rotiert Hamburger Menü
 
@@ -78,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
 
     }
 
@@ -144,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.action_search).setVisible(false); //Suche nicht im Hamburger Menü anzeigen!
         navigationView.setNavigationItemSelectedListener(this);
+        setTotalSaldo();
     }
 
     //Das Menü (3-dots Menü oben rechts) ausblenden
@@ -159,5 +198,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         impressum_item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
         return true;
+    }
+
+    //Set total saldo in navigation menu
+    public void setTotalSaldo() {
+        new Thread(() -> {
+            List<Transaction> temp_transactions = db.transactionDetailDao().getList();
+            for(Transaction t : temp_transactions) {
+                if (t.mAmount.substring(0, 1).equals("+")) {
+                    total_saldo = total_saldo + Double.parseDouble(t.mAmount.substring(1,t.mAmount.lastIndexOf("€")));
+                } else {
+                    total_saldo = total_saldo - Double.parseDouble(t.mAmount.substring(1,t.mAmount.lastIndexOf("€")));
+                }
+            }
+        }).start();
     }
 }
