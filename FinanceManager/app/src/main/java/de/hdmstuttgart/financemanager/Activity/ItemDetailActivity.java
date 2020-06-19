@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import de.hdmstuttgart.financemanager.Category;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
@@ -42,6 +45,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private Spinner mCategory;
     private Spinner mMethod;
     private ImageButton calenderBtn;
+    private ImageView headerImg;
 
     private int position; //position des aktuellen Eintrages in der Liste
 
@@ -72,6 +76,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
 
+        headerImg = findViewById(R.id.detailHeader);
+        setHeaderImg();
         initializeText(); //(findViewById)
 
         assert amount != null;
@@ -246,6 +252,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         SearchFragment.mAdapter.notifyDataSetChanged();
                     }
                 }
+                setHeaderImg();
             }
         });
     }
@@ -336,5 +343,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         mDate.setBackgroundResource(R.drawable.edit_border);
         mCategory.setBackgroundResource(R.drawable.edit_border);
         mMethod.setBackgroundResource(R.drawable.edit_border);
+    }
+
+    private void setHeaderImg() {
+        switch (category) {
+            case "Einkauf": headerImg.setImageResource(R.drawable.einkaufen_picture); break;
+            case "Essen": headerImg.setImageResource(R.drawable.essen_picture); break;
+            case "Studium/Beruf": headerImg.setImageResource(R.drawable.studium_picture); break;
+            case "Freizeit": headerImg.setImageResource(R.drawable.freizeit_picture); break;
+            case "Sonstige": headerImg.setImageResource(R.drawable.sonstiges_picture); break;
+            default: Log.d("-AG-", "Something bad happened");
+        }
     }
 }
