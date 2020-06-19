@@ -12,10 +12,10 @@
         android:layout_margin="4dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/itemIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="2dp"/>
+            android:padding="2dp" />
 
         <TextView
             android:id="@+id/text1"
@@ -26,7 +26,7 @@
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/itemIcon"
             android:fontFamily="@font/font"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_marginStart="175dp"
             android:layout_marginTop="-3dp"
             android:layout_marginEnd="11dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/itemIcon"
             android:text="Line 2"
             android:textAlignment="textEnd"
             android:textColor="@android:color/holo_red_dark"
@@ -52,7 +52,7 @@
             android:text="Line 3"
             android:textSize="15sp"
             android:layout_below="@+id/text1"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/itemIcon"
             android:layout_marginStart="8dp"/>
 
     </RelativeLayout>

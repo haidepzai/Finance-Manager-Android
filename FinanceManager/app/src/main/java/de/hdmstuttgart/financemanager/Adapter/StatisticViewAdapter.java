@@ -24,7 +24,7 @@ public class StatisticViewAdapter extends RecyclerView.Adapter<StatisticViewAdap
 
         public StatisticViewHolder(@NonNull View itemView) {
             super(itemView);
-            mIcon = itemView.findViewById(R.id.imageView);
+            mIcon = itemView.findViewById(R.id.itemIcon);
             mCategory = itemView.findViewById(R.id.text1);
             mAmount = itemView.findViewById(R.id.text2);
         }

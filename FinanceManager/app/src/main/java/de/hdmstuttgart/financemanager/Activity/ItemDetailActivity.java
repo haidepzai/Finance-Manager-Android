@@ -145,6 +145,12 @@ public class ItemDetailActivity extends AppCompatActivity {
                         category_logo = R.drawable.logo_star;
                         break;
                     case "Gebühren":
+                        category_logo = R.drawable.gebuehr_logo;
+                        break;
+                    case "Geschenk":
+                        category_logo = R.drawable.logo_gift;
+                        break;
+                    case "Lohn/Gehalt":
                         category_logo = R.drawable.ic_euro_black;
                         break;
                     case "Sonstige":

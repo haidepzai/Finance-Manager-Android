@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
-            mIcon = itemView.findViewById(R.id.imageView);
+            mIcon = itemView.findViewById(R.id.itemIcon);
             mPurpose = itemView.findViewById(R.id.text1);
             mAmount = itemView.findViewById(R.id.text2);
             mDate = itemView.findViewById(R.id.text3);
