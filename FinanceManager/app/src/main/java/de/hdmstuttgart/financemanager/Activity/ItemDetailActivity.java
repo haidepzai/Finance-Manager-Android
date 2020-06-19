@@ -352,6 +352,9 @@ public class ItemDetailActivity extends AppCompatActivity {
             case "Studium/Beruf": headerImg.setImageResource(R.drawable.studium_picture); break;
             case "Freizeit": headerImg.setImageResource(R.drawable.freizeit_picture); break;
             case "Sonstige": headerImg.setImageResource(R.drawable.sonstiges_picture); break;
+            case "Gebühren": headerImg.setImageResource(R.drawable.gebuehr_picture); break;
+            case "Lohn/Gehalt": headerImg.setImageResource(R.drawable.gehalt_picture); break;
+            case "Geschenk": headerImg.setImageResource(R.drawable.geschenk_picture); break;
             default: Log.d("-AG-", "Something bad happened");
         }
     }
