@@ -52,6 +52,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
 
     private String category;
+    private int category_logo;
 
     private boolean isIncomingBill = false;
     private String billType; //Eingang + / Ausgang -
@@ -66,6 +67,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         final String purpose = in.getStringExtra("Purpose");
         final String amount = in.getStringExtra("Amount");
         final String date = in.getStringExtra("Date");
+        category_logo = in.getIntExtra("Image", 0);
         category = in.getStringExtra("Category");
         paymentMethod = in.getStringExtra("Method");
         position = in.getIntExtra("Position", 0);
@@ -123,6 +125,26 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Weist die Variable paymentMethod das ausgewählt Item zu
                 category = parent.getItemAtPosition(position).toString();
+                switch (category){
+                    case "Einkauf":
+                        category_logo = R.drawable.logo_shopping;
+                        break;
+                    case "Essen":
+                        category_logo = R.drawable.logo_restaurant;
+                        break;
+                    case "Studium/Beruf":
+                        category_logo = R.drawable.logo_education;
+                        break;
+                    case "Freizeit":
+                        category_logo = R.drawable.logo_star;
+                        break;
+                    case "Gebühren":
+                        category_logo = R.drawable.ic_euro_black;
+                        break;
+                    case "Sonstige":
+                        category_logo = R.drawable.logo_misc;
+                        break;
+                }
             }
 
             @Override
@@ -196,14 +218,15 @@ public class ItemDetailActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                     //Liste aktualisieren
-                    Transaction.itemList.set(position, new Transaction(R.drawable.ic_euro_black,
+                    Transaction.itemList.set(position, new Transaction(category_logo,
                             mPurpose.getText().toString(),
-                            billType + formattedCurrency + " €",
+                            billType + formattedCurrency + "€",
                             mDate.getText().toString(),
                             category,
                             paymentMethod
                     ));
                     //Datenbank aktualisieren
+                    MainActivity.db.transactionDetailDao().updateImage(id_Position, category_logo);
                     MainActivity.db.transactionDetailDao().updatePurpose(id_Position, mPurpose.getText().toString());
                     MainActivity.db.transactionDetailDao().updateAmount(id_Position, billType + formattedCurrency + " €");
                     MainActivity.db.transactionDetailDao().updateCategory(id_Position, category);

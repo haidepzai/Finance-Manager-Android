@@ -71,6 +71,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private String formattedCurrency; //Formatierte Währung mit 2 Nachkommastellen
 
     private String category;
+    private int category_logo;
 
     private Switch incomingPayment;
 
@@ -176,6 +177,26 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         //Weist die Variable paymentMethod das ausgewählt Item zu
                         category = parent.getItemAtPosition(position).toString();
+                        switch (category){
+                            case "Einkauf":
+                                category_logo = R.drawable.logo_shopping;
+                                break;
+                            case "Essen":
+                                category_logo = R.drawable.logo_restaurant;
+                                break;
+                            case "Studium/Beruf":
+                                category_logo = R.drawable.logo_education;
+                                break;
+                            case "Freizeit":
+                                category_logo = R.drawable.logo_star;
+                                break;
+                            case "Gebühren":
+                                category_logo = R.drawable.ic_euro_black;
+                                break;
+                            case "Sonstige":
+                                category_logo = R.drawable.logo_misc;
+                                break;
+                        }
                     }
 
                     @Override
@@ -204,14 +225,14 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             if(!number.equals("")){
                                 formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
                             }
-                            Transaction.addEntry(new Transaction(R.drawable.ic_euro_black,
+                            Transaction.addEntry(new Transaction(category_logo,
                                     mPurpose.getText().toString(),
                                     billType + formattedCurrency + "€",
                                     mDate.getText().toString(),
                                     category,
                                     paymentMethod
                             )); //Add into Database
-                            addEntry(new Transaction(R.drawable.ic_euro_black,
+                            addEntry(new Transaction(category_logo,
                                     mPurpose.getText().toString(),
                                     billType + formattedCurrency + "€",
                                     mDate.getText().toString(),
@@ -289,6 +310,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     public void onNoteClick(int position) {
         //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+        intent.putExtra("Image", Transaction.itemList.get(position).getmImageResource());
         intent.putExtra("Purpose", Transaction.itemList.get(position).getmPurpose());
         intent.putExtra("Amount", Transaction.itemList.get(position).getmAmount());
         intent.putExtra("Date", Transaction.itemList.get(position).getmDate());

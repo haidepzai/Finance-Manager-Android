@@ -62,7 +62,7 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
                 intent.putExtra("Position", index);
             }
         }
-
+        intent.putExtra("Image", resultList.get(position).getmImageResource());
         intent.putExtra("Purpose", resultList.get(position).getmPurpose());
         intent.putExtra("Amount", resultList.get(position).getmAmount());
         intent.putExtra("Date", resultList.get(position).getmDate());

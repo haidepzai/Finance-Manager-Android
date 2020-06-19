@@ -78,42 +78,42 @@ public class BarChartActivity extends AppCompatActivity {
     }
     private void setTextGrocery(){
         if(StatisticFragment.totalGrocery != 0){
-            String amount = "Einkauf: " + StatisticFragment.totalGrocery + " €";
+            String amount = "Einkauf: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalGrocery) + " €";
             groceryView.setText(amount);
             groceryView.setVisibility(View.VISIBLE);
         }
     }
     private void setTextFood(){
         if(StatisticFragment.totalFood != 0){
-            String amount = "Essen: " + StatisticFragment.totalFood + " €";
+            String amount = "Essen: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalFood) + " €";
             foodView.setText(amount);
             foodView.setVisibility(View.VISIBLE);
         }
     }
     private void setTextEducation(){
         if(StatisticFragment.totalEducation != 0){
-            String amount = "Studium/Beruf: " + StatisticFragment.totalEducation + " €";
+            String amount = "Studium/Beruf: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalEducation) + " €";
             educationView.setText(amount);
             educationView.setVisibility(View.VISIBLE);
         }
     }
     private void setTextLeisure(){
         if(StatisticFragment.totalLeisure != 0){
-            String amount = "Freizeit: " + StatisticFragment.totalLeisure + " €";
+            String amount = "Freizeit: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalLeisure) + " €";
             leisureView.setText(amount);
             leisureView.setVisibility(View.VISIBLE);
         }
     }
     private void setTextFee(){
         if(StatisticFragment.totalFee != 0){
-            String amount = "Gebühren: " + StatisticFragment.totalFee + " €";
+            String amount = "Gebühren: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalFee) + " €";
             feeView.setText(amount);
             feeView.setVisibility(View.VISIBLE);
         }
     }
     private void setTextMisc(){
         if(StatisticFragment.totalMisc != 0){
-            String amount = "Sonstige: " + StatisticFragment.totalMisc + " €";
+            String amount = "Sonstige: " + new DecimalFormat("#,###.00").format(StatisticFragment.totalMisc) + " €";
             miscView.setText(amount);
             miscView.setVisibility(View.VISIBLE);
         }

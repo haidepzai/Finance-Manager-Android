@@ -16,6 +16,9 @@ public interface TransactionDetailDao {
     @Query("SELECT * FROM `transaction` ORDER BY uid DESC;")
     List<Transaction> getList();
 
+    @Query(("SELECT * FROM `transaction` ORDER BY date DESC;"))
+    List<Transaction> getListByDate();
+
     @Query("INSERT INTO `transaction` VALUES(:id, :new_image, :new_purpose, :new_amount," +
             ":new_date, :new_category, :new_method)")
     void insertItem(long id, int new_image, String new_purpose, String new_amount, String new_date,
@@ -23,6 +26,9 @@ public interface TransactionDetailDao {
 
     @Query("DELETE FROM `transaction` WHERE uid = :id")
     void deleteItem(long id);
+
+    @Query("UPDATE `transaction` SET image = :new_image WHERE uid = :id")
+    void updateImage(long id, int new_image);
 
     @Query("UPDATE `transaction` SET purpose = :new_purpose  WHERE uid = :id")
     void updatePurpose(long id, String new_purpose);
