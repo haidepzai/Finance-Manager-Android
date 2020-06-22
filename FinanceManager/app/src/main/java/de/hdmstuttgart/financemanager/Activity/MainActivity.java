@@ -205,11 +205,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         new Thread(() -> {
             List<Transaction> temp_transactions = db.transactionDetailDao().getList();
             for(Transaction t : temp_transactions) {
-                if (t.mAmount.substring(0, 1).equals("+")) {
-                    total_saldo = total_saldo + Double.parseDouble(t.mAmount.substring(1,t.mAmount.lastIndexOf("€")));
-                } else {
-                    total_saldo = total_saldo - Double.parseDouble(t.mAmount.substring(1,t.mAmount.lastIndexOf("€")));
-                }
+                String amount = t.mAmount;
+                total_saldo = total_saldo + Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));
             }
         }).start();
     }

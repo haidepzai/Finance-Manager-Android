@@ -31,12 +31,14 @@
        android:layout_marginTop="50dp">
 
       <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recyclerView"
+          android:id="@+id/itemRecyclerView"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:padding="4dp"
           android:scrollbars="vertical"
-          android:background="@android:color/darker_gray">
+          android:background="@android:color/darker_gray"
+          android:layoutAnimation="@anim/layout_animation">
+
       </androidx.recyclerview.widget.RecyclerView>
 
    </RelativeLayout>

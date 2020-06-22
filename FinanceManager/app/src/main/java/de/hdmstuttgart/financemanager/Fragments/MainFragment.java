@@ -253,7 +253,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         });
 
         //Initialize RecyclerView
-        mRecyclerView = rootView.findViewById(R.id.recyclerView);
+        mRecyclerView = rootView.findViewById(R.id.itemRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new WrapContentLinearLayoutManager(getContext());
         //mAdapter = new RecyclerViewAdapter((ArrayList<Transaction>) MainActivity.db.transactionDetailDao().getAll(), this);
