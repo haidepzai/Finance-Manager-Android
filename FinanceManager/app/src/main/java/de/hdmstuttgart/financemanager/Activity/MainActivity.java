@@ -81,29 +81,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Set animated total saldo in navigation menu
             @Override
             public void onDrawerOpened(View drawerView) {
-
+                super.onDrawerOpened(drawerView);
+                Log.d("-AG-", "Beginning of onDrawerOpened: " + total_saldo);
                 setTotalSaldo();
+                Log.d("-AG-", "After setTotalSaldo of onDrawerOpened: " + total_saldo);
+
                 TextView total_money_view = navigationView.getHeaderView(0).findViewById(R.id.kontostandView);
 
-                ValueAnimator animator = new  ValueAnimator();
-                animator.setObjectValues(0d, total_saldo); //double value
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        total_money_view.setText(String.format("%s€", animation.getAnimatedValue()));
-                    }
-                });
-                animator.setEvaluator(new TypeEvaluator<Double>() { // problem here
-                    @Override
-                    public Double evaluate(float fraction, Double startValue, Double endValue) {
-                        return  Math.round((startValue + (double)((endValue - startValue) * fraction))*100.00)/100.00;
-                    }
-                });
-                animator.setDuration(500);
-                animator.start();
+                if(total_saldo == 0) {
+                    total_money_view.setText("0.00€");
+                } else {
+                    ValueAnimator animator = new  ValueAnimator();
+                    animator.setObjectValues(0.00, total_saldo); //double value
+                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            total_money_view.setText(String.format("%s€", animation.getAnimatedValue()));
+                        }
+                    });
+                    animator.setEvaluator(new TypeEvaluator<Double>() {
+                        @Override
+                        public Double evaluate(float fraction, Double startValue, Double endValue) {
+                            return  Math.round((startValue + (double)((endValue - startValue) * fraction))*100.00)/100.00;
+                        }
+                    });
+                    animator.setDuration(500);
+                    animator.start();
 
-                //Set total saldo back to 0, otherwise it would constantly count up
-                total_saldo = 0.00;
-            }
+                    //Set total saldo back to 0, otherwise it would constantly count up
+                    total_saldo = 0.00;
+                    Log.d("-AG-", "End of onDrawerOpened: " + total_saldo);
+                }
+        }
+
 
         }; //Verhalten beim öffnen/schließen
         drawer.addDrawerListener(toggle);
@@ -206,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             List<Transaction> temp_transactions = db.transactionDetailDao().getList();
             for(Transaction t : temp_transactions) {
                 String amount = t.mAmount;
-                total_saldo = total_saldo + Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));
+                total_saldo += Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));
             }
         }).start();
     }

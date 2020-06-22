@@ -20,7 +20,7 @@
         android:id="@+id/kontostandView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="25.000 €"
+        android:text="0.00€"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
