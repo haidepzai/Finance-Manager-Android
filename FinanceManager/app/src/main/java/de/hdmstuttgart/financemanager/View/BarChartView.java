@@ -125,7 +125,7 @@ public class BarChartView extends View {
         drawBar(canvas);
 
         //Balkendiagram (X-Y-Achse)
-        canvas.drawLine(30, 1500, 30, 500, gridPaint); //Vertikal
+        //canvas.drawLine(30, 1500, 30, 500, gridPaint); //Vertikal
         canvas.drawLine(30, 1500, 1000, 1500, gridPaint); //Horizontal
         //Horizontale Linien
         canvas.drawLine(30, 1000, 1000, 1000, linePaint); //Horizontal

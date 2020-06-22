@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@color/dark_gray"
+        android:background="@color/gray"
         android:orientation="vertical">
 
         <TextView
@@ -115,9 +115,7 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/totalAmountView"
         app:layout_constraintTop_toBottomOf="@+id/totalAmountView" />
 
     <de.hdmstuttgart.financemanager.View.BarChartView

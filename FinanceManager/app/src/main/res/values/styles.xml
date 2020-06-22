@@ -13,4 +13,5 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <color name="lightGray">#b8b6b0</color>
 </resources>
