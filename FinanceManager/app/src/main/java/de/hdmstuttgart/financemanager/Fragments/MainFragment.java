@@ -335,7 +335,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             mAmount.setBackgroundResource(R.drawable.edit_border_red);
         }
         if (mDate.getText().toString().equals("")) {
-            mDate.setBackgroundResource(R.drawable.edit_border_red);
+            mDate.setBackgroundResource(R.drawable.input_left_rounded_red);
+            calenderBtn.setBackgroundResource(R.drawable.button_right_rounded_red);
         }
         if (mSpinnerCategoryAdapter.getPosition(category) == 0 || mSpinnerCategoryAdapter.getPosition(category) == 1) {
             mCategory.setBackgroundResource(R.drawable.edit_border_red);
@@ -348,7 +349,8 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     private void setGreenFieldBorder() {
         mPurpose.setBackgroundResource(R.drawable.edit_border);
         mAmount.setBackgroundResource(R.drawable.edit_border);
-        mDate.setBackgroundResource(R.drawable.edit_border);
+        mDate.setBackgroundResource(R.drawable.input_left_rounded_green);
+        calenderBtn.setBackgroundResource(R.drawable.button_right_rounded_green);
         mCategory.setBackgroundResource(R.drawable.edit_border);
         mMethod.setBackgroundResource(R.drawable.edit_border);
     }
