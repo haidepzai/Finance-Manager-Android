@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
     app:cardCornerRadius="30dp">
 
     <RelativeLayout
@@ -28,9 +27,8 @@
             android:layout_marginStart="1dp"
             android:layout_toEndOf="@+id/imageCategory"
             android:fontFamily="@font/font"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="Line 1"
-            android:textAlignment="viewStart"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -43,9 +41,9 @@
             android:layout_marginStart="182dp"
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/imageCategory"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="Line 2"
-            android:textAlignment="textEnd"
+            android:textAlignment="viewEnd"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="20sp"
             android:textStyle="bold" />

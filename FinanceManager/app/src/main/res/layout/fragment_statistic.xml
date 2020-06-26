@@ -72,7 +72,7 @@
             android:divider="#00000000"
             android:dividerHeight="8dp"
             android:layoutAnimation="@anim/layout_animation"
-            android:padding="4dp"
+            android:padding="6dp"
             android:scrollbars="vertical" />
 
     </RelativeLayout>

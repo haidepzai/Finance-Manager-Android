@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="30dp"
     android:layout_margin="4dp"
-    >
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
