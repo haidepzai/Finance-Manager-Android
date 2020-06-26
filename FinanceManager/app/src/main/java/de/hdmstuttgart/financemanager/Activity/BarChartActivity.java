@@ -48,8 +48,8 @@ public class BarChartActivity extends AppCompatActivity {
             yAxisMax.setText(new DecimalFormat("#,###.00").format((StatisticFragment.maxValue+(StatisticFragment.maxValue*0.1))));
             yAxisHalf.setText(new DecimalFormat("#,###.00").format((StatisticFragment.maxValue+(StatisticFragment.maxValue*0.1))/2));
         } else {
-            totalAmountView.setText("0.00 €");
-            yAxisMax.setText("0.00 €");
+            totalAmountView.setText(R.string.value_zero); //0.00€
+            yAxisMax.setText(R.string.value_zero);
             yAxisMax.setVisibility(View.INVISIBLE);
             yAxisHalf.setVisibility(View.INVISIBLE);
         }

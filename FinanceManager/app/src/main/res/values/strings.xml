@@ -18,4 +18,23 @@
     <string name="detail_placeholder_category">Kategorie?</string>
     <string name="detail_placeholder_payment">Zahlungsmethode?</string>
 
+    <string name="value_zero">0.00€</string>
+    <string name="category">Kategorie:</string>
+
+    <string name="grocery">Einkauf: </string>
+    <string name="food">Essen: </string>
+    <string name="education">Studium/Beruf: </string>
+    <string name="leisure">Freizeit: </string>
+    <string name="fee">Gebühren: </string>
+    <string name="misc">Sonstige: </string>
+    <string name="total_amount">Gesamt: </string>
+
+    <string name="search">Suchen</string>
+
+    <string name="min_date">Min. Datum</string>
+    <string name="max_date">Max. Datum</string>
+
+    <string name="min_amount">Min. Betrag</string>
+    <string name="max_amount">Max. Betrag</string>
+
 </resources>
