@@ -135,7 +135,7 @@ public class StatisticFragment extends Fragment {
         if(totalAmount != 0){
             totalAmountView.setText(new DecimalFormat("#,###.00").format(totalAmount));
         } else {
-            totalAmountView.setText("0.00 €");
+            totalAmountView.setText(R.string.value_zero); //0.00€
         }
         Log.d("Total", String.valueOf(totalAmount));
     }

@@ -42,7 +42,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
-                android:hint="Min. Betrag"
+                android:hint="@string/min_amount"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
-                android:hint="Max. Betrag"
+                android:hint="@string/max_amount"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -72,7 +72,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
                 android:padding="10dp"
-                android:text="Min. Datum"
+                android:text="@string/min_date"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:visibility="gone" />
@@ -87,7 +87,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
                 android:padding="10dp"
-                android:text="Max. Datum"
+                android:text="@string/max_date"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:visibility="gone" />
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/button_rounded_corners_green"
-        android:text="Suchen"
+        android:text="@string/search"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 

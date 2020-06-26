@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 TextView total_money_view = navigationView.getHeaderView(0).findViewById(R.id.kontostandView);
 
                 if (total_saldo == 0) {
-                    total_money_view.setText("0.00€");
+                    total_money_view.setText(R.string.value_zero); //0.00€
                 } else {
                     ValueAnimator animator = new ValueAnimator();
                     animator.setObjectValues(0.00, total_saldo); //double value
