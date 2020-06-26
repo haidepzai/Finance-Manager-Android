@@ -1,5 +1,15 @@
 package de.hdmstuttgart.financemanager.Activity;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,35 +19,23 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
 
-import android.animation.TypeEvaluator;
-import android.animation.ValueAnimator;
-import android.app.ActionBar;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 import de.hdmstuttgart.financemanager.Database.AppDatabase;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
-import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer; //DrawerLayout für Navigation
 
     private NavigationView navigationView;
-    private Double total_saldo = 0.00;
+    private static Double total_saldo = 0.00;
     public static AppDatabase db;
 
     @Override
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Transaction.itemList.addAll(db.transactionDetailDao().getList());
             Transaction.outcomingBills.clear();
             Transaction.incomingBills.clear();
-            for(Transaction item : Transaction.itemList){
-                if(item.getmAmount().contains("-")){
+            for (Transaction item : Transaction.itemList) {
+                if (item.getmAmount().contains("-")) {
                     Transaction.outcomingBills.add(item);
                 } else {
                     Transaction.incomingBills.add(item);
@@ -88,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 TextView total_money_view = navigationView.getHeaderView(0).findViewById(R.id.kontostandView);
 
-                if(total_saldo == 0) {
+                if (total_saldo == 0) {
                     total_money_view.setText("0.00€");
                 } else {
-                    ValueAnimator animator = new  ValueAnimator();
+                    ValueAnimator animator = new ValueAnimator();
                     animator.setObjectValues(0.00, total_saldo); //double value
                     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         public void onAnimationUpdate(ValueAnimator animation) {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     animator.setEvaluator(new TypeEvaluator<Double>() {
                         @Override
                         public Double evaluate(float fraction, Double startValue, Double endValue) {
-                            return  Math.round((startValue + (double)((endValue - startValue) * fraction))*100.00)/100.00;
+                            return Math.round((startValue + ((endValue - startValue) * fraction)) * 100.00) / 100.00;
                         }
                     });
                     animator.setDuration(500);
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     total_saldo = 0.00;
                     Log.d("-AG-", "End of onDrawerOpened: " + total_saldo);
                 }
-        }
+            }
 
 
         }; //Verhalten beim öffnen/schließen
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState(); //Rotiert Hamburger Menü
 
         //Start Fragment (MainFragment)
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Log.d("-AG-", "In onNavigationItemSelected");
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new MainFragment()).commit();
@@ -155,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -165,12 +163,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Suche (Filter)
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.drawer_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)  searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -210,13 +208,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Set total saldo in navigation menu
-    public void setTotalSaldo() {
-        new Thread(() -> {
-            List<Transaction> temp_transactions = db.transactionDetailDao().getList();
-            for(Transaction t : temp_transactions) {
-                String amount = t.mAmount;
-                total_saldo += Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));
-            }
-        }).start();
+    public static void setTotalSaldo() {
+        total_saldo = 0.00;
+
+        List<Transaction> temp_transactions = db.transactionDetailDao().getList();
+        for (Transaction t : Transaction.itemList) {
+            String amount = t.getmAmount();
+            total_saldo += Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));
+        }
     }
 }

@@ -244,6 +244,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                                     mDate.getText().toString(),
                                     category,
                                     paymentMethod));
+                            MainActivity.setTotalSaldo();
                             mAdapter.notifyDataSetChanged();
                             myDialog.dismiss();
                         }
