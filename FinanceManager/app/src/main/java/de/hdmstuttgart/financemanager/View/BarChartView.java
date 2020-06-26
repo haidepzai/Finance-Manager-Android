@@ -1,9 +1,13 @@
 package de.hdmstuttgart.financemanager.View;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,6 +49,13 @@ public class BarChartView extends View {
     private RectF mBar6; //Sonstige
     private Paint mPaintBar6;
 
+    private AnimatableRectF mRect1;
+    private AnimatableRectF mRect2;
+    private AnimatableRectF mRect3;
+    private AnimatableRectF mRect4;
+    private AnimatableRectF mRect5;
+    private AnimatableRectF mRect6;
+
     public BarChartView(Context context) {
         super(context);
 
@@ -71,7 +82,7 @@ public class BarChartView extends View {
 
     private void init(@Nullable AttributeSet set) {
 
-        maxValue = StatisticFragment.maxValue + (StatisticFragment.maxValue*0.1f);
+        maxValue = StatisticFragment.maxValue + (StatisticFragment.maxValue * 0.1f);
         totalAmount = StatisticFragment.totalAmount;
         grocery = StatisticFragment.totalGrocery;
         food = StatisticFragment.totalFood;
@@ -92,6 +103,65 @@ public class BarChartView extends View {
         gridPaint.setStrokeWidth(5);
 
         linePaint.setColor(Color.DKGRAY);
+
+        mRect1 = new AnimatableRectF(90, 1500, 180, 1500);          //Startwert , Endwert
+        ObjectAnimator animate1 = ObjectAnimator.ofFloat(mRect1, "top", mRect1.top, 1500 - ((grocery / maxValue) * 1000));
+        animate1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        mRect2 = new AnimatableRectF(210, 1500, 300, 1500);
+        ObjectAnimator animate2 = ObjectAnimator.ofFloat(mRect2, "top", mRect2.top, 1500 - ((food / maxValue) * 1000));
+        animate2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        mRect3 = new AnimatableRectF(330, 1500, 420, 1500);
+        ObjectAnimator animate3 = ObjectAnimator.ofFloat(mRect3, "top", mRect3.top, 1500 - ((education / maxValue) * 1000));
+        animate3.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        mRect4 = new AnimatableRectF(450, 1500, 540, 1500);
+        ObjectAnimator animate4 = ObjectAnimator.ofFloat(mRect4, "top", mRect4.top, 1500 - ((leisure / maxValue) * 1000));
+        animate4.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        mRect5 = new AnimatableRectF(570, 1500, 660, 1500);
+        ObjectAnimator animate5 = ObjectAnimator.ofFloat(mRect5, "top", mRect5.top, 1500 - ((fee / maxValue) * 1000));
+        animate5.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        mRect6 = new AnimatableRectF(690, 1500, 780, 1500);
+        ObjectAnimator animate6 = ObjectAnimator.ofFloat(mRect6, "top", mRect6.top, 1500 - ((misc / maxValue) * 1000));
+        animate6.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                postInvalidate();
+            }
+        });
+
+        AnimatorSet rectAnimation = new AnimatorSet();
+        rectAnimation.playTogether(animate1, animate2, animate3, animate4, animate5, animate6);
+        rectAnimation.setDuration(1000).start();
+
 
         mBar1 = new RectF();
         mPaintBar1 = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -122,7 +192,14 @@ public class BarChartView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        drawBar(canvas);
+        canvas.drawRect(mRect1, mPaintBar1);
+        canvas.drawRect(mRect2, mPaintBar2);
+        canvas.drawRect(mRect3, mPaintBar3);
+        canvas.drawRect(mRect4, mPaintBar4);
+        canvas.drawRect(mRect5, mPaintBar5);
+        canvas.drawRect(mRect6, mPaintBar6);
+
+        //drawBar(canvas);
 
         //Balkendiagram (X-Y-Achse)
         //canvas.drawLine(30, 1500, 30, 500, gridPaint); //Vertikal
@@ -142,7 +219,6 @@ public class BarChartView extends View {
      * 1% = 10E
      * Maximale Y-Höhe: Höchster Kategoriewert + 10%
      * Höhe eines Balkens: ((Wert des Balken geteilt durch höchsten Kategoriewert) * 100(Prozent) * 10E) - 1500
-     *
      */
 
     private void drawBar(Canvas canvas) {
@@ -190,5 +266,41 @@ public class BarChartView extends View {
         mBar6.bottom = 1500; //Start
 
         canvas.drawRect(mBar6, mPaintBar6);
+    }
+
+
+    private class AnimatableRectF extends RectF {
+        public AnimatableRectF() {
+            super();
+        }
+
+        public AnimatableRectF(float left, float top, float right, float bottom) {
+            super(left, top, right, bottom);
+        }
+
+        public AnimatableRectF(RectF r) {
+            super(r);
+        }
+
+        public AnimatableRectF(Rect r) {
+            super(r);
+        }
+
+        public void setTop(float top) {
+            this.top = top;
+        }
+
+        public void setBottom(float bottom) {
+            this.bottom = bottom;
+        }
+
+        public void setRight(float right) {
+            this.right = right;
+        }
+
+        public void setLeft(float left) {
+            this.left = left;
+        }
+
     }
 }
