@@ -32,7 +32,7 @@
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@+id/itemIcon"
             android:fontFamily="@font/font"
-            android:text="Line 1"
+            android:text="@string/purpose"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -47,7 +47,7 @@
             android:layout_marginTop="-3dp"
             android:layout_marginEnd="11dp"
             android:layout_toEndOf="@+id/itemIcon"
-            android:text="Line 2"
+            android:text="@string/value"
             android:textAlignment="textEnd"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="18sp"
@@ -60,7 +60,7 @@
             android:layout_below="@+id/text1"
             android:layout_alignStart="@+id/text1"
             android:layout_marginBottom="3dp"
-            android:text="Line 3"
+            android:text="@string/date"
             android:textSize="15sp" />
 
     </RelativeLayout>

@@ -22,15 +22,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import de.hdmstuttgart.financemanager.Category;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.Fragments.MainFragment;
 import de.hdmstuttgart.financemanager.Fragments.SearchFragment;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -81,11 +80,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         initializeText(); //(findViewById)
 
         assert amount != null;
-        if(amount.contains("+")){
+        if (amount.contains("+")) {
             isIncomingBill = true;
         }
 
-        if(isIncomingBill){
+        if (isIncomingBill) {
             billType = "+";
             mSpinnerCategoryAdapter = new ArrayAdapter<>(ItemDetailActivity.this, R.layout.spinner_item, Category.incomingTypeSpinnerDetail);
         } else {
@@ -131,7 +130,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Weist die Variable paymentMethod das ausgewählt Item zu
                 category = parent.getItemAtPosition(position).toString();
-                switch (category){
+                switch (category) {
                     case "Einkauf":
                         category_logo = R.drawable.logo_shopping;
                         break;
@@ -213,14 +212,13 @@ public class ItemDetailActivity extends AppCompatActivity {
                         mDate.getText().toString().equals("")) {
                     Toast.makeText(ItemDetailActivity.this, "Bitte die rot markierten Felder ausfüllen",
                             Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     setGreenFieldBorder();
                     String number = mAmount.getText().toString();
                     StringBuilder str = new StringBuilder(); //StringBuilder: bessere Performance als String (immutable)
                     if (!number.equals("")) {
                         formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                        if(isIncomingBill){
+                        if (isIncomingBill) {
                             str.append("+").append(formattedCurrency).append(" €");
                         } else {
                             str.append("-").append(formattedCurrency).append(" €");
@@ -251,10 +249,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                     fab_done.hide();
                     calenderBtn.setVisibility(View.INVISIBLE);
                     MainFragment.mAdapter.notifyDataSetChanged();
-                    if(CategoryDetailActivity.mAdapter != null){
+                    if (CategoryDetailActivity.mAdapter != null) {
                         CategoryDetailActivity.mAdapter.notifyDataSetChanged();
                     }
-                    if(SearchFragment.mAdapter != null){
+                    if (SearchFragment.mAdapter != null) {
                         SearchFragment.mAdapter.notifyDataSetChanged();
                     }
                 }
@@ -263,7 +261,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void initializeText(){
+    private void initializeText() {
         mPurpose = findViewById(R.id.detailPurpose);
         mAmount = findViewById(R.id.detailAmount);
         mDate = findViewById(R.id.detailDate);
@@ -274,7 +272,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     //Focus der Elemente aktivieren
-    private void activateText(){
+    private void activateText() {
         //Elemente sind anklickbar
         mPurpose.setFocusableInTouchMode(true);
         mPurpose.setFocusable(true);
@@ -331,7 +329,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         mMethod.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    private void checkEmptyField(){
+    private void checkEmptyField() {
         if (mPurpose.getText().toString().equals("")) {
             mPurpose.setBackgroundResource(R.drawable.edit_border_red);
         }
@@ -353,15 +351,32 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private void setHeaderImg() {
         switch (category) {
-            case "Einkauf": headerImg.setImageResource(R.drawable.einkaufen_picture); break;
-            case "Essen": headerImg.setImageResource(R.drawable.essen_picture); break;
-            case "Studium/Beruf": headerImg.setImageResource(R.drawable.studium_picture); break;
-            case "Freizeit": headerImg.setImageResource(R.drawable.freizeit_picture); break;
-            case "Sonstige": headerImg.setImageResource(R.drawable.sonstiges_picture); break;
-            case "Gebühren": headerImg.setImageResource(R.drawable.gebuehr_picture); break;
-            case "Lohn/Gehalt": headerImg.setImageResource(R.drawable.gehalt_picture); break;
-            case "Geschenk": headerImg.setImageResource(R.drawable.geschenk_picture); break;
-            default: Log.d("-AG-", "Something bad happened");
+            case "Einkauf":
+                headerImg.setImageResource(R.drawable.einkaufen_picture);
+                break;
+            case "Essen":
+                headerImg.setImageResource(R.drawable.essen_picture);
+                break;
+            case "Studium/Beruf":
+                headerImg.setImageResource(R.drawable.studium_picture);
+                break;
+            case "Freizeit":
+                headerImg.setImageResource(R.drawable.freizeit_picture);
+                break;
+            case "Sonstige":
+                headerImg.setImageResource(R.drawable.sonstiges_picture);
+                break;
+            case "Gebühren":
+                headerImg.setImageResource(R.drawable.gebuehr_picture);
+                break;
+            case "Lohn/Gehalt":
+                headerImg.setImageResource(R.drawable.gehalt_picture);
+                break;
+            case "Geschenk":
+                headerImg.setImageResource(R.drawable.geschenk_picture);
+                break;
+            default:
+                Log.d("-AG-", "Something bad happened");
         }
     }
 }

@@ -15,12 +15,12 @@
 
       <TextView
           android:id="@+id/textView3"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:fontFamily="@font/font"
           android:gravity="center_vertical"
-          android:text="Letzte Transaktionen"
+          android:text="@string/last_transaction"
           android:textSize="18sp"
           android:layout_marginStart="10dp"/>
    </LinearLayout>

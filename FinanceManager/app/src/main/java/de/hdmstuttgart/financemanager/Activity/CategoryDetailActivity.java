@@ -1,12 +1,12 @@
 package de.hdmstuttgart.financemanager.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -23,14 +23,12 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
 
     private String category;
 
-    private TextView headerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_detail);
 
-        headerView = findViewById(R.id.categoryHeader);
+        TextView headerView = findViewById(R.id.categoryHeader);
 
         resultList = new ArrayList<>();
 
@@ -55,8 +53,8 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
         //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(this, ItemDetailActivity.class);
 
-        for(Transaction item : Transaction.itemList){
-            if(resultList.get(position).uid == item.uid){
+        for (Transaction item : Transaction.itemList) {
+            if (resultList.get(position).uid == item.uid) {
                 intent.putExtra("ID", item.uid);
                 int index = Transaction.itemList.indexOf(item);
                 intent.putExtra("Position", index);
@@ -78,11 +76,11 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
         startActivity(intent);
     }
 
-    private void addCategoryToList(){
+    private void addCategoryToList() {
 
         resultList.clear();
-        for(Transaction item : Transaction.itemList){
-            if(item.mCategory.equals(category)) {
+        for (Transaction item : Transaction.itemList) {
+            if (item.mCategory.equals(category)) {
                 resultList.add(item);
             }
         }

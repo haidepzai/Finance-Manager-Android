@@ -27,7 +27,7 @@
             android:padding="10dp"
             android:text="@string/grocery"
             android:textAlignment="center"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="@color/lime"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:text="@string/food"
             android:padding="10dp"
             android:fontFamily="@font/font"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/light_blue"/>
 
@@ -48,7 +48,7 @@
             android:text="@string/education"
             android:padding="10dp"
             android:fontFamily="@font/font"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/red"/>
 
@@ -59,7 +59,7 @@
             android:text="@string/leisure"
             android:padding="10dp"
             android:fontFamily="@font/font"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/cyan"/>
 
@@ -70,7 +70,7 @@
             android:text="@string/fee"
             android:padding="10dp"
             android:fontFamily="@font/font"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/magenta"/>
 
@@ -82,7 +82,7 @@
             android:text="@string/misc"
             android:fontFamily="@font/font"
             android:padding="10dp"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/yellow"/>
 

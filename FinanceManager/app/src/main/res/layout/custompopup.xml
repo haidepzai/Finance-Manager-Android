@@ -12,9 +12,9 @@
         android:id="@+id/btnClose"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@drawable/button_rounded_corners_red"
-        android:text="x" />
+        android:text="@string/close_button" />
 
     <Switch
         android:id="@+id/switch1"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/font"
-        android:text="Zahlungseingang? "
+        android:text="@string/incoming_payment"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -113,7 +113,7 @@
 
         <ImageButton
             android:id="@+id/calendar_btn"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="47dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -179,10 +179,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded_corners_green"
-        android:text="Hinzufügen"
+        android:text="@string/add_bill"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        android:fontFamily="@font/font"/>
 
 </LinearLayout>

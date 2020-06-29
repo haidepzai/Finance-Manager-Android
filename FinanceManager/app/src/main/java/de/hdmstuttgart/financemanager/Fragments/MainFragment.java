@@ -32,18 +32,18 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 import java.util.Objects;
 
+import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.Activity.MainActivity;
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Category;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
-import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
+import de.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.Database.Transaction;
-import de.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
 
 
-public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener{
+public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -177,7 +177,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         //Weist die Variable paymentMethod das ausgewählt Item zu
                         category = parent.getItemAtPosition(position).toString();
-                        switch (category){
+                        switch (category) {
                             case "Einkauf":
                                 category_logo = R.drawable.logo_shopping;
                                 break;
@@ -228,7 +228,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                                     Toast.LENGTH_LONG).show();
                         } else {
                             String number = mAmount.getText().toString();
-                            if(!number.equals("")){
+                            if (!number.equals("")) {
                                 formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
                             }
                             Transaction.addEntry(new Transaction(category_logo,
@@ -269,6 +269,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
+
             //Swipe löschen (mit Möglichkeit Rückgänig zu machen)
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
@@ -302,7 +303,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     }
 
 
-    private void initializeText(){
+    private void initializeText() {
         mPurpose = myDialog.findViewById(R.id.inputPurpose);
         mAmount = myDialog.findViewById(R.id.inputAmount);
         mMethod = myDialog.findViewById(R.id.inputMethod);
@@ -328,7 +329,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         startActivity(intent);
     }
 
-    private void checkEmptyField(){
+    private void checkEmptyField() {
         if (mPurpose.getText().toString().equals("")) {
             mPurpose.setBackgroundResource(R.drawable.edit_border_red);
         }

@@ -104,8 +104,8 @@ public class BarChartView extends View {
 
         linePaint.setColor(Color.DKGRAY);
 
-        mRect1 = new AnimatableRectF(90, 1500, 180, 1500);          //Startwert , Endwert
-        ObjectAnimator animate1 = ObjectAnimator.ofFloat(mRect1, "top", mRect1.top, 1500 - ((grocery / maxValue) * 1000));
+        mRect1 = new AnimatableRectF(90, 1500, 180, 1500);  //top: 1500 = Höhe 0
+        ObjectAnimator animate1 = ObjectAnimator.ofFloat(mRect1, "top", mRect1.top, 1500 - ((grocery / maxValue) * 1000)); //...values: Startwert , Endwert
         animate1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -301,6 +301,5 @@ public class BarChartView extends View {
         public void setLeft(float left) {
             this.left = left;
         }
-
     }
 }

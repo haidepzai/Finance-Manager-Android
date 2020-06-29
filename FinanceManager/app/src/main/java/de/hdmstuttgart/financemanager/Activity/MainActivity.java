@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return Math.round((startValue + ((endValue - startValue) * fraction)) * 100.00) / 100.00;
                         }
                     });
-                    animator.setDuration(500);
+                    animator.setDuration(1000);
                     animator.start();
 
                     //Set total saldo back to 0, otherwise it would constantly count up

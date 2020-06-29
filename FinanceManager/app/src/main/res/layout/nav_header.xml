@@ -12,7 +12,7 @@
         android:id="@+id/kontoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kontostand:"
+        android:text="@string/balance"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/kontostandView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0.00€"
+        android:text="@string/value_zero"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />

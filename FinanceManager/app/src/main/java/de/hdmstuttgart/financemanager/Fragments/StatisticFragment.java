@@ -27,13 +27,12 @@ import java.util.stream.Collectors;
 
 import de.hdmstuttgart.financemanager.Activity.BarChartActivity;
 import de.hdmstuttgart.financemanager.Activity.CategoryDetailActivity;
-import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
+import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.View.BarChartView;
 
 
 public class StatisticFragment extends Fragment {
-    private ListView listView;
 
     private LinkedHashMap<String, String> categoryAmount = new LinkedHashMap<>();
 
@@ -42,8 +41,6 @@ public class StatisticFragment extends Fragment {
 
     private BarChartView mBarChartView;
     private TextView totalAmountView;
-
-    private Button chartActivity;
 
     public static float totalGrocery;
     public static float totalFood;
@@ -59,8 +56,8 @@ public class StatisticFragment extends Fragment {
         new Thread(() -> {
             Transaction.outcomingBills.clear();
             Transaction.incomingBills.clear();
-            for(Transaction item : Transaction.itemList){
-                if(item.getmAmount().contains("-")){
+            for (Transaction item : Transaction.itemList) {
+                if (item.getmAmount().contains("-")) {
                     Transaction.outcomingBills.add(item);
                 } else {
                     Transaction.incomingBills.add(item);
@@ -75,10 +72,10 @@ public class StatisticFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        listView = rootView.findViewById(R.id.listViewStatistic);
+        ListView listView = rootView.findViewById(R.id.listViewStatistic);
         mBarChartView = rootView.findViewById(R.id.barChartView);
 
-        chartActivity = rootView.findViewById(R.id.chartActivity);
+        Button chartActivity = rootView.findViewById(R.id.chartActivity);
         chartActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,13 +123,14 @@ public class StatisticFragment extends Fragment {
 
         return rootView;
     }
-    private void calcTotalAmount(){
+
+    private void calcTotalAmount() {
         totalAmount = 0;
-        for(Transaction item : Transaction.outcomingBills){
+        for (Transaction item : Transaction.outcomingBills) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalAmount += Double.parseDouble(valueOfAmount);
         }
-        if(totalAmount != 0){
+        if (totalAmount != 0) {
             totalAmountView.setText(new DecimalFormat("#,###.00").format(totalAmount));
         } else {
             totalAmountView.setText(R.string.value_zero); //0.00€
@@ -140,110 +138,115 @@ public class StatisticFragment extends Fragment {
         Log.d("Total", String.valueOf(totalAmount));
     }
 
-    private void calcGrocery(){
+    private void calcGrocery() {
         totalGrocery = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Einkauf"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalGrocery += Double.parseDouble(valueOfAmount);
         }
-        if(totalGrocery != 0){
+        if (totalGrocery != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalGrocery);
             categoryAmount.put("Einkauf", "-" + formattedCurrency + " €");
         }
         Log.d("Grocery", String.valueOf(totalGrocery));
     }
-    private void calcFood(){
+
+    private void calcFood() {
         totalFood = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Essen"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalFood += Double.parseDouble(valueOfAmount);
         }
-        if(totalFood != 0){
+        if (totalFood != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalFood);
             categoryAmount.put("Essen", "-" + formattedCurrency + " €");
         }
         Log.d("Food", String.valueOf(totalFood));
     }
-    private void calcEducation(){
+
+    private void calcEducation() {
         totalEducation = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Studium/Beruf"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalEducation += Double.parseDouble(valueOfAmount);
         }
-        if(totalEducation != 0){
+        if (totalEducation != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalEducation);
             categoryAmount.put("Studium/Beruf", "-" + formattedCurrency + " €");
         }
         Log.d("Education", String.valueOf(totalEducation));
     }
-    private void calcLeisure(){
+
+    private void calcLeisure() {
         totalLeisure = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Freizeit"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalLeisure += Double.parseDouble(valueOfAmount);
         }
-        if(totalLeisure != 0){
+        if (totalLeisure != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalLeisure);
             categoryAmount.put("Freizeit", "-" + formattedCurrency + " €");
         }
         Log.d("Leisure", String.valueOf(totalLeisure));
     }
-    private void calcFee(){
+
+    private void calcFee() {
         totalFee = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Gebühren"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalFee += Double.parseDouble(valueOfAmount);
         }
-        if(totalFee != 0){
+        if (totalFee != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalFee);
             categoryAmount.put("Gebühren", "-" + formattedCurrency + " €");
         }
         Log.d("Fee", String.valueOf(totalFee));
     }
-    private void calcMisc(){
+
+    private void calcMisc() {
         totalMisc = 0;
         List<Transaction> list = Transaction.outcomingBills
                 .stream()
                 .filter(s -> s.getmCategory().equals("Sonstige"))
                 .collect(Collectors.toList());
 
-        for(Transaction item : list){
+        for (Transaction item : list) {
             String valueOfAmount = item.getmAmount().replaceAll("[-€,]", "");
             totalMisc += Double.parseDouble(valueOfAmount);
         }
-        if(totalMisc != 0){
+        if (totalMisc != 0) {
             String formattedCurrency = new DecimalFormat("#,###.00").format(totalMisc);
             categoryAmount.put("Sonstige", "-" + formattedCurrency + " €");
         }
         Log.d("Misc", String.valueOf(totalMisc));
     }
 
-    private void maxAmount(){
+    private void maxAmount() {
 
         maxValue = 0;
 

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdmstuttgart.financemanager.Activity.MainActivity;
-import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.Database.Transaction;
+import de.hdmstuttgart.financemanager.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
 
@@ -50,8 +50,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             onNoteListener.onNoteClick(getAdapterPosition()); //Position des angeklickten Element wird übergeben
         }
     }
+
     //Interface für OnClickListener
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(int position); //Diese Methode ist zu implementieren (MainFragment)
     }
 
@@ -86,7 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mAmount.setText(currentItem.getmAmount());
         holder.mDate.setText(currentItem.getmDate());
 
-        if(holder.mAmount.getText().toString().contains("+")){
+        if (holder.mAmount.getText().toString().contains("+")) {
             holder.mAmount.setTextColor(Color.parseColor("#00BF27"));
         } else {
             holder.mAmount.setTextColor(Color.RED);
@@ -117,8 +118,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String filterPattern = constraint.toString().toLowerCase().trim(); //trim = ignoriert whitespace am Anfang/Ende
 
                 //Iterate in full List to check match
-                for (Transaction item : mItemListFull){
-                    if(item.getmPurpose().toLowerCase().contains(filterPattern)){
+                for (Transaction item : mItemListFull) {
+                    if (item.getmPurpose().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -132,9 +133,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //Neue Liste wird angezeigt, je nach dem was man sucht
         @Override
-        protected void publishResults (CharSequence constraint, FilterResults results){
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             mItemList.clear();
-            mItemList.addAll((List)results.values);
+            mItemList.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };

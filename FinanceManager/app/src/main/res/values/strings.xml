@@ -18,6 +18,11 @@
     <string name="detail_placeholder_category">Kategorie?</string>
     <string name="detail_placeholder_payment">Zahlungsmethode?</string>
 
+    <string name="show_barChart">Balkendiagramm anzeigen</string>
+    <string name="add_bill">Hinzufügen</string>
+    <string name="incoming_payment">Zahlungseingang? </string>
+    <string name="close_button">x</string>
+
     <string name="value_zero">0.00€</string>
     <string name="category">Kategorie:</string>
 
@@ -29,6 +34,11 @@
     <string name="misc">Sonstige: </string>
     <string name="total_amount">Gesamt: </string>
 
+    <string name="total_spending">Gesamte Ausgaben: </string>
+
+    <string name="balance">"Kontostand: "</string>
+    <string name="last_transaction">Letzte Transaktionen</string>
+
     <string name="search">Suchen</string>
 
     <string name="min_date">Min. Datum</string>
@@ -36,5 +46,9 @@
 
     <string name="min_amount">Min. Betrag</string>
     <string name="max_amount">Max. Betrag</string>
+
+    <string name="purpose">Zweck</string>
+    <string name="date">Datum</string>
+    <string name="value">Betrag</string>
 
 </resources>

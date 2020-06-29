@@ -17,7 +17,7 @@
             android:id="@+id/totalAmountView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gesamte Ausgaben:"
+            android:text="@string/total_spending"
             android:fontFamily="@font/font"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -33,7 +33,7 @@
             android:id="@+id/totalAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100€"
+            android:text="@string/value_zero"
             android:fontFamily="@font/font"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -50,7 +50,7 @@
             android:layout_width="238dp"
             android:layout_height="47dp"
             android:background="@drawable/button_rounded_corners_green"
-            android:text="Balkendiagramm anzeigen"
+            android:text="@string/show_barChart"
             android:fontFamily="@font/font"
             android:gravity="center"/>
     </LinearLayout>

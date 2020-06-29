@@ -1,10 +1,10 @@
 package de.hdmstuttgart.financemanager.Database;
 
-import java.util.ArrayList;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
 
 @Entity(tableName = "transaction")
 public class Transaction {
@@ -32,7 +32,7 @@ public class Transaction {
     public static ArrayList<Transaction> outcomingBills = new ArrayList<>();
     public static ArrayList<Transaction> incomingBills = new ArrayList<>();
 
-    public Transaction(int imageResource, String purpose, String amount, String date, String category, String method){
+    public Transaction(int imageResource, String purpose, String amount, String date, String category, String method) {
         this.mImageResource = imageResource;
         this.mPurpose = purpose;
         this.mAmount = amount;
@@ -41,7 +41,7 @@ public class Transaction {
         this.mMethod = method;
     }
 
-    public static void addEntry(Transaction item){
+    public static void addEntry(Transaction item) {
         itemList.add(0, item); //0 = an oberster Stelle der Liste
     }
 

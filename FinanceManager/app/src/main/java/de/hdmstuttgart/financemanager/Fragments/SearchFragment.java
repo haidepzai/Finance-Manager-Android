@@ -35,9 +35,9 @@ import java.util.Objects;
 import de.hdmstuttgart.financemanager.Activity.ItemDetailActivity;
 import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Category;
+import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.Database.Transaction;
 
 public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
@@ -52,7 +52,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private Spinner searchSpinner;
     private static ArrayAdapter<String> mSpinnerSearchAdapter;
     private ArrayList<String> searchSpinnerList = new ArrayList<>();
-    private String searchItem  = "Zweck"; //Standardwert des Spinners;
+    private String searchItem = "Zweck"; //Standardwert des Spinners;
 
     private Spinner searchCategorySpinner;
     private static ArrayAdapter<String> mSpinnerSearchCategoryAdapter;
@@ -125,7 +125,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                 //Weist die Variable paymentMethod das ausgewählt Item zu
                 searchItem = parent.getItemAtPosition(position).toString();
 
-                switch(searchItem) {
+                switch (searchItem) {
                     case "Zweck":
                         searchPurpose.setVisibility(View.VISIBLE);
                         searchCategorySpinner.setVisibility(View.GONE);
@@ -173,6 +173,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         break;
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -281,8 +282,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
          * -> Dessen ID und Listenindex als intent übergeben
          * Ist notwendig, da man sonst den falschen Eintrag in der ItemDetailActivity ändert!!
          */
-        for(Transaction item : Transaction.itemList){
-            if(resultList.get(position).uid == item.uid){
+        for (Transaction item : Transaction.itemList) {
+            if (resultList.get(position).uid == item.uid) {
                 intent.putExtra("ID", item.uid);
                 int index = Transaction.itemList.indexOf(item);
                 intent.putExtra("Position", index);
@@ -342,7 +343,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                     counter++;
                 }
             }
-        } else if (searchItem.equals("Datum")){
+        } else if (searchItem.equals("Datum")) {
             resultList.clear();
 
             try {
@@ -351,15 +352,15 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                 Date date1 = sdf.parse(searchDate1.getText().toString());
                 Date date2 = sdf.parse(searchDate2.getText().toString());
 
-                for(Transaction item : Transaction.itemList){
+                for (Transaction item : Transaction.itemList) {
                     Date itemDate = sdf.parse(item.getmDate());
                     assert itemDate != null;
-                    if(!(itemDate.before(date1) || itemDate.after(date2))){
+                    if (!(itemDate.before(date1) || itemDate.after(date2))) {
                         resultList.add(item);
                         counter++;
                     }
                 }
-            } catch (ParseException e){
+            } catch (ParseException e) {
                 Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
                 Log.d("Error: ", e.toString());
