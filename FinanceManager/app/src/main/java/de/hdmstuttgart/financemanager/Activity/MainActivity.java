@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "transaction").allowMainThreadQueries().build();
 
         /*
-        //TODO: Dummy items, später löschen
+        //Dummy Items
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Mensa Aufladung", "-10.00 €", "8.6.2020", "Studium/Beruf", "PayPal"));
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Google Pay Aufladung", "-20.00 €", "1.6.2020", "Freizeit", "Kreditkarte"));
         Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Vapiano SE", "-9.00 €", "28.5.2020", "Essen", "EC"));
