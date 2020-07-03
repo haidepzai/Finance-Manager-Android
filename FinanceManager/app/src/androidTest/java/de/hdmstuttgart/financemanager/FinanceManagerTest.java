@@ -85,11 +85,6 @@ public class FinanceManagerTest {
                 .inRoot(isPlatformPopup())
                 .perform(click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.addBill), withText("Hinzufügen"),
@@ -101,6 +96,22 @@ public class FinanceManagerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        onView(withId(R.id.itemRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.detailPurpose), withText("Vapiano"),
+                        isDisplayed()));
+        textView.check(matches(withText("Vapiano")));
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        pressBack();
 
         onView(withId(R.id.itemRecyclerView)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
