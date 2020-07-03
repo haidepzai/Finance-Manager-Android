@@ -7,6 +7,11 @@ import android.view.ViewParent;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.GeneralLocation;
+import androidx.test.espresso.action.GeneralSwipeAction;
+import androidx.test.espresso.action.Press;
+import androidx.test.espresso.action.Swipe;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -96,6 +101,11 @@ public class FinanceManagerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        onView(withId(R.id.itemRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
+                        Swipe.FAST, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
+                        Press.FINGER)));
     }
 
     private static Matcher<View> childAtPosition(
