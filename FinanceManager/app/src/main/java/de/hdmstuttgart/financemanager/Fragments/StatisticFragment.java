@@ -39,7 +39,6 @@ public class StatisticFragment extends Fragment {
     public static float totalAmount; //Gesamtbetrag Zahlungsausgang
     public static float maxValue; //Höchster Gesamtbetrag unter den Kategorien
 
-    private BarChartView mBarChartView;
     private TextView totalAmountView;
 
     public static float totalGrocery;
@@ -73,16 +72,13 @@ public class StatisticFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
 
         ListView listView = rootView.findViewById(R.id.listViewStatistic);
-        mBarChartView = rootView.findViewById(R.id.barChartView);
+        BarChartView mBarChartView = rootView.findViewById(R.id.barChartView);
 
         Button chartActivity = rootView.findViewById(R.id.chartActivity);
-        chartActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BarChartActivity.class);// New activity
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        chartActivity.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), BarChartActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
 
         //Gesamt
@@ -111,14 +107,11 @@ public class StatisticFragment extends Fragment {
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
-                String categoryKey = String.valueOf(categoryAmount.keySet().toArray()[position]);
-                intent.putExtra("CategoryKey", categoryKey);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
+            String categoryKey = String.valueOf(categoryAmount.keySet().toArray()[position]);
+            intent.putExtra("CategoryKey", categoryKey);
+            startActivity(intent);
         });
 
         return rootView;

@@ -48,7 +48,7 @@ public class FinanceManagerTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void assignment3Test() {
+    public void financeManagerTest() {
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.fab_add),
                         isDisplayed()));

@@ -91,17 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     ValueAnimator animator = new ValueAnimator();
                     animator.setObjectValues(0.00, total_saldo); //double value
-                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            total_money_view.setText(String.format("%s€", animation.getAnimatedValue()));
-                        }
-                    });
-                    animator.setEvaluator(new TypeEvaluator<Double>() {
-                        @Override
-                        public Double evaluate(float fraction, Double startValue, Double endValue) {
-                            return Math.round((startValue + ((endValue - startValue) * fraction)) * 100.00) / 100.00;
-                        }
-                    });
+                    animator.addUpdateListener(animation -> total_money_view.setText(String.format("%s€", animation.getAnimatedValue())));
+                    animator.setEvaluator((TypeEvaluator<Double>) (fraction, startValue, endValue) -> Math.round((startValue + ((endValue - startValue) * fraction)) * 100.00) / 100.00);
                     animator.setDuration(1000);
                     animator.start();
 
@@ -122,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
-
-
     }
 
     //Wechselt Fragmente, je nachdem welches Menu Item man in der Nav auswählt

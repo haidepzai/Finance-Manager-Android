@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -81,24 +80,18 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchSpinnerList.add("Betrag");
         searchSpinnerList.add("Datum");
 
-        mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                searchDate1.setText(date);
-            }
+        //Min Datum
+        mDateSetListener1 = (view, year, month, dayOfMonth) -> {
+            month = month + 1;
+            String date = dayOfMonth + "." + month + "." + year;
+            searchDate1.setText(date);
         };
-
-        mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                searchDate2.setText(date);
-            }
+        //Max Datum
+        mDateSetListener2 = (view, year, month, dayOfMonth) -> {
+            month = month + 1;
+            String date = dayOfMonth + "." + month + "." + year;
+            searchDate2.setText(date);
         };
-
     }
 
     @Nullable
@@ -214,47 +207,38 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchMethodSpinner.setAdapter(mSpinnerSearchMethodAdapter);
 
         //Min Datum
-        searchDate1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        searchDate1.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),
-                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
-                        mDateSetListener1,
-                        year, month, day);
-                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
-            }
+            DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                    android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                    mDateSetListener1,
+                    year, month, day);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.show();
         });
         //Max Datum
-        searchDate2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        searchDate2.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),
-                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
-                        mDateSetListener2,
-                        year, month, day);
-                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
-            }
+            DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                    android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                    mDateSetListener2,
+                    year, month, day);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.show();
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterItems();
-                mRecyclerView.setLayoutManager(mLayoutManager);
-                mRecyclerView.setAdapter(mAdapter);
-            }
+        searchButton.setOnClickListener(v -> {
+            filterItems();
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setAdapter(mAdapter);
         });
 
         mRecyclerView = rootView.findViewById(R.id.recyclerViewSearch);

@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,13 +93,10 @@ public class ItemDetailActivity extends AppCompatActivity {
         mCategory.setAdapter(mSpinnerCategoryAdapter);
 
         //Change Date
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                mDate.setText(date);
-            }
+        mDateSetListener = (view, year, month, dayOfMonth) -> {
+            month = month + 1;
+            String date1 = dayOfMonth + "." + month + "." + year;
+            mDate.setText(date1);
         };
 
         mPurpose.setText(purpose);
@@ -170,94 +166,84 @@ public class ItemDetailActivity extends AppCompatActivity {
         fab_done.hide();
 
         FloatingActionButton fab_edit = findViewById(R.id.fab_edit);
-        fab_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAmount.setText(amount.replaceAll("[-€+,]", "")); //Nur der Wert wird angezeigt (ohne - und €)
-                activateText(); //Erlaubt das Anklicken der Textfelder
-                //Calender Button
-                calenderBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Calendar cal = Calendar.getInstance();
-                        int year = cal.get(Calendar.YEAR);
-                        int month = cal.get(Calendar.MONTH);
-                        int day = cal.get(Calendar.DAY_OF_MONTH);
+        fab_edit.setOnClickListener(v -> {
+            mAmount.setText(amount.replaceAll("[-€+,]", "")); //Nur der Wert wird angezeigt (ohne - und €)
+            activateText(); //Erlaubt das Anklicken der Textfelder
 
-                        DatePickerDialog dialog = new DatePickerDialog(ItemDetailActivity.this,
-                                android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
-                                mDateSetListener,
-                                year, month, day);
-                        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                        dialog.show();
-                    }
-                });
+            //Calender Button
+            calenderBtn.setOnClickListener(v1 -> {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                setGreenFieldBorder();
+                DatePickerDialog dialog = new DatePickerDialog(ItemDetailActivity.this,
+                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                        mDateSetListener,
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+            });
 
-                fab_done.show();
-            }
+            setGreenFieldBorder();
 
-
+            fab_done.show();
         });
 
-        fab_done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fab_done.setOnClickListener(v -> {
 
+            setGreenFieldBorder();
+            checkEmptyField();
+
+            if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
+                    mDate.getText().toString().equals("")) {
+                Toast.makeText(ItemDetailActivity.this, "Bitte die rot markierten Felder ausfüllen",
+                        Toast.LENGTH_LONG).show();
+            } else {
                 setGreenFieldBorder();
-                checkEmptyField();
-
-                if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
-                        mDate.getText().toString().equals("")) {
-                    Toast.makeText(ItemDetailActivity.this, "Bitte die rot markierten Felder ausfüllen",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    setGreenFieldBorder();
-                    String number = mAmount.getText().toString();
-                    StringBuilder str = new StringBuilder(); //StringBuilder: bessere Performance als String (immutable)
-                    if (!number.equals("")) {
-                        formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                        if (isIncomingBill) {
-                            str.append("+").append(formattedCurrency).append(" €");
-                        } else {
-                            str.append("-").append(formattedCurrency).append(" €");
-                        }
+                String number = mAmount.getText().toString();
+                StringBuilder str = new StringBuilder(); //StringBuilder: bessere Performance als String (immutable)
+                if (!number.equals("")) {
+                    formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                    if (isIncomingBill) {
+                        str.append("+").append(formattedCurrency).append(" €");
                     } else {
-                        Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
-                                Toast.LENGTH_LONG).show();
+                        str.append("-").append(formattedCurrency).append(" €");
                     }
-                    //Liste aktualisieren
-                    Transaction.itemList.set(position, new Transaction(category_logo,
-                            mPurpose.getText().toString(),
-                            billType + formattedCurrency + "€",
-                            mDate.getText().toString(),
-                            category,
-                            paymentMethod
-                    ));
-                    //Datenbank aktualisieren
-                    MainActivity.db.transactionDetailDao().updateImage(id_Position, category_logo);
-                    MainActivity.db.transactionDetailDao().updatePurpose(id_Position, mPurpose.getText().toString());
-                    MainActivity.db.transactionDetailDao().updateAmount(id_Position, billType + formattedCurrency + " €");
-                    MainActivity.db.transactionDetailDao().updateCategory(id_Position, category);
-                    MainActivity.db.transactionDetailDao().updateDate(id_Position, mDate.getText().toString());
-                    MainActivity.db.transactionDetailDao().updateMethod(id_Position, paymentMethod);
-
-                    mAmount.setText(str);
-
-                    deactivateText();
-                    fab_done.hide();
-                    calenderBtn.setVisibility(View.INVISIBLE);
-                    MainFragment.mAdapter.notifyDataSetChanged();
-                    if (CategoryDetailActivity.mAdapter != null) {
-                        CategoryDetailActivity.mAdapter.notifyDataSetChanged();
-                    }
-                    if (SearchFragment.mAdapter != null) {
-                        SearchFragment.mAdapter.notifyDataSetChanged();
-                    }
+                } else {
+                    Toast.makeText(ItemDetailActivity.this, "Bitte einen Betrag angeben",
+                            Toast.LENGTH_LONG).show();
                 }
-                setHeaderImg();
+                //Liste aktualisieren
+                Transaction.itemList.set(position, new Transaction(category_logo,
+                        mPurpose.getText().toString(),
+                        billType + formattedCurrency + "€",
+                        mDate.getText().toString(),
+                        category,
+                        paymentMethod
+                ));
+                //Datenbank aktualisieren
+                MainActivity.db.transactionDetailDao().updateImage(id_Position, category_logo);
+                MainActivity.db.transactionDetailDao().updatePurpose(id_Position, mPurpose.getText().toString());
+                MainActivity.db.transactionDetailDao().updateAmount(id_Position, billType + formattedCurrency + " €");
+                MainActivity.db.transactionDetailDao().updateCategory(id_Position, category);
+                MainActivity.db.transactionDetailDao().updateDate(id_Position, mDate.getText().toString());
+                MainActivity.db.transactionDetailDao().updateMethod(id_Position, paymentMethod);
+
+                mAmount.setText(str);
+
+                deactivateText();
+                fab_done.hide();
+                calenderBtn.setVisibility(View.INVISIBLE);
+                MainFragment.mAdapter.notifyDataSetChanged();
+                if (CategoryDetailActivity.mAdapter != null) {
+                    CategoryDetailActivity.mAdapter.notifyDataSetChanged();
+                }
+                if (SearchFragment.mAdapter != null) {
+                    SearchFragment.mAdapter.notifyDataSetChanged();
+                }
             }
+            setHeaderImg();
         });
     }
 

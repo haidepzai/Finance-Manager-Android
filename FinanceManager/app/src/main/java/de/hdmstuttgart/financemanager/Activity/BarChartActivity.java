@@ -14,8 +14,6 @@ import de.hdmstuttgart.financemanager.View.BarChartView;
 
 public class BarChartActivity extends AppCompatActivity {
 
-    private BarChartView mBarChartView;
-
     private TextView totalAmountView;
     private TextView yAxisMax;
     private TextView yAxisHalf;
@@ -63,7 +61,7 @@ public class BarChartActivity extends AppCompatActivity {
     }
 
     private void initializeView() {
-        mBarChartView = findViewById(R.id.barChartView);
+        BarChartView mBarChartView = findViewById(R.id.barChartView);
 
         groceryView = findViewById(R.id.textViewGrocery);
         foodView = findViewById(R.id.textViewFood);

@@ -188,7 +188,6 @@ public class BarChartView extends View {
         mPaintBar6.setColor(Color.YELLOW);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -267,7 +266,6 @@ public class BarChartView extends View {
 
         canvas.drawRect(mBar6, mPaintBar6);
     }
-
 
     private class AnimatableRectF extends RectF {
         public AnimatableRectF() {

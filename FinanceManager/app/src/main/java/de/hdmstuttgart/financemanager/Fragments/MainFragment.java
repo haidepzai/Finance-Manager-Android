@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -48,7 +47,6 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private FloatingActionButton fab;
     private Dialog myDialog; //Popup Fenster
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -85,14 +83,11 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         myDialog = new Dialog(Objects.requireNonNull(getContext()));
 
         //Change Date
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mDate = myDialog.findViewById(R.id.inputDate);
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                mDate.setText(date);
-            }
+        mDateSetListener = (view, year, month, dayOfMonth) -> {
+            mDate = myDialog.findViewById(R.id.inputDate);
+            month = month + 1;
+            String date = dayOfMonth + "." + month + "." + year;
+            mDate.setText(date);
         };
     }
 
@@ -102,7 +97,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         //Floating Action Button unten rechts
-        fab = rootView.findViewById(R.id.fab_add);
+        FloatingActionButton fab = rootView.findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,40 +209,37 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
                 //Button im Dialog um Rechnung hinzuzufügen
                 addBill = myDialog.findViewById(R.id.addBill);
-                addBill.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setGreenFieldBorder();
-                        checkEmptyField();
+                addBill.setOnClickListener(v1 -> {
+                    setGreenFieldBorder();
+                    checkEmptyField();
 
-                        if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
-                                mDate.getText().toString().equals("") || mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 ||
-                                mSpinnerMethodAdapter.getPosition(paymentMethod) == 1 || mSpinnerCategoryAdapter.getPosition(paymentMethod) == 0 ||
-                                mSpinnerCategoryAdapter.getPosition(paymentMethod) == 1) {
-                            Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
-                                    Toast.LENGTH_LONG).show();
-                        } else {
-                            String number = mAmount.getText().toString();
-                            if (!number.equals("")) {
-                                formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                            }
-                            Transaction.addEntry(new Transaction(category_logo,
-                                    mPurpose.getText().toString(),
-                                    billType + formattedCurrency + "€",
-                                    mDate.getText().toString(),
-                                    category,
-                                    paymentMethod
-                            )); //Add into Database
-                            addEntry(new Transaction(category_logo,
-                                    mPurpose.getText().toString(),
-                                    billType + formattedCurrency + "€",
-                                    mDate.getText().toString(),
-                                    category,
-                                    paymentMethod));
-                            MainActivity.setTotalSaldo();
-                            mAdapter.notifyDataSetChanged();
-                            myDialog.dismiss();
+                    if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
+                            mDate.getText().toString().equals("") || mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 ||
+                            mSpinnerMethodAdapter.getPosition(paymentMethod) == 1 || mSpinnerCategoryAdapter.getPosition(paymentMethod) == 0 ||
+                            mSpinnerCategoryAdapter.getPosition(paymentMethod) == 1) {
+                        Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        String number = mAmount.getText().toString();
+                        if (!number.equals("")) {
+                            formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
                         }
+                        Transaction.addEntry(new Transaction(category_logo,
+                                mPurpose.getText().toString(),
+                                billType + formattedCurrency + "€",
+                                mDate.getText().toString(),
+                                category,
+                                paymentMethod
+                        )); //Add into Database
+                        addEntry(new Transaction(category_logo,
+                                mPurpose.getText().toString(),
+                                billType + formattedCurrency + "€",
+                                mDate.getText().toString(),
+                                category,
+                                paymentMethod));
+                        MainActivity.setTotalSaldo();
+                        mAdapter.notifyDataSetChanged();
+                        myDialog.dismiss();
                     }
                 });
             }
