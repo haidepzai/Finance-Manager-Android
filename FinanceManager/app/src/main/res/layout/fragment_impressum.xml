@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/font"
-        android:text="Entwicklung und Design"
+        android:text="@string/Implementation_Design"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -20,9 +20,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/leonImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/LeonHeinrich"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.103"
@@ -37,10 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/font"
-        android:text="Leon Heinrich"
+        android:text="@string/LeonHeinrich"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintStart_toEndOf="@+id/leonImage"
+        app:layout_constraintTop_toTopOf="@+id/leonImage" />
 
     <TextView
         android:id="@+id/textView4"
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/font"
-        android:text="lh108@hdm-stuttgart.de"
+        android:text="@string/mail_leon"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/font"
-        android:text="Medieninformatik"
+        android:text="@string/medieninformatik"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -67,12 +68,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font"
-        android:text="Son Hai Vu"
+        android:text="@string/Son_Hai_Vu"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintStart_toEndOf="@+id/haiImage"
+        app:layout_constraintTop_toTopOf="@+id/haiImage" />
 
     <TextView
         android:id="@+id/textView6"
@@ -80,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/font"
-        android:text="sv048@hdm-stuttgart.de"
+        android:text="@string/mail_hai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -92,32 +93,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/font"
-        android:text="Medieninformatik"
+        android:text="@string/medieninformatik"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/haiImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/Son_Hai_Vu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/leonImage"
+        app:layout_constraintTop_toBottomOf="@+id/leonImage"
         app:layout_constraintVertical_bias="0.184"
         app:srcCompat="@drawable/haiceo" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/hdmLogo"
         android:layout_width="113dp"
         android:layout_height="96dp"
+        android:contentDescription="@string/hdm_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/haiImage"
         app:layout_constraintVertical_bias="0.468"
         app:srcCompat="@drawable/hdm_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

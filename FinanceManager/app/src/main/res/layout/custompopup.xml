@@ -35,7 +35,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_info" />
+            android:background="@drawable/black_info"
+            android:contentDescription="@string/info_icon" />
 
         <EditText
             android:id="@+id/inputPurpose"
@@ -46,12 +47,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_border"
+            android:fontFamily="@font/font"
             android:hint="@string/detail_placeholder_what"
+            android:inputType="text"
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:fontFamily="@font/font"
-            />
+            android:autofillHints="" />
 
     </LinearLayout>
 
@@ -65,7 +67,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_euro_black" />
+            android:background="@drawable/ic_euro_black"
+            android:contentDescription="@string/euro_icon" />
 
         <EditText
             android:id="@+id/inputAmount"
@@ -81,7 +84,8 @@
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:fontFamily="@font/font"/>
+            android:fontFamily="@font/font"
+            android:autofillHints="" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +98,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_date" />
+            android:background="@drawable/black_date"
+            android:contentDescription="@string/calender_icon" />
 
         <EditText
             android:id="@+id/inputDate"
@@ -109,7 +114,8 @@
             android:hint="@string/detail_placeholder_when"
             android:inputType="date"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:autofillHints="" />
 
         <ImageButton
             android:id="@+id/calendar_btn"
@@ -118,6 +124,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/button_right_rounded_green"
+            android:contentDescription="@string/calender_icon"
             app:srcCompat="@drawable/black_date" />
     </LinearLayout>
 
@@ -131,7 +138,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_category" />
+            android:background="@drawable/ic_category"
+            android:contentDescription="@string/category_icon" />
 
         <Spinner
             android:id="@+id/inputCategory"
@@ -157,7 +165,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_credit" />
+            android:background="@drawable/black_credit"
+            android:contentDescription="@string/creditcard_icon" />
 
         <Spinner
             android:id="@+id/inputMethod"

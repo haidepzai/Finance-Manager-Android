@@ -11,21 +11,20 @@
         <item>Überweisung</item>
         <item>Sonstige</item>
     </string-array>
-
+    <!--Strings add dialog -->
     <string name="detail_placeholder_what">Was?</string>
     <string name="detail_placeholder_when">Wann?</string>
     <string name="detail_placeholder_amount">Betrag?</string>
     <string name="detail_placeholder_category">Kategorie?</string>
     <string name="detail_placeholder_payment">Zahlungsmethode?</string>
 
-    <string name="show_barChart">Balkendiagramm anzeigen</string>
-    <string name="add_bill">Hinzufügen</string>
     <string name="incoming_payment">Zahlungseingang? </string>
     <string name="close_button">x</string>
+    <string name="add_bill">Hinzufügen</string>
 
     <string name="value_zero">0.00€</string>
     <string name="category">Kategorie:</string>
-
+    <!--Strings bar chart view -->
     <string name="grocery">Einkauf: </string>
     <string name="food">Essen: </string>
     <string name="education">Studium/Beruf: </string>
@@ -33,12 +32,13 @@
     <string name="fee">Gebühren: </string>
     <string name="misc">Sonstige: </string>
     <string name="total_amount">Gesamt: </string>
-
+    <!--Strings statistic fragment -->
     <string name="total_spending">Gesamte Ausgaben: </string>
+    <string name="show_barChart">Balkendiagramm anzeigen</string>
 
     <string name="balance">"Kontostand: "</string>
     <string name="last_transaction">Letzte Transaktionen</string>
-
+    <!--Strings search fragment -->
     <string name="search">Suchen</string>
 
     <string name="min_date">Min. Datum</string>
@@ -50,5 +50,25 @@
     <string name="purpose">Zweck</string>
     <string name="date">Datum</string>
     <string name="value">Betrag</string>
+    <!--Menu Items -->
+    <string name="main_page">Startseite</string>
+    <string name="statistic">Statistik</string>
+    <string name="advanced_search">Erweiterte Suche</string>
+    <string name="impressum">Impressum</string>
+    <!--content description-->
+    <string name="splash_screen">Splash Screen</string>
+    <string name="info_icon">Info Icon</string>
+    <string name="calender_icon">Calender Icon</string>
+    <string name="category_icon">Category Icon</string>
+    <string name="creditcard_icon">Credit Card Icon</string>
+    <string name="euro_icon">Euro Icon</string>
+    <!--Impressum-->
+    <string name="Implementation_Design">Entwicklung und Design</string>
+    <string name="LeonHeinrich">Leon Heinrich</string>
+    <string name="mail_leon">lh108@hdm-stuttgart.de</string>
+    <string name="medieninformatik">Medieninformatik</string>
+    <string name="Son_Hai_Vu">Son Hai Vu</string>
+    <string name="mail_hai">sv048@hdm-stuttgart.de</string>
+    <string name="hdm_logo">HdM Logo</string>
 
 </resources>

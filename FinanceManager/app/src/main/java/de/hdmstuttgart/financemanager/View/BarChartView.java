@@ -165,7 +165,7 @@ public class BarChartView extends View {
 
         mBar1 = new RectF();
         mPaintBar1 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintBar1.setColor(Color.GREEN);
+        mPaintBar1.setColor(Color.rgb(25, 191, 0));
 
         mBar2 = new RectF();
         mPaintBar2 = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -177,7 +177,7 @@ public class BarChartView extends View {
 
         mBar4 = new RectF();
         mPaintBar4 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintBar4.setColor(Color.CYAN);
+        mPaintBar4.setColor(Color.rgb(0, 194, 201));
 
         mBar5 = new RectF();
         mPaintBar5 = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -185,7 +185,7 @@ public class BarChartView extends View {
 
         mBar6 = new RectF();
         mPaintBar6 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintBar6.setColor(Color.YELLOW);
+        mPaintBar6.setColor(Color.rgb(252, 151, 0));
     }
 
     @Override

@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="200dp"
@@ -28,12 +29,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:autofillHints=""
                 android:background="@drawable/edit_border"
                 android:hint="@string/detail_placeholder_what"
+                android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/searchAmount1"
@@ -45,10 +48,13 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
                 android:hint="@string/min_amount"
+                android:inputType="numberDecimal"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:autofillHints="" />
+
             <EditText
                 android:id="@+id/searchAmount2"
                 android:layout_width="match_parent"
@@ -59,10 +65,12 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_border"
                 android:hint="@string/max_amount"
+                android:inputType="numberDecimal"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@+id/searchDate1"
@@ -136,7 +144,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1"
                 android:lines="1"
                 android:maxLines="1"
                 android:padding="10dp"

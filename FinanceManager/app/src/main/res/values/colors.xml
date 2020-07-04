@@ -24,4 +24,7 @@
     <color name="cyan">#00FFFF</color>
     <color name="magenta">#FF00FF</color>
     <color name="dark_gray">#383838</color>
+    <color name="dark_green">#19bf00</color>
+    <color name="dark_cyan">#00c2c9</color>
+    <color name="orange">#fc9700</color>
 </resources>

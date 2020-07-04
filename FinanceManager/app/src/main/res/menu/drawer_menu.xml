@@ -6,7 +6,7 @@
 
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
-        android:title="Search"
+        android:title="@string/search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
@@ -17,19 +17,19 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Startseite" />
+            android:title="@string/main_page" />
         <item
             android:id="@+id/nav_chart"
             android:icon="@drawable/ic_chart"
-            android:title="Statistik" />
+            android:title="@string/statistic" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
-            android:title="Erweiterte Suche" />
+            android:title="@string/advanced_search" />
         <item
             android:id="@+id/nav_impressum"
             android:icon="@drawable/black_info"
-            android:title="Impressum" />
+            android:title="@string/impressum" />
     </group>
 
 </menu>
