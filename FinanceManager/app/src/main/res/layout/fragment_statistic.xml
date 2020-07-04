@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@android:color/darker_gray"
+        android:background="#dadbf0"
         >
 
         <ListView
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"
-            android:background="@android:color/darker_gray"
+            android:background="#dadbf0"
             android:divider="#00000000"
             android:dividerHeight="8dp"
             android:layoutAnimation="@anim/layout_animation"

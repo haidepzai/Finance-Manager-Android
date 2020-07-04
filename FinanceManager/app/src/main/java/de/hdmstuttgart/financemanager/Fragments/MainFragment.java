@@ -81,6 +81,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         //Dialog (Popup Fenster) zum Hinzufügen weitere Elemente
         myDialog = new Dialog(Objects.requireNonNull(getContext()));
+        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         //Change Date
         mDateSetListener = (view, year, month, dayOfMonth) -> {
