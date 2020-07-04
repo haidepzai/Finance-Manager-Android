@@ -1,6 +1,5 @@
 package de.hdmstuttgart.financemanager;
 
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
