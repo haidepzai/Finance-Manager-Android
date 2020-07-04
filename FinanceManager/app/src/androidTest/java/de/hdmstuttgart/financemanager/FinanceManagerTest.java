@@ -23,6 +23,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Objects;
+
 import de.hdmstuttgart.financemanager.Activity.MainActivity;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -92,7 +94,7 @@ public class FinanceManagerTest {
         appCompatButton2.perform(click());
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -105,11 +107,25 @@ public class FinanceManagerTest {
                         isDisplayed()));
         textView.check(matches(withText("Vapiano")));
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ViewInteraction floatingActionButton2 = onView(
+                allOf(withId(R.id.fab_edit),
+                        isDisplayed()));
+        floatingActionButton2.perform(click());
+
+        ViewInteraction appCompatEditText4 = onView(
+                allOf(withId(R.id.detailPurpose),
+                        isDisplayed()));
+        appCompatEditText4.perform(replaceText("Block House"), closeSoftKeyboard());
+
+        ViewInteraction floatingActionButton3 = onView(
+                allOf(withId(R.id.fab_done),
+                        isDisplayed()));
+        floatingActionButton3.perform(click());
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.detailPurpose), withText("Block House"),
+                        isDisplayed()));
+        textView2.check(matches(withText("Block House")));
 
         pressBack();
 
@@ -117,6 +133,12 @@ public class FinanceManagerTest {
                 RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
                         Swipe.FAST, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
                         Press.FINGER)));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Matcher<View> childAtPosition(
@@ -162,8 +184,7 @@ public class FinanceManagerTest {
                             idDescription = this.resources.getResourceName(recyclerViewId);
                         } catch (Resources.NotFoundException var4) {
                             idDescription = String.format("%s (resource name not found)",
-                                    new Object[] { Integer.valueOf
-                                            (recyclerViewId) });
+                                    recyclerViewId);
                         }
                     }
 
@@ -178,7 +199,7 @@ public class FinanceManagerTest {
                         RecyclerView recyclerView =
                                 (RecyclerView) view.getRootView().findViewById(recyclerViewId);
                         if (recyclerView != null && recyclerView.getId() == recyclerViewId) {
-                            childView = recyclerView.findViewHolderForAdapterPosition(position).itemView;
+                            childView = Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView;
                         }
                         else {
                             return false;
