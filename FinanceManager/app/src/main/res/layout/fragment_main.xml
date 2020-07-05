@@ -52,7 +52,7 @@
        android:layout_margin="16dp"
        android:backgroundTint="@color/colorPrimary"
        android:elevation="6dp"
-       android:src="@drawable/ic_add_btn"
+       android:src="@drawable/ic_add_to_list"
        app:fabSize="normal"
        app:maxImageSize="37dp" />
 
