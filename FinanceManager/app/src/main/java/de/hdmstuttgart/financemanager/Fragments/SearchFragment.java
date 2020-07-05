@@ -281,11 +281,19 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
         int counter = 0; //if counter = 0 -> No entries
 
+        searchAmount1.setBackgroundResource(R.drawable.edit_border);
+        searchAmount2.setBackgroundResource(R.drawable.edit_border);
+        searchPurpose.setBackgroundResource(R.drawable.edit_border);
+        searchDate1.setBackgroundResource(R.drawable.edit_border);
+        searchDate2.setBackgroundResource(R.drawable.edit_border);
+
         switch (searchItem) {
             case "Zweck":
                 resultList.clear();
                 if (searchPurpose.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "Bitte einen Suchbegriff angeben", Toast.LENGTH_LONG).show();
+                    searchPurpose.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
                 } else {
                     for (Transaction item : Transaction.itemList) {
                         if (item.getmPurpose().toLowerCase().contains(searchPurpose.getText().toString().toLowerCase())) {
@@ -316,38 +324,70 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             case "Betrag":
                 resultList.clear();
 
-                double amount1 = Double.parseDouble(searchAmount1.getText().toString());
-                double amount2 = Double.parseDouble(searchAmount2.getText().toString());
+                if(searchAmount1.getText().toString().equals("") && searchAmount2.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Bitte Beträge angeben", Toast.LENGTH_LONG).show();
+                    searchAmount1.setBackgroundResource(R.drawable.edit_border_red);
+                    searchAmount2.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                } else if (searchAmount1.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Bitte min. Betrag angeben", Toast.LENGTH_LONG).show();
+                    searchAmount1.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                } else if (searchAmount2.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Bitte max. Betrag angeben", Toast.LENGTH_LONG).show();
+                    searchAmount2.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                }
 
-                for (Transaction item : Transaction.itemList) {
-                    double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€+,]", ""));
-                    if (currentAmount >= amount1 && currentAmount <= amount2) {
-                        resultList.add(item);
-                        counter++;
+                else {
+                    double amount1 = Double.parseDouble(searchAmount1.getText().toString());
+                    double amount2 = Double.parseDouble(searchAmount2.getText().toString());
+
+                    for (Transaction item : Transaction.itemList) {
+                        double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€+,]", ""));
+                        if (currentAmount >= amount1 && currentAmount <= amount2) {
+                            resultList.add(item);
+                            counter++;
+                        }
                     }
                 }
                 break;
             case "Datum":
                 resultList.clear();
 
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
+                if(searchDate1.getText().toString().equals("Min. Datum") && searchDate2.getText().toString().equals("Max. Datum")){
+                    Toast.makeText(getContext(), "Bitte Datum angeben", Toast.LENGTH_LONG).show();
+                    searchDate1.setBackgroundResource(R.drawable.edit_border_red);
+                    searchDate2.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                } else if (searchDate1.getText().toString().equals("Min. Datum")){
+                    Toast.makeText(getContext(), "Bitte min. Datum angeben", Toast.LENGTH_LONG).show();
+                    searchDate1.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                } else if (searchDate2.getText().toString().equals("Max. Datum")){
+                    Toast.makeText(getContext(), "Bitte max. Datum angeben", Toast.LENGTH_LONG).show();
+                    searchDate2.setBackgroundResource(R.drawable.edit_border_red);
+                    counter++;
+                } else {
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
 
-                    Date date1 = sdf.parse(searchDate1.getText().toString());
-                    Date date2 = sdf.parse(searchDate2.getText().toString());
+                        Date date1 = sdf.parse(searchDate1.getText().toString());
+                        Date date2 = sdf.parse(searchDate2.getText().toString());
 
-                    for (Transaction item : Transaction.itemList) {
-                        Date itemDate = sdf.parse(item.getmDate());
-                        assert itemDate != null;
-                        if (!(itemDate.before(date1) || itemDate.after(date2))) {
-                            resultList.add(item);
-                            counter++;
+                        for (Transaction item : Transaction.itemList) {
+                            Date itemDate = sdf.parse(item.getmDate());
+                            assert itemDate != null;
+                            if (!(itemDate.before(date1) || itemDate.after(date2))) {
+                                resultList.add(item);
+                                counter++;
+                            }
                         }
+                    } catch (ParseException e) {
+                        Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                        Log.d("Error: ", e.toString());
                     }
-                } catch (ParseException e) {
-                    Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                    Log.d("Error: ", e.toString());
                 }
                 break;
         }
