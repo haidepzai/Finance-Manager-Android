@@ -48,7 +48,6 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
     private ArrayList<Transaction> resultList;
 
-    private Spinner searchSpinner;
     private static ArrayAdapter<String> mSpinnerSearchAdapter;
     private ArrayList<String> searchSpinnerList = new ArrayList<>();
     private String searchItem = "Zweck"; //Standardwert des Spinners;
@@ -66,8 +65,6 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private EditText searchAmount2; //Max Betrag
     private TextView searchDate1; //Min Datum
     private TextView searchDate2; //Max Datum
-
-    private Button searchButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,8 +96,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        searchSpinner = rootView.findViewById(R.id.searchSpinner);
-        searchButton = rootView.findViewById(R.id.searchButton);
+        Spinner searchSpinner = rootView.findViewById(R.id.searchSpinner);
+        Button searchButton = rootView.findViewById(R.id.searchButton);
         searchPurpose = rootView.findViewById(R.id.searchPurpose);
         searchCategorySpinner = rootView.findViewById(R.id.searchCategory);
         searchMethodSpinner = rootView.findViewById(R.id.searchMethod);

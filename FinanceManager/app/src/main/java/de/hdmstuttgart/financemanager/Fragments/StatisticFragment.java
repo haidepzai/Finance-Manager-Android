@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -30,7 +29,6 @@ import de.hdmstuttgart.financemanager.Activity.CategoryDetailActivity;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.R;
 import de.hdmstuttgart.financemanager.View.BarChartView;
-
 
 public class StatisticFragment extends Fragment {
 
@@ -93,15 +91,36 @@ public class StatisticFragment extends Fragment {
         calcMisc();
         maxAmount();
 
-        List<LinkedHashMap<String, String>> listItems = new ArrayList<>();
+        List<LinkedHashMap<String, String>> listItems = new ArrayList<>(); //HashMap für Adapter
         SimpleAdapter adapter = new SimpleAdapter(getContext(), listItems, R.layout.statistic_item,
-                new String[]{"Category", "Amount"}, //Keys
-                new int[]{R.id.statisticCategory, R.id.statisticAmount});
+                new String[]{"Category", "Amount", "Image"}, //Keys
+                new int[]{R.id.statisticCategory, R.id.statisticAmount, R.id.imageCategory});
         //Durch HashMap iterieren
         for (Map.Entry<String, String> stringStringEntry : categoryAmount.entrySet()) {
             LinkedHashMap<String, String> resultMap = new LinkedHashMap<>();
-            resultMap.put("Category", ((Map.Entry) stringStringEntry).getKey().toString()); //Key
-            resultMap.put("Amount", ((Map.Entry) stringStringEntry).getValue().toString()); //Value
+            resultMap.put("Category", (stringStringEntry).getKey());
+            resultMap.put("Amount", (stringStringEntry).getValue());
+            switch ((stringStringEntry).getKey()) {
+                case "Einkauf":
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_shopping));
+                    break;
+                case "Essen":
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_restaurant));
+                    break;
+                case "Studium/Beruf":
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_education));
+                    break;
+                case "Freizeit":
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_star));
+                    break;
+                case "Gebühren":
+                    resultMap.put("Image", String.valueOf(R.drawable.gebuehr_logo));
+                    break;
+                case "Sonstige":
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_misc));
+                    break;
+            }
+
             listItems.add(resultMap);
         }
 

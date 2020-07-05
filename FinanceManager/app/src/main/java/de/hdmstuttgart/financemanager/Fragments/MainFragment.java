@@ -41,7 +41,6 @@ import de.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
 import de.hdmstuttgart.financemanager.PaymentMethods;
 import de.hdmstuttgart.financemanager.R;
 
-
 public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
@@ -294,7 +293,6 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         return rootView;
     }
-
 
     private void initializeText() {
         mPurpose = myDialog.findViewById(R.id.inputPurpose);
