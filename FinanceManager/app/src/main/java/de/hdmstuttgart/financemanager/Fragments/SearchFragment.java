@@ -48,16 +48,13 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
     private ArrayList<Transaction> resultList;
 
-    private static ArrayAdapter<String> mSpinnerSearchAdapter;
     private ArrayList<String> searchSpinnerList = new ArrayList<>();
     private String searchItem = "Zweck"; //Standardwert des Spinners;
 
     private Spinner searchCategorySpinner;
-    private static ArrayAdapter<String> mSpinnerSearchCategoryAdapter;
     private String category;
 
     private Spinner searchMethodSpinner;
-    private static ArrayAdapter<String> mSpinnerSearchMethodAdapter;
     private String paymentMethod;
 
     private EditText searchPurpose;
@@ -107,7 +104,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchDate2 = rootView.findViewById(R.id.searchDate2);
 
         //Spinner für Suchbegriff
-        mSpinnerSearchAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, searchSpinnerList);
+        ArrayAdapter<String> mSpinnerSearchAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, searchSpinnerList);
         searchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -172,7 +169,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchSpinner.setAdapter(mSpinnerSearchAdapter);
 
         //Spinner für Kategorie
-        mSpinnerSearchCategoryAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, Category.categorySpinnerDetail);
+        ArrayAdapter<String> mSpinnerSearchCategoryAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, Category.categorySpinnerDetail);
         searchCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -188,7 +185,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchCategorySpinner.setAdapter(mSpinnerSearchCategoryAdapter);
 
         //Spinner für Zahlungsmethode
-        mSpinnerSearchMethodAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
+        ArrayAdapter<String> mSpinnerSearchMethodAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, PaymentMethods.methodSpinnerDetail);
         searchMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Verhalten des Spinners
             @Override
@@ -253,7 +250,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
         //Übergibt die Informationen mit putExtra
 
-        /**
+        /*
          * Mittels For Loop die richtige ID finden in der Hauptliste
          * Da die Position und ID des Item in dieser Activity nicht mit dem in der Hauptliste übereinstimmen,
          * führt es zum Fehler, falls man später in der ItemDetailActivity den Eintrag ändert
@@ -263,6 +260,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
          * -> Dessen ID und Listenindex als intent übergeben
          * Ist notwendig, da man sonst den falschen Eintrag in der ItemDetailActivity ändert!!
          */
+
         for (Transaction item : Transaction.itemList) {
             if (resultList.get(position).uid == item.uid) {
                 intent.putExtra("ID", item.uid);
@@ -283,69 +281,75 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
 
         int counter = 0; //if counter = 0 -> No entries
 
-        if (searchItem.equals("Zweck")) {
-            resultList.clear();
-            if (searchPurpose.getText().toString().equals("")) {
-                Toast.makeText(getContext(), "Bitte einen Suchbegriff angeben", Toast.LENGTH_LONG).show();
-            } else {
+        switch (searchItem) {
+            case "Zweck":
+                resultList.clear();
+                if (searchPurpose.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Bitte einen Suchbegriff angeben", Toast.LENGTH_LONG).show();
+                } else {
+                    for (Transaction item : Transaction.itemList) {
+                        if (item.getmPurpose().toLowerCase().contains(searchPurpose.getText().toString().toLowerCase())) {
+                            resultList.add(item);
+                            counter++;
+                        }
+                    }
+                }
+                break;
+            case "Kategorie":
+                resultList.clear();
                 for (Transaction item : Transaction.itemList) {
-                    if (item.getmPurpose().toLowerCase().contains(searchPurpose.getText().toString().toLowerCase())) {
+                    if (item.getmCategory().matches(category)) {
                         resultList.add(item);
                         counter++;
                     }
                 }
-            }
-        } else if (searchItem.equals("Kategorie")) {
-            resultList.clear();
-            for (Transaction item : Transaction.itemList) {
-                if (item.getmCategory().matches(category)) {
-                    resultList.add(item);
-                    counter++;
-                }
-            }
-        } else if (searchItem.equals("Zahlungsmethode")) {
-            resultList.clear();
-            for (Transaction item : Transaction.itemList) {
-                if (item.getmMethod().matches(paymentMethod)) {
-                    resultList.add(item);
-                    counter++;
-                }
-            }
-        } else if (searchItem.equals("Betrag")) {
-            resultList.clear();
-
-            double amount1 = Double.parseDouble(searchAmount1.getText().toString());
-            double amount2 = Double.parseDouble(searchAmount2.getText().toString());
-
-            for (Transaction item : Transaction.itemList) {
-                double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€+,]", ""));
-                if (currentAmount >= amount1 && currentAmount <= amount2) {
-                    resultList.add(item);
-                    counter++;
-                }
-            }
-        } else if (searchItem.equals("Datum")) {
-            resultList.clear();
-
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
-
-                Date date1 = sdf.parse(searchDate1.getText().toString());
-                Date date2 = sdf.parse(searchDate2.getText().toString());
-
+                break;
+            case "Zahlungsmethode":
+                resultList.clear();
                 for (Transaction item : Transaction.itemList) {
-                    Date itemDate = sdf.parse(item.getmDate());
-                    assert itemDate != null;
-                    if (!(itemDate.before(date1) || itemDate.after(date2))) {
+                    if (item.getmMethod().matches(paymentMethod)) {
                         resultList.add(item);
                         counter++;
                     }
                 }
-            } catch (ParseException e) {
-                Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-                Log.d("Error: ", e.toString());
-            }
+                break;
+            case "Betrag":
+                resultList.clear();
+
+                double amount1 = Double.parseDouble(searchAmount1.getText().toString());
+                double amount2 = Double.parseDouble(searchAmount2.getText().toString());
+
+                for (Transaction item : Transaction.itemList) {
+                    double currentAmount = Double.parseDouble(item.getmAmount().replaceAll("[-€+,]", ""));
+                    if (currentAmount >= amount1 && currentAmount <= amount2) {
+                        resultList.add(item);
+                        counter++;
+                    }
+                }
+                break;
+            case "Datum":
+                resultList.clear();
+
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
+
+                    Date date1 = sdf.parse(searchDate1.getText().toString());
+                    Date date2 = sdf.parse(searchDate2.getText().toString());
+
+                    for (Transaction item : Transaction.itemList) {
+                        Date itemDate = sdf.parse(item.getmDate());
+                        assert itemDate != null;
+                        if (!(itemDate.before(date1) || itemDate.after(date2))) {
+                            resultList.add(item);
+                            counter++;
+                        }
+                    }
+                } catch (ParseException e) {
+                    Toast.makeText(getContext(), "Fehler bei der Suche", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                    Log.d("Error: ", e.toString());
+                }
+                break;
         }
         if (counter == 0) {
             Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();

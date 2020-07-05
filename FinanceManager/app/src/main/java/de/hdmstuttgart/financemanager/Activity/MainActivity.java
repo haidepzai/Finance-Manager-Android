@@ -21,8 +21,6 @@ import androidx.room.Room;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.List;
-
 import de.hdmstuttgart.financemanager.Database.AppDatabase;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
@@ -46,14 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "transaction").allowMainThreadQueries().build();
-
-        /*
-        //Dummy Items
-        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Mensa Aufladung", "-10.00 €", "8.6.2020", "Studium/Beruf", "PayPal"));
-        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Google Pay Aufladung", "-20.00 €", "1.6.2020", "Freizeit", "Kreditkarte"));
-        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Vapiano SE", "-9.00 €", "28.5.2020", "Essen", "EC"));
-        Transaction.addEntry(new Transaction(R.drawable.ic_euro_black, "Bosch Gehalt", "+1,500.00 €", "15.6.2020", "Lohn/Gehalt", "Überweisung"));
-*/
 
         new Thread(() -> {
             Transaction.itemList.addAll(db.transactionDetailDao().getList());
@@ -199,8 +189,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Set total saldo in navigation menu
     public static void setTotalSaldo() {
         total_saldo = 0.00;
-
-        List<Transaction> temp_transactions = db.transactionDetailDao().getList();
         for (Transaction t : Transaction.itemList) {
             String amount = t.getmAmount();
             total_saldo += Double.parseDouble(amount.replace("€", "").replace(",", "").replace("+", ""));

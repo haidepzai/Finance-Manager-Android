@@ -133,9 +133,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //Neue Liste wird angezeigt, je nach dem was man sucht
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mItemList.clear();
-            mItemList.addAll((List) results.values);
+            List<Transaction> list = (List<Transaction>) results.values;
+            mItemList.addAll(list);
             notifyDataSetChanged();
         }
     };

@@ -15,9 +15,7 @@ import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.R;
 
 public class CategoryDetailActivity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListener {
-    private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private ArrayList<Transaction> resultList;
 
@@ -39,9 +37,9 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
 
         addCategoryToList();
 
-        mRecyclerView = findViewById(R.id.recyclerCategoryView);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerCategoryView);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new RecyclerViewAdapter(resultList, this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -66,13 +64,12 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
         intent.putExtra("Date", resultList.get(position).getmDate());
         intent.putExtra("Category", resultList.get(position).getmCategory());
         intent.putExtra("Method", resultList.get(position).getmMethod());
-        /**
+
+        /*
          * Unteres geht nicht, da die aktuelle Position in dieser Activity übergeben wird
-         *und somit, beim Ändern eines Eintrages in der ItemDetailActivity, der falsche Eintrag
-         *in der Hauptliste geändert wird!!
-         **/
-        //intent.putExtra("Position", position);
-        //intent.putExtra("ID", Transaction.itemList.get(position).uid);
+         * und somit, beim Ändern eines Eintrages in der ItemDetailActivity, der falsche Eintrag
+         * in der Hauptliste geändert wird!!
+        */
         startActivity(intent);
     }
 

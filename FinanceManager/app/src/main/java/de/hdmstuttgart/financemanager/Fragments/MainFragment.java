@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -44,13 +43,10 @@ import de.hdmstuttgart.financemanager.R;
 public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNoteListener {
     private RecyclerView mRecyclerView;
     public static RecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private Dialog myDialog; //Popup Fenster
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
-    public static Transaction mItem;
 
     //Textfelder, welche im Dialog angezeigt werden
     private EditText mPurpose;
@@ -98,158 +94,143 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         //Floating Action Button unten rechts
         FloatingActionButton fab = rootView.findViewById(R.id.fab_add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button btnClose;
-                myDialog.setContentView(R.layout.custompopup);
+        fab.setOnClickListener(v -> {
+            Button btnClose;
+            myDialog.setContentView(R.layout.custompopup);
 
-                btnClose = myDialog.findViewById(R.id.btnClose);
-                btnClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myDialog.dismiss();
-                    }
-                });
-                myDialog.show();
+            btnClose = myDialog.findViewById(R.id.btnClose);
+            btnClose.setOnClickListener(v12 -> myDialog.dismiss());
+            myDialog.show();
 
-                initializeText(); //Initialisierung der TextViews in dem Dialog
+            initializeText(); //Initialisierung der TextViews in dem Dialog
 
-                billType = "-"; //Standardwert
-                //Switch (Zahlungseingang / Zahlungsausgang)
-                incomingPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            billType = "+";
-                            mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.incomingTypeSpinnerMain);
-                        } else {
-                            billType = "-";
-                            mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
-                        }
-                        mCategory.setAdapter(mSpinnerCategoryAdapter);
-                    }
-                });
-
-                //Öffnet Datum-Feld
-                calenderBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Calendar cal = Calendar.getInstance();
-                        int year = cal.get(Calendar.YEAR);
-                        int month = cal.get(Calendar.MONTH);
-                        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
-                                android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
-                                mDateSetListener,
-                                year, month, day);
-                        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                        dialog.show();
-                    }
-                });
-
-                mSpinnerMethodAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
-                mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    //Verhalten des Spinners
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        //Weist die Variable paymentMethod das ausgewählt Item zu
-                        paymentMethod = parent.getItemAtPosition(position).toString();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                mMethod.setAdapter(mSpinnerMethodAdapter);
-
-                mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
-                mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    //Verhalten des Spinners
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        //Weist die Variable paymentMethod das ausgewählt Item zu
-                        category = parent.getItemAtPosition(position).toString();
-                        switch (category) {
-                            case "Einkauf":
-                                category_logo = R.drawable.logo_shopping;
-                                break;
-                            case "Essen":
-                                category_logo = R.drawable.logo_restaurant;
-                                break;
-                            case "Studium/Beruf":
-                                category_logo = R.drawable.logo_education;
-                                break;
-                            case "Freizeit":
-                                category_logo = R.drawable.logo_star;
-                                break;
-                            case "Gebühren":
-                                category_logo = R.drawable.gebuehr_logo;
-                                break;
-                            case "Geschenk":
-                                category_logo = R.drawable.logo_gift;
-                                break;
-                            case "Lohn/Gehalt":
-                                category_logo = R.drawable.ic_euro_black;
-                                break;
-                            case "Sonstige":
-                                category_logo = R.drawable.logo_misc;
-                                break;
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
+            billType = "-"; //Standardwert
+            //Switch (Zahlungseingang / Zahlungsausgang)
+            incomingPayment.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    billType = "+";
+                    mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.incomingTypeSpinnerMain);
+                } else {
+                    billType = "-";
+                    mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
+                }
                 mCategory.setAdapter(mSpinnerCategoryAdapter);
+            });
 
-                //Button im Dialog um Rechnung hinzuzufügen
-                addBill = myDialog.findViewById(R.id.addBill);
-                addBill.setOnClickListener(v1 -> {
-                    setGreenFieldBorder();
-                    checkEmptyField();
+            //Öffnet Datum-Feld
+            calenderBtn.setOnClickListener(v13 -> {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                    if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
-                            mDate.getText().toString().equals("") || mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 ||
-                            mSpinnerMethodAdapter.getPosition(paymentMethod) == 1 || mSpinnerCategoryAdapter.getPosition(paymentMethod) == 0 ||
-                            mSpinnerCategoryAdapter.getPosition(paymentMethod) == 1) {
-                        Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        String number = mAmount.getText().toString();
-                        if (!number.equals("")) {
-                            formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
-                        }
-                        Transaction.addEntry(new Transaction(category_logo,
-                                mPurpose.getText().toString(),
-                                billType + formattedCurrency + "€",
-                                mDate.getText().toString(),
-                                category,
-                                paymentMethod
-                        )); //Add into Database
-                        addEntry(new Transaction(category_logo,
-                                mPurpose.getText().toString(),
-                                billType + formattedCurrency + "€",
-                                mDate.getText().toString(),
-                                category,
-                                paymentMethod));
-                        MainActivity.setTotalSaldo();
-                        mAdapter.notifyDataSetChanged();
-                        myDialog.dismiss();
+                DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
+                        android.R.style.Theme_DeviceDefault_Light_Dialog, //Calender Style
+                        mDateSetListener,
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+            });
+
+            mSpinnerMethodAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, PaymentMethods.methodSpinnerMain);
+            mMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                //Verhalten des Spinners
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    //Weist die Variable paymentMethod das ausgewählt Item zu
+                    paymentMethod = parent.getItemAtPosition(position).toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            mMethod.setAdapter(mSpinnerMethodAdapter);
+
+            mSpinnerCategoryAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, Category.categorySpinnerMain);
+            mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                //Verhalten des Spinners
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    //Weist die Variable paymentMethod das ausgewählt Item zu
+                    category = parent.getItemAtPosition(position).toString();
+                    switch (category) {
+                        case "Einkauf":
+                            category_logo = R.drawable.logo_shopping;
+                            break;
+                        case "Essen":
+                            category_logo = R.drawable.logo_restaurant;
+                            break;
+                        case "Studium/Beruf":
+                            category_logo = R.drawable.logo_education;
+                            break;
+                        case "Freizeit":
+                            category_logo = R.drawable.logo_star;
+                            break;
+                        case "Gebühren":
+                            category_logo = R.drawable.gebuehr_logo;
+                            break;
+                        case "Geschenk":
+                            category_logo = R.drawable.logo_gift;
+                            break;
+                        case "Lohn/Gehalt":
+                            category_logo = R.drawable.ic_euro_black;
+                            break;
+                        case "Sonstige":
+                            category_logo = R.drawable.logo_misc;
+                            break;
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            mCategory.setAdapter(mSpinnerCategoryAdapter);
+
+            //Button im Dialog um Rechnung hinzuzufügen
+            addBill = myDialog.findViewById(R.id.addBill);
+            addBill.setOnClickListener(v1 -> {
+                setGreenFieldBorder();
+                checkEmptyField();
+
+                if (mPurpose.getText().toString().equals("") || mAmount.getText().toString().equals("") ||
+                        mDate.getText().toString().equals("") || mSpinnerMethodAdapter.getPosition(paymentMethod) == 0 ||
+                        mSpinnerMethodAdapter.getPosition(paymentMethod) == 1 || mSpinnerCategoryAdapter.getPosition(paymentMethod) == 0 ||
+                        mSpinnerCategoryAdapter.getPosition(paymentMethod) == 1) {
+                    Toast.makeText(getContext(), "Bitte die rot markierten Felder ausfüllen",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    String number = mAmount.getText().toString();
+                    if (!number.equals("")) {
+                        formattedCurrency = CurrencyFormatter.formatNumberCurrency(number);
+                    }
+                    Transaction.addEntry(new Transaction(category_logo,
+                            mPurpose.getText().toString(),
+                            billType + formattedCurrency + "€",
+                            mDate.getText().toString(),
+                            category,
+                            paymentMethod
+                    )); //Add into Database
+                    addEntry(new Transaction(category_logo,
+                            mPurpose.getText().toString(),
+                            billType + formattedCurrency + "€",
+                            mDate.getText().toString(),
+                            category,
+                            paymentMethod));
+                    MainActivity.setTotalSaldo();
+                    mAdapter.notifyDataSetChanged();
+                    myDialog.dismiss();
+                }
+            });
         });
 
         //Initialize RecyclerView
         mRecyclerView = rootView.findViewById(R.id.itemRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new WrapContentLinearLayoutManager(getContext());
-        //mAdapter = new RecyclerViewAdapter((ArrayList<Transaction>) MainActivity.db.transactionDetailDao().getAll(), this);
+        RecyclerView.LayoutManager mLayoutManager = new WrapContentLinearLayoutManager(getContext());
         mAdapter = new RecyclerViewAdapter(Transaction.itemList, this);
 
         final Transaction[] deletedTransaction = {null}; //Variable zum Zwischenspeichern des gelöschten Elements
@@ -258,7 +239,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
             //Andere Swipe Richtungen (0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP)
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
@@ -270,18 +251,14 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 int id_Position = Transaction.itemList.get(position).uid; //ID Database
                 deletedTransaction[0] = Transaction.itemList.get(position); //Zwischenspeichern des gelöschten Elements
                 deleteEntry(Transaction.itemList.get(position)); //Delete Entry in Database
-                //MainActivity.db.transactionDetailDao().deleteItem(id_Position);
                 Transaction.itemList.remove(position);
                 mAdapter.notifyDataSetChanged();
                 Snackbar.make(mRecyclerView, deletedTransaction[0].getmPurpose() + " gelöscht", Snackbar.LENGTH_LONG)
-                        .setAction("undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Transaction.itemList.add(position, deletedTransaction[0]);
-                                MainActivity.db.transactionDetailDao().insertItem(id_Position, deletedTransaction[0].mImageResource, deletedTransaction[0].mPurpose,
-                                        deletedTransaction[0].mAmount, deletedTransaction[0].mDate, deletedTransaction[0].mCategory, deletedTransaction[0].mMethod);
-                                mAdapter.notifyItemInserted(position);
-                            }
+                        .setAction("undo", v -> {
+                            Transaction.itemList.add(position, deletedTransaction[0]);
+                            MainActivity.db.transactionDetailDao().insertItem(id_Position, deletedTransaction[0].mImageResource, deletedTransaction[0].mPurpose,
+                                    deletedTransaction[0].mAmount, deletedTransaction[0].mDate, deletedTransaction[0].mCategory, deletedTransaction[0].mMethod);
+                            mAdapter.notifyItemInserted(position);
                         }).show();
             }
         };
@@ -349,14 +326,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
     }
 
     public void addEntry(Transaction transactionDetail) {
-        new Thread(() -> {
-            MainActivity.db.transactionDetailDao().insert(transactionDetail);
-        }).start();
+        new Thread(() -> MainActivity.db.transactionDetailDao().insert(transactionDetail)).start();
     }
 
     public void deleteEntry(Transaction transactionDetail) {
-        new Thread(() -> {
-            MainActivity.db.transactionDetailDao().delete(transactionDetail);
-        }).start();
+        new Thread(() -> MainActivity.db.transactionDetailDao().delete(transactionDetail)).start();
     }
 }

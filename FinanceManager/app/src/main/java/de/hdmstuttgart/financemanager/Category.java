@@ -10,8 +10,6 @@ public class Category {
     public static ArrayList<String> incomingTypeSpinnerMain = new ArrayList<>();
     public static ArrayList<String> incomingTypeSpinnerDetail = new ArrayList<>();
 
-    public static ArrayList<String> searchFragmentSpinner = new ArrayList<>();
-
     //Führt den Block instant aus, sobald die Klasse aufgerufen wird
     static {
         categorySpinnerMain.add("Kategorie auswählen...");

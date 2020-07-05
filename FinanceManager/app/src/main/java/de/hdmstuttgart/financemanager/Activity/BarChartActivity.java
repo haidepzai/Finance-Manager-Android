@@ -10,7 +10,6 @@ import java.text.DecimalFormat;
 
 import de.hdmstuttgart.financemanager.Fragments.StatisticFragment;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.View.BarChartView;
 
 public class BarChartActivity extends AppCompatActivity {
 
@@ -61,7 +60,6 @@ public class BarChartActivity extends AppCompatActivity {
     }
 
     private void initializeView() {
-        BarChartView mBarChartView = findViewById(R.id.barChartView);
 
         groceryView = findViewById(R.id.textViewGrocery);
         foodView = findViewById(R.id.textViewFood);

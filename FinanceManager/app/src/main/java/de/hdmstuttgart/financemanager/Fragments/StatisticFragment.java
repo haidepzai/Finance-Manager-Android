@@ -28,7 +28,6 @@ import de.hdmstuttgart.financemanager.Activity.BarChartActivity;
 import de.hdmstuttgart.financemanager.Activity.CategoryDetailActivity;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.View.BarChartView;
 
 public class StatisticFragment extends Fragment {
 
@@ -70,7 +69,6 @@ public class StatisticFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
 
         ListView listView = rootView.findViewById(R.id.listViewStatistic);
-        BarChartView mBarChartView = rootView.findViewById(R.id.barChartView);
 
         Button chartActivity = rootView.findViewById(R.id.chartActivity);
         chartActivity.setOnClickListener(v -> {
