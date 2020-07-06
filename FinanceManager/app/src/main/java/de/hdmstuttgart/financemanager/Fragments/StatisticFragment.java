@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -61,6 +63,7 @@ public class StatisticFragment extends Fragment {
             }
         }).start();
 
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -265,5 +268,13 @@ public class StatisticFragment extends Fragment {
         );
 
         maxValue = Collections.max(maxAmountCategory);
+    }
+
+    //Hide search
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.action_search);
+        if(item!=null)
+            item.setVisible(false);
     }
 }

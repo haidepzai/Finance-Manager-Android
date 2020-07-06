@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -86,6 +88,8 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             String date = dayOfMonth + "." + month + "." + year;
             searchDate2.setText(date);
         };
+
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -394,5 +398,12 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         if (counter == 0) {
             Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
         }
+    }
+    //Hide search
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.action_search);
+        if(item!=null)
+            item.setVisible(false);
     }
 }
