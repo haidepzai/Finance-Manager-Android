@@ -84,7 +84,6 @@ public class BarChartView extends View {
         Log.d("fee", String.valueOf(fee));
         Log.d("misc", String.valueOf(misc));
 
-
         gridPaint.setColor(Color.BLACK);
         gridPaint.setStrokeWidth(5);
 
@@ -129,7 +128,6 @@ public class BarChartView extends View {
         rectAnimation.playTogether(animate1, animate2, animate3, animate4, animate5, animate6);
         rectAnimation.setDuration(1000).start();
 
-
         mPaintBar1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBar1.setColor(Color.rgb(25, 191, 0));
 
@@ -158,7 +156,6 @@ public class BarChartView extends View {
         canvas.drawRect(mRect4, mPaintBar4);
         canvas.drawRect(mRect5, mPaintBar5);
         canvas.drawRect(mRect6, mPaintBar6);
-
 
         //Balkendiagram (X-Y-Achse)
         canvas.drawLine(30, 1500, 1000, 1500, gridPaint); //Horizontal
