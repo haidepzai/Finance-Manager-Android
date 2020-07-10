@@ -273,8 +273,8 @@ public class StatisticFragment extends Fragment {
     //Hide search
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.action_search);
-        if(item!=null)
+        MenuItem item = menu.findItem(R.id.action_search);
+        if (item != null)
             item.setVisible(false);
     }
 }

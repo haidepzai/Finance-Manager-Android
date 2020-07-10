@@ -110,7 +110,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             //Verhalten des Spinners
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Weist die Variable paymentMethod das ausgewählt Item zu
+                //Weist die Variable paymentMethod das ausgewählte Item zu
                 paymentMethod = parent.getItemAtPosition(position).toString();
             }
 
@@ -124,7 +124,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             //Verhalten des Spinners
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Weist die Variable paymentMethod das ausgewählt Item zu
+                //Weist die Variable category das ausgewählte Item zu
                 category = parent.getItemAtPosition(position).toString();
                 switch (category) {
                     case "Einkauf":

@@ -20,7 +20,7 @@ public class IntroActivity extends AppCompatActivity {
 
         ImageView logo = findViewById(R.id.logoView);
 
-        logo.animate().alpha(1).setDuration(2000);
+        logo.animate().alpha(1).setDuration(2000); //Fade in Logo
 
         handler.postDelayed(() -> {
             Intent intent = new Intent(IntroActivity.this, MainActivity.class);// New activity

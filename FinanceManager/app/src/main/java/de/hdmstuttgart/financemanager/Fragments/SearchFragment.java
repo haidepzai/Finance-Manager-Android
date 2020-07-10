@@ -328,22 +328,20 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             case "Betrag":
                 resultList.clear();
 
-                if(searchAmount1.getText().toString().equals("") && searchAmount2.getText().toString().equals("")){
+                if (searchAmount1.getText().toString().equals("") && searchAmount2.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "Bitte Beträge angeben", Toast.LENGTH_LONG).show();
                     searchAmount1.setBackgroundResource(R.drawable.edit_border_red);
                     searchAmount2.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
-                } else if (searchAmount1.getText().toString().equals("")){
+                } else if (searchAmount1.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "Bitte min. Betrag angeben", Toast.LENGTH_LONG).show();
                     searchAmount1.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
-                } else if (searchAmount2.getText().toString().equals("")){
+                } else if (searchAmount2.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "Bitte max. Betrag angeben", Toast.LENGTH_LONG).show();
                     searchAmount2.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
-                }
-
-                else {
+                } else {
                     double amount1 = Double.parseDouble(searchAmount1.getText().toString());
                     double amount2 = Double.parseDouble(searchAmount2.getText().toString());
 
@@ -359,16 +357,16 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             case "Datum":
                 resultList.clear();
 
-                if(searchDate1.getText().toString().equals("Min. Datum") && searchDate2.getText().toString().equals("Max. Datum")){
+                if (searchDate1.getText().toString().equals("Min. Datum") && searchDate2.getText().toString().equals("Max. Datum")) {
                     Toast.makeText(getContext(), "Bitte Datum angeben", Toast.LENGTH_LONG).show();
                     searchDate1.setBackgroundResource(R.drawable.edit_border_red);
                     searchDate2.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
-                } else if (searchDate1.getText().toString().equals("Min. Datum")){
+                } else if (searchDate1.getText().toString().equals("Min. Datum")) {
                     Toast.makeText(getContext(), "Bitte min. Datum angeben", Toast.LENGTH_LONG).show();
                     searchDate1.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
-                } else if (searchDate2.getText().toString().equals("Max. Datum")){
+                } else if (searchDate2.getText().toString().equals("Max. Datum")) {
                     Toast.makeText(getContext(), "Bitte max. Datum angeben", Toast.LENGTH_LONG).show();
                     searchDate2.setBackgroundResource(R.drawable.edit_border_red);
                     counter++;
@@ -399,11 +397,12 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
             Toast.makeText(getContext(), "Kein Eintrag gefunden", Toast.LENGTH_LONG).show();
         }
     }
+
     //Hide search
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.action_search);
-        if(item!=null)
+        MenuItem item = menu.findItem(R.id.action_search);
+        if (item != null)
             item.setVisible(false);
     }
 }

@@ -182,7 +182,6 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             break;
                     }
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
 

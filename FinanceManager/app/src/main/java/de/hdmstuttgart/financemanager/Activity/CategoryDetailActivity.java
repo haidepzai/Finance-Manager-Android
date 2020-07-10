@@ -50,7 +50,9 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
     public void onNoteClick(int position) {
         //Übergibt die Informationen mit putExtra
         Intent intent = new Intent(this, ItemDetailActivity.class);
-
+        /*Iteriert durch die Hauptliste und überprüft ob die aktuelle ID mit der
+         * ID in der Hauptliste übereinstimmt und übergibt dessen ID, da ansonsten die falsche
+         * ID Position übergeben wird (Positionen resultList item =/= Positionen itemList item)*/
         for (Transaction item : Transaction.itemList) {
             if (resultList.get(position).uid == item.uid) {
                 intent.putExtra("ID", item.uid);
@@ -65,11 +67,6 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
         intent.putExtra("Category", resultList.get(position).getmCategory());
         intent.putExtra("Method", resultList.get(position).getmMethod());
 
-        /*
-         * Unteres geht nicht, da die aktuelle Position in dieser Activity übergeben wird
-         * und somit, beim Ändern eines Eintrages in der ItemDetailActivity, der falsche Eintrag
-         * in der Hauptliste geändert wird!!
-        */
         startActivity(intent);
     }
 
@@ -77,7 +74,7 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
 
         resultList.clear();
         for (Transaction item : Transaction.itemList) {
-            if (item.mCategory.equals(category)) {
+            if (item.getmCategory().equals(category)) {
                 resultList.add(item);
             }
         }
