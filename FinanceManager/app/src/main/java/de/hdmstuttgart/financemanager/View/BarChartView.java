@@ -90,7 +90,18 @@ public class BarChartView extends View {
 
         linePaint.setColor(Color.DKGRAY);
 
-        mRect1 = new AnimatableRectF(90, 1500, 180, 1500);  //top: 1500 = Höhe 0
+        /*
+         * Berechnung der Balken:
+         * Y-Achse auf Höhe 1500 = 0%
+         * Y-Achse auf Höhe 500 = 100%
+         * Differenz = 1000 Einheiten = 100%
+         * 1% = 10E
+         * Maximale Y-Höhe: Höchster Kategoriewert + 10%
+         * Höhe eines Balkens: ((Wert des Balken geteilt durch höchsten Kategoriewert) * 100(Prozent) * 10E) - 1500
+         */
+
+        //top: 1500 = Höhe 0 (Standardwert)
+        mRect1 = new AnimatableRectF(90, 1500, 180, 1500);
         ObjectAnimator animate1 = ObjectAnimator.ofFloat(mRect1, "top", mRect1.top, 1500 - ((grocery / maxValue) * 1000)); //...values: Startwert , Endwert
         animate1.addUpdateListener(valueAnimator -> postInvalidate());
 
