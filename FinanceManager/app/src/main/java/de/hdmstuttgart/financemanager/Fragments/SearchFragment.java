@@ -316,7 +316,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                     }
                 }
                 break;
-            case "Zahlungsmethode":
+            case "Zahlungsart":
                 resultList.clear();
                 for (Transaction item : Transaction.itemList) {
                     if (item.getmMethod().matches(paymentMethod)) {
