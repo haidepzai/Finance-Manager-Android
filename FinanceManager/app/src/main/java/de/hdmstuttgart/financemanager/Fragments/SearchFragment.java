@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
     private ArrayList<Transaction> resultList;
 
     private ArrayList<String> searchSpinnerList = new ArrayList<>();
-    private String searchItem = "Zweck"; //Standardwert des Spinners;
+    private String searchItem = "Freie Suche"; //Standardwert des Spinners;
 
     private Spinner searchCategorySpinner;
     private String category;
@@ -70,9 +70,9 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         super.onCreate(savedInstanceState);
 
         resultList = new ArrayList<>();
-        searchSpinnerList.add("Zweck");
+        searchSpinnerList.add("Freie Suche");
         searchSpinnerList.add("Kategorie");
-        searchSpinnerList.add("Zahlungsmethode");
+        searchSpinnerList.add("Zahlungsart");
         searchSpinnerList.add("Betrag");
         searchSpinnerList.add("Datum");
 
@@ -117,7 +117,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                 searchItem = parent.getItemAtPosition(position).toString();
 
                 switch (searchItem) {
-                    case "Zweck":
+                    case "Freie Suche":
                         searchPurpose.setVisibility(View.VISIBLE);
                         searchCategorySpinner.setVisibility(View.GONE);
                         searchMethodSpinner.setVisibility(View.GONE);
@@ -135,7 +135,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
                         searchDate1.setVisibility(View.GONE);
                         searchDate2.setVisibility(View.GONE);
                         break;
-                    case "Zahlungsmethode":
+                    case "Zahlungsart":
                         searchPurpose.setVisibility(View.GONE);
                         searchCategorySpinner.setVisibility(View.GONE);
                         searchMethodSpinner.setVisibility(View.VISIBLE);
@@ -292,7 +292,7 @@ public class SearchFragment extends Fragment implements RecyclerViewAdapter.OnNo
         searchDate2.setBackgroundResource(R.drawable.edit_border);
 
         switch (searchItem) {
-            case "Zweck":
+            case "Freie Suche":
                 resultList.clear();
                 if (searchPurpose.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "Bitte einen Suchbegriff angeben", Toast.LENGTH_LONG).show();
