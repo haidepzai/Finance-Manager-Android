@@ -238,6 +238,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 MainFragment.mAdapter.notifyDataSetChanged();
                 if (CategoryDetailActivity.mAdapter != null) {
                     CategoryDetailActivity.mAdapter.notifyDataSetChanged();
+                    CategoryDetailActivity.addCategoryToList();
                 }
                 if (SearchFragment.mAdapter != null) {
                     SearchFragment.mAdapter.notifyDataSetChanged();

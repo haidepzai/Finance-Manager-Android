@@ -17,9 +17,9 @@ import de.hdmstuttgart.financemanager.R;
 public class CategoryDetailActivity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListener {
     public static RecyclerViewAdapter mAdapter;
 
-    private ArrayList<Transaction> resultList;
+    private static ArrayList<Transaction> resultList;
 
-    private String category;
+    private static String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class CategoryDetailActivity extends AppCompatActivity implements Recycle
         startActivity(intent);
     }
 
-    private void addCategoryToList() {
+    public static void addCategoryToList() {
 
         resultList.clear();
         for (Transaction item : Transaction.itemList) {
