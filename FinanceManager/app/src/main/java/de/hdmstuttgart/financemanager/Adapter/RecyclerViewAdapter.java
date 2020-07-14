@@ -22,7 +22,7 @@ import de.hdmstuttgart.financemanager.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private ArrayList<Transaction> mItemList;
-    private ArrayList<Transaction> mItemListFull; //Kopie der Liste (Für Suchen)
+    public static ArrayList<Transaction> mItemListFull; //Kopie der Liste (Für Suchen)
 
     private OnNoteListener mOnNoteListener; //Click Listener für die einzelnen Elemente
 
@@ -58,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public RecyclerViewAdapter(ArrayList<Transaction> itemList, OnNoteListener onNoteListener) {
         this.mItemList = itemList;
-        this.mItemListFull = new ArrayList<>(mItemList); //Kopie der Liste um eigenständig zu nutzen
+        mItemListFull = new ArrayList<>(MainActivity.db.transactionDetailDao().getList()); //Kopie der Liste um eigenständig zu nutzen
         this.mOnNoteListener = onNoteListener;
     }
 

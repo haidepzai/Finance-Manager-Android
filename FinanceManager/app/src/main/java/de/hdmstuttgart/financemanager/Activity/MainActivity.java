@@ -21,6 +21,9 @@ import androidx.room.Room;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
+import de.hdmstuttgart.financemanager.Adapter.RecyclerViewAdapter;
 import de.hdmstuttgart.financemanager.Database.AppDatabase;
 import de.hdmstuttgart.financemanager.Database.Transaction;
 import de.hdmstuttgart.financemanager.Fragments.ImpressumFragment;
@@ -156,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                RecyclerViewAdapter.mItemListFull = (ArrayList<Transaction>) db.transactionDetailDao().getList();
                 MainFragment.mAdapter.getFilter().filter(newText);
                 return false;
             }
@@ -175,9 +179,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        if (item != null)
-            item.setVisible(false);
+        //MenuItem item = menu.findItem(R.id.action_search);
+        //if (item != null)
+        //    item.setVisible(false);
 
         MenuItem home_item = menu.findItem(R.id.nav_home);
         home_item.setVisible(false);
