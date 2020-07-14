@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        //action_search
         //MenuItem item = menu.findItem(R.id.action_search);
         //if (item != null)
         //    item.setVisible(false);
