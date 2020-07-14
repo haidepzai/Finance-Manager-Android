@@ -30,15 +30,10 @@ public class BarChartView extends View {
     public static float misc;
 
     private Paint mPaintBar1;
-
     private Paint mPaintBar2;
-
     private Paint mPaintBar3;
-
     private Paint mPaintBar4;
-
     private Paint mPaintBar5;
-
     private Paint mPaintBar6;
 
     private AnimatableRectF mRect1;
@@ -160,10 +155,10 @@ public class BarChartView extends View {
         //Balkendiagram (X-Y-Achse)
         canvas.drawLine(30, 1500, 1000, 1500, gridPaint); //Horizontal
         //Horizontale Linien
+        canvas.drawLine(30, 1250, 1000, 1250, linePaint); //Horizontal
         canvas.drawLine(30, 1000, 1000, 1000, linePaint); //Horizontal
         canvas.drawLine(30, 750, 1000, 750, linePaint); //Horizontal
         canvas.drawLine(30, 500, 1000, 500, linePaint); //Horizontal
-        canvas.drawLine(30, 1250, 1000, 1250, linePaint); //Horizontal
     }
 
     private static class AnimatableRectF extends RectF {
