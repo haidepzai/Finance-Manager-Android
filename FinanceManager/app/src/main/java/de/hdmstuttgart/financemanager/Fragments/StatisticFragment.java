@@ -112,13 +112,13 @@ public class StatisticFragment extends Fragment {
                     resultMap.put("Image", String.valueOf(R.drawable.logo_education));
                     break;
                 case "Freizeit":
-                    resultMap.put("Image", String.valueOf(R.drawable.logo_star));
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_freetime));
                     break;
                 case "Gebühren":
                     resultMap.put("Image", String.valueOf(R.drawable.gebuehr_logo));
                     break;
                 case "Sonstige":
-                    resultMap.put("Image", String.valueOf(R.drawable.logo_misc));
+                    resultMap.put("Image", String.valueOf(R.drawable.logo_other));
                     break;
             }
 

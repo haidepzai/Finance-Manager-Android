@@ -35,7 +35,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_info"
+            android:background="@drawable/info_icon"
             android:contentDescription="@string/info_icon" />
 
         <EditText
@@ -67,7 +67,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_euro_black"
+            android:background="@drawable/logo_money"
             android:contentDescription="@string/euro_icon" />
 
         <EditText
@@ -98,7 +98,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_date"
+            android:background="@drawable/calendar_icon"
             android:contentDescription="@string/calender_icon" />
 
         <EditText
@@ -126,7 +126,7 @@
             android:background="@drawable/button_right_rounded_green"
             android:contentDescription="@string/calender_icon"
             android:paddingEnd="3dp"
-            app:srcCompat="@drawable/black_date" />
+            app:srcCompat="@drawable/ic_calendar_black" />
     </LinearLayout>
 
     <LinearLayout
@@ -166,7 +166,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/black_credit"
+            android:background="@drawable/ic_payment"
             android:contentDescription="@string/creditcard_icon" />
 
         <Spinner

@@ -34,11 +34,12 @@
 
             <ImageView
                 android:id="@+id/detailIcon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/black_info" />
+                app:srcCompat="@drawable/info_icon" />
 
             <EditText
                 android:id="@+id/detailPurpose"
@@ -64,11 +65,12 @@
 
             <ImageView
                 android:id="@+id/detailIcon2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/black_date" />
+                app:srcCompat="@drawable/calendar_icon" />
 
             <EditText
                 android:id="@+id/detailDate"
@@ -90,7 +92,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/black_date" />
+                app:srcCompat="@drawable/ic_calendar_black" />
 
         </LinearLayout>
 
@@ -103,11 +105,12 @@
 
             <ImageView
                 android:id="@+id/detailIcon3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/ic_euro_black" />
+                app:srcCompat="@drawable/logo_money" />
 
             <EditText
                 android:id="@+id/detailAmount"
@@ -134,9 +137,10 @@
 
             <ImageView
                 android:id="@+id/detailIcon4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/ic_category" />
 
@@ -162,11 +166,12 @@
 
             <ImageView
                 android:id="@+id/detailIcon5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/black_credit" />
+                app:srcCompat="@drawable/ic_payment" />
 
             <Spinner
                 android:id="@+id/detailMethod"

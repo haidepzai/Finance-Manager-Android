@@ -166,7 +166,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             category_logo = R.drawable.logo_education;
                             break;
                         case "Freizeit":
-                            category_logo = R.drawable.logo_star;
+                            category_logo = R.drawable.logo_freetime;
                             break;
                         case "Gebühren":
                             category_logo = R.drawable.gebuehr_logo;
@@ -175,10 +175,10 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                             category_logo = R.drawable.logo_gift;
                             break;
                         case "Lohn/Gehalt":
-                            category_logo = R.drawable.ic_euro_black;
+                            category_logo = R.drawable.logo_money;
                             break;
                         case "Sonstige":
-                            category_logo = R.drawable.logo_misc;
+                            category_logo = R.drawable.logo_other;
                             break;
                     }
                 }

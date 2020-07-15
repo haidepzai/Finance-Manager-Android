@@ -28,7 +28,7 @@
             android:title="@string/advanced_search" />
         <item
             android:id="@+id/nav_impressum"
-            android:icon="@drawable/black_info"
+            android:icon="@drawable/info_icon"
             android:title="@string/impressum" />
     </group>
 
