@@ -229,7 +229,7 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
 
         //Initialize RecyclerView
         mRecyclerView = rootView.findViewById(R.id.itemRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new WrapContentLinearLayoutManager(getContext());
         mAdapter = new RecyclerViewAdapter(Transaction.itemList, this);
 
@@ -252,13 +252,15 @@ public class MainFragment extends Fragment implements RecyclerViewAdapter.OnNote
                 deletedTransaction[0] = Transaction.itemList.get(position); //Zwischenspeichern des gelöschten Elements
                 deleteEntry(Transaction.itemList.get(position)); //Delete Entry in Database
                 Transaction.itemList.remove(position);
+                //mAdapter.notifyItemRemoved(position);
                 mAdapter.notifyDataSetChanged();
                 Snackbar.make(mRecyclerView, deletedTransaction[0].getmPurpose() + " gelöscht", Snackbar.LENGTH_LONG)
                         .setAction("undo", v -> {
                             Transaction.itemList.add(position, deletedTransaction[0]);
                             MainActivity.db.transactionDetailDao().insertItem(id_Position, deletedTransaction[0].mImageResource, deletedTransaction[0].mPurpose,
                                     deletedTransaction[0].mAmount, deletedTransaction[0].mDate, deletedTransaction[0].mCategory, deletedTransaction[0].mMethod);
-                            mAdapter.notifyItemInserted(position);
+                            mAdapter.notifyDataSetChanged();
+                            //mAdapter.notifyItemInserted(position);
                         }).show();
             }
         };
