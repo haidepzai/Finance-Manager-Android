@@ -168,7 +168,7 @@
             android:layout_height="match_parent"
             android:background="#dadbf0"
             android:padding="4dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
     </RelativeLayout>
 
