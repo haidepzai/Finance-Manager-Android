@@ -20,6 +20,7 @@ public class BarChartView extends View {
 
     private Paint barPaint;
     private Paint gridPaint;
+    private Paint axisPaint;
     private Paint textPaint;
     
     private float animationFactor = 0f;
@@ -40,9 +41,13 @@ public class BarChartView extends View {
         gridPaint.setStrokeWidth(2f);
         gridPaint.setPathEffect(new DashPathEffect(new float[]{10, 10}, 0));
 
+        axisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        axisPaint.setColor(Color.BLACK);
+        axisPaint.setStrokeWidth(3f);
+
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(30f);
+        textPaint.setTextSize(26f);
         textPaint.setTextAlign(Paint.Align.RIGHT);
 
         startAnimation();
@@ -75,50 +80,48 @@ public class BarChartView extends View {
 
         float width = getWidth();
         float height = getHeight();
-        float leftPadding = 120f;
-        float bottomPadding = 60f;
-        float topPadding = 100f; // Added top padding to avoid navbar/header overlap
-        float chartWidth = width - leftPadding - 40f;
-        float chartHeight = height - bottomPadding - topPadding - 40f;
+        float leftPadding = 100f;
+        float bottomPadding = 40f; 
+        float topPadding = 100f; // Increased internal top padding
         
+        float chartWidth = width - leftPadding - 20f;
+        float chartHeight = height - bottomPadding - topPadding;
+        
+        float baselineY = topPadding + chartHeight;
+
+        // 1. Draw Grid Lines (Dashed) at 100% and 50%
+        canvas.drawLine(leftPadding, topPadding, leftPadding + chartWidth, topPadding, gridPaint);
+        canvas.drawText(String.format(Locale.GERMANY, "%.0f", maxValue), leftPadding - 10f, topPadding + 10f, textPaint);
+        
+        float middleY = topPadding + (chartHeight / 2);
+        canvas.drawLine(leftPadding, middleY, leftPadding + chartWidth, middleY, gridPaint);
+        canvas.drawText(String.format(Locale.GERMANY, "%.0f", maxValue / 2), leftPadding - 10f, middleY + 10f, textPaint);
+
+        // 2. Draw Axes (Solid)
+        // X-Axis (Baseline)
+        canvas.drawLine(leftPadding, baselineY, leftPadding + chartWidth, baselineY, axisPaint);
+        // Y-Axis
+        canvas.drawLine(leftPadding, topPadding, leftPadding, baselineY, axisPaint);
+
+        // 3. Draw Bars
         float barWidth = chartWidth / 7;
         float spacing = barWidth / 4;
 
-        // Draw Grid and Labels
-        drawGrid(canvas, leftPadding, topPadding, chartHeight, chartWidth);
-
-        // Draw Bars
-        drawBar(canvas, 1, (float) grocery, Color.parseColor("#008577"), barWidth, spacing, leftPadding, topPadding, chartHeight);
-        drawBar(canvas, 2, (float) food, Color.parseColor("#3F51B5"), barWidth, spacing, leftPadding, topPadding, chartHeight);
-        drawBar(canvas, 3, (float) education, Color.RED, barWidth, spacing, leftPadding, topPadding, chartHeight);
-        drawBar(canvas, 4, (float) leisure, Color.parseColor("#00BCD4"), barWidth, spacing, leftPadding, topPadding, chartHeight);
-        drawBar(canvas, 5, (float) fee, Color.MAGENTA, barWidth, spacing, leftPadding, topPadding, chartHeight);
-        drawBar(canvas, 6, (float) misc, Color.parseColor("#FF9800"), barWidth, spacing, leftPadding, topPadding, chartHeight);
+        drawBar(canvas, 1, (float) grocery, Color.parseColor("#008577"), barWidth, spacing, leftPadding, baselineY, chartHeight);
+        drawBar(canvas, 2, (float) food, Color.parseColor("#3F51B5"), barWidth, spacing, leftPadding, baselineY, chartHeight);
+        drawBar(canvas, 3, (float) education, Color.RED, barWidth, spacing, leftPadding, baselineY, chartHeight);
+        drawBar(canvas, 4, (float) leisure, Color.parseColor("#00BCD4"), barWidth, spacing, leftPadding, baselineY, chartHeight);
+        drawBar(canvas, 5, (float) fee, Color.MAGENTA, barWidth, spacing, leftPadding, baselineY, chartHeight);
+        drawBar(canvas, 6, (float) misc, Color.parseColor("#FF9800"), barWidth, spacing, leftPadding, baselineY, chartHeight);
     }
 
-    private void drawGrid(Canvas canvas, float leftPadding, float topPadding, float chartHeight, float chartWidth) {
-        // Draw Y-Axis lines and values (0, 50%, 100%)
-        float[] percentages = {0f, 0.5f, 1f};
-        for (float p : percentages) {
-            float y = (topPadding + chartHeight) - (p * chartHeight);
-            canvas.drawLine(leftPadding, y, leftPadding + chartWidth, y, gridPaint);
-            canvas.drawText(String.format(Locale.GERMANY, "%.0f", p * maxValue), leftPadding - 10f, y + 10f, textPaint);
-        }
-        
-        // Draw baseline
-        Paint axisPaint = new Paint(gridPaint);
-        axisPaint.setPathEffect(null);
-        axisPaint.setColor(Color.BLACK);
-        canvas.drawLine(leftPadding, topPadding + chartHeight, leftPadding + chartWidth, topPadding + chartHeight, axisPaint);
-    }
-
-    private void drawBar(Canvas canvas, int index, float value, int color, float barWidth, float spacing, float leftPadding, float topPadding, float chartHeight) {
+    private void drawBar(Canvas canvas, int index, float value, int color, float barWidth, float spacing, float leftPadding, float baselineY, float chartHeight) {
         barPaint.setColor(color);
         float left = leftPadding + (index - 1) * (barWidth + spacing) + spacing;
         float barHeight = (value / maxValue * chartHeight) * animationFactor;
-        float top = (topPadding + chartHeight) - barHeight;
+        float top = baselineY - barHeight;
         float right = left + barWidth;
-        float bottom = topPadding + chartHeight;
+        float bottom = baselineY;
         canvas.drawRect(left, top, right, bottom, barPaint);
     }
 }

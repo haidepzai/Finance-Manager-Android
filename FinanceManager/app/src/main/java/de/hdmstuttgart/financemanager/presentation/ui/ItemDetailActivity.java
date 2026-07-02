@@ -33,7 +33,7 @@ import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
-    private FloatingActionButton fab_done;
+    private FloatingActionButton fab_main;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private EditText mPurpose, mAmount, mDate;
@@ -45,6 +45,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private String paymentMethod, category, billType, formattedCurrency;
     private int category_logo;
     private boolean isIncomingBill = false;
+    private boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,40 +109,49 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
 
         deactivateText(methodAdapter, catAdapter);
-        fab_done = findViewById(R.id.fab_done);
-        fab_done.hide();
-
-        findViewById(R.id.fab_edit).setOnClickListener(v -> {
-            mAmount.setText(amount.replaceAll("[-€+,]", ""));
-            activateText(methodAdapter, catAdapter);
-            calenderBtn.setOnClickListener(v1 -> {
-                Calendar cal = Calendar.getInstance();
-                new DatePickerDialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog, 
-                        mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
-            });
-            setGreenFieldBorder();
-            fab_done.show();
-        });
-
-        fab_done.setOnClickListener(v -> {
-            if (validateFields()) {
-                formattedCurrency = CurrencyFormatter.formatNumberCurrency(mAmount.getText().toString());
-                TransactionDetail updated = new TransactionDetail(
-                        id_Position, category_logo, mPurpose.getText().toString(),
-                        billType + formattedCurrency + "€", mDate.getText().toString(),
-                        category, paymentMethod
-                );
-                
-                FinanceManagerApp app = (FinanceManagerApp) getApplication();
-                app.appContainer.transactionRepository.insertTransaction(updated);
-
-                mAmount.setText(updated.getAmount());
-                deactivateText(methodAdapter, catAdapter);
-                fab_done.hide();
-                calenderBtn.setVisibility(View.INVISIBLE);
-                setHeaderImg();
+        
+        fab_main = findViewById(R.id.fab_main);
+        fab_main.setOnClickListener(v -> {
+            if (!isEditMode) {
+                enterEditMode(amount, methodAdapter, catAdapter);
+            } else {
+                saveAndExitEditMode(methodAdapter, catAdapter);
             }
         });
+    }
+
+    private void enterEditMode(String amount, ArrayAdapter<String> methodAdapter, ArrayAdapter<String> catAdapter) {
+        isEditMode = true;
+        mAmount.setText(amount.replaceAll("[-€+,]", ""));
+        activateText(methodAdapter, catAdapter);
+        calenderBtn.setOnClickListener(v1 -> {
+            Calendar cal = Calendar.getInstance();
+            new DatePickerDialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog, 
+                    mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
+        });
+        setGreenFieldBorder();
+        fab_main.setImageResource(R.drawable.done); // Changed to tick icon
+    }
+
+    private void saveAndExitEditMode(ArrayAdapter<String> methodAdapter, ArrayAdapter<String> catAdapter) {
+        if (validateFields()) {
+            formattedCurrency = CurrencyFormatter.formatNumberCurrency(mAmount.getText().toString());
+            TransactionDetail updated = new TransactionDetail(
+                    id_Position, category_logo, mPurpose.getText().toString(),
+                    billType + formattedCurrency + "€", mDate.getText().toString(),
+                    category, paymentMethod
+            );
+            
+            FinanceManagerApp app = (FinanceManagerApp) getApplication();
+            app.appContainer.transactionRepository.insertTransaction(updated);
+
+            mAmount.setText(updated.getAmount());
+            deactivateText(methodAdapter, catAdapter);
+            calenderBtn.setVisibility(View.INVISIBLE);
+            setHeaderImg();
+            fab_main.setImageResource(R.drawable.ic_edit); // Back to edit icon
+            isEditMode = false;
+        }
     }
 
     @Override
