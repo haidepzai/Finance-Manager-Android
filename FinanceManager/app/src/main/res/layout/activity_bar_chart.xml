@@ -1,161 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.BarChartActivity"
-    android:background="#FFF">
+    android:orientation="vertical"
+    android:background="#FFF"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
-        app:layout_constraintBottom_toTopOf="@+id/barChartView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="#FFF"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="#FFF"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <TextView
-            android:id="@+id/textViewGrocery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font"
-            android:padding="10dp"
-            android:text="@string/grocery"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textColor="@color/dark_green"/>
-
-        <TextView
-            android:id="@+id/textViewFood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/food"
-            android:padding="10dp"
-            android:fontFamily="@font/font"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textColor="@color/light_blue"/>
-
-        <TextView
-            android:id="@+id/textViewEducation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/education"
-            android:padding="10dp"
-            android:fontFamily="@font/font"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textColor="@color/red"/>
-
-        <TextView
-            android:id="@+id/textViewLeisure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/leisure"
-            android:padding="10dp"
-            android:fontFamily="@font/font"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textColor="@color/dark_cyan"/>
-
-        <TextView
-            android:id="@+id/textViewFee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fee"
-            android:padding="10dp"
-            android:fontFamily="@font/font"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textColor="@color/magenta"/>
-
-
-        <TextView
-            android:id="@+id/textViewLMisc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/misc"
-            android:fontFamily="@font/font"
-            android:padding="10dp"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textColor="@color/orange"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/totalAmountView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/font"
-        android:text="@string/total_amount"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
-
-    <TextView
-        android:id="@+id/totalAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/font"
-        android:text="@string/value_zero"
-        android:textColor="#000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/totalAmountView"
-        app:layout_constraintStart_toStartOf="@+id/totalAmountView"
-        app:layout_constraintTop_toBottomOf="@+id/totalAmountView" />
-
-    <de.hdmstuttgart.financemanager.View.BarChartView
-        android:id="@+id/barChartView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalAmount"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/yAxisMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/value_zero"
-        android:textColor="#000"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/yAxisHalf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/value_zero"
-        android:textColor="#000"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.617" />
+            <LinearLayout
+                android:id="@+id/legendLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/totalAmountView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textViewGrocery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/grocery"
+                    android:textColor="@color/dark_green"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/food"
+                    android:textColor="@color/light_blue"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewEducation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/education"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewLeisure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/leisure"
+                    android:textColor="@color/dark_cyan"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/fee"
+                    android:textColor="@color/magenta"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewLMisc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:text="@string/misc"
+                    android:textColor="@color/orange"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/totalAmountView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font"
+                android:text="@string/total_amount"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/totalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font"
+                android:text="@string/value_zero"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/totalAmountView"
+                app:layout_constraintStart_toStartOf="@+id/totalAmountView"
+                app:layout_constraintTop_toBottomOf="@+id/totalAmountView" />
+
+            <de.hdmstuttgart.financemanager.View.BarChartView
+                android:id="@+id/barChartView"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/legendLayout" />
+
+            <TextView
+                android:id="@+id/yAxisMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/value_zero"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/barChartView" />
+
+            <TextView
+                android:id="@+id/yAxisHalf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/value_zero"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@+id/barChartView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/barChartView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
