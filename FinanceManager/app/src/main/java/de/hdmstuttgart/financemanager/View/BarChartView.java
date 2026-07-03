@@ -82,20 +82,20 @@ public class BarChartView extends View {
         float height = getHeight();
         float leftPadding = 100f;
         float bottomPadding = 40f; 
-        float topPadding = 100f; // Increased internal top padding
+        float topPadding = 100f;
         
         float chartWidth = width - leftPadding - 20f;
         float chartHeight = height - bottomPadding - topPadding;
         
         float baselineY = topPadding + chartHeight;
 
-        // 1. Draw Grid Lines (Dashed) at 100% and 50%
-        canvas.drawLine(leftPadding, topPadding, leftPadding + chartWidth, topPadding, gridPaint);
-        canvas.drawText(String.format(Locale.GERMANY, "%.0f", maxValue), leftPadding - 10f, topPadding + 10f, textPaint);
-        
-        float middleY = topPadding + (chartHeight / 2);
-        canvas.drawLine(leftPadding, middleY, leftPadding + chartWidth, middleY, gridPaint);
-        canvas.drawText(String.format(Locale.GERMANY, "%.0f", maxValue / 2), leftPadding - 10f, middleY + 10f, textPaint);
+        // 1. Draw Grid Lines (Dashed) at 25%, 50%, 75%, 100%
+        float[] percentages = {0.25f, 0.5f, 0.75f, 1.0f};
+        for (float p : percentages) {
+            float y = baselineY - (p * chartHeight);
+            canvas.drawLine(leftPadding, y, leftPadding + chartWidth, y, gridPaint);
+            canvas.drawText(String.format(Locale.GERMANY, "%.0f", p * maxValue), leftPadding - 10f, y + 10f, textPaint);
+        }
 
         // 2. Draw Axes (Solid)
         // X-Axis (Baseline)

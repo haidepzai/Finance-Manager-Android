@@ -43,7 +43,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/grocery"
                     android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewFood"
@@ -52,7 +53,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/food"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewEducation"
@@ -61,7 +63,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/education"
                     android:textColor="@color/red"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewLeisure"
@@ -70,7 +73,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/leisure"
                     android:textColor="@color/dark_cyan"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewFee"
@@ -79,7 +83,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/fee"
                     android:textColor="@color/magenta"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewLMisc"
@@ -88,7 +93,8 @@
                     android:fontFamily="@font/font"
                     android:text="@string/misc"
                     android:textColor="@color/orange"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
             </LinearLayout>
 
