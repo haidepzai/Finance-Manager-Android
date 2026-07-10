@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.hdmstuttgart.financemanager.Activity.MainActivity;
+import de.hdmstuttgart.financemanager.presentation.ui.MainActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -134,10 +134,9 @@ public class SearchTest {
 
         ViewInteraction navigationMenuItemView = onView(
                 allOf(childAtPosition(
-                        allOf(withId(R.id.design_navigation_view),
                                 childAtPosition(
                                         withId(R.id.nav_view),
-                                        0)),
+                                        0),
                         3),
                         isDisplayed()));
         navigationMenuItemView.perform(click());

@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Objects;
 
-import de.hdmstuttgart.financemanager.Activity.MainActivity;
+import de.hdmstuttgart.financemanager.presentation.ui.MainActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -108,7 +108,7 @@ public class FinanceManagerTest {
         textView.check(matches(withText("Vapiano")));
 
         ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.fab_edit),
+                allOf(withId(R.id.fab_main),
                         isDisplayed()));
         floatingActionButton2.perform(click());
 
@@ -118,7 +118,7 @@ public class FinanceManagerTest {
         appCompatEditText4.perform(replaceText("Block House"), closeSoftKeyboard());
 
         ViewInteraction floatingActionButton3 = onView(
-                allOf(withId(R.id.fab_done),
+                allOf(withId(R.id.fab_main),
                         isDisplayed()));
         floatingActionButton3.perform(click());
 
