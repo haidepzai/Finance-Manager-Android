@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.domain.model;
+package com.hdmstuttgart.financemanager.domain.model;
 
 /**
  * Domain model representing a financial transaction.

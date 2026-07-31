@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.data.local;
+package com.hdmstuttgart.financemanager.data.local;
 
 import android.content.Context;
 import androidx.room.Database;

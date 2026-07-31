@@ -1,7 +1,7 @@
-package de.hdmstuttgart.financemanager.domain.usecase;
+package com.hdmstuttgart.financemanager.domain.usecase;
 
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
-import de.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
 
 public class DeleteTransactionUseCase {
     private final TransactionRepository repository;

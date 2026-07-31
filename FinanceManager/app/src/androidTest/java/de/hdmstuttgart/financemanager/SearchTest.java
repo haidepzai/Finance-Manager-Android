@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package com.hdmstuttgart.financemanager;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.hdmstuttgart.financemanager.presentation.ui.MainActivity;
+import com.hdmstuttgart.financemanager.presentation.ui.MainActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;

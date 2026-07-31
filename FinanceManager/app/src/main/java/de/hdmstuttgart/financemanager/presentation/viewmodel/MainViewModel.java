@@ -1,14 +1,14 @@
-package de.hdmstuttgart.financemanager.presentation.viewmodel;
+package com.hdmstuttgart.financemanager.presentation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java.util.List;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
-import de.hdmstuttgart.financemanager.domain.usecase.AddTransactionUseCase;
-import de.hdmstuttgart.financemanager.domain.usecase.DeleteTransactionUseCase;
-import de.hdmstuttgart.financemanager.domain.usecase.GetTransactionsUseCase;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.domain.usecase.AddTransactionUseCase;
+import com.hdmstuttgart.financemanager.domain.usecase.DeleteTransactionUseCase;
+import com.hdmstuttgart.financemanager.domain.usecase.GetTransactionsUseCase;
 
 public class MainViewModel extends ViewModel {
     private final GetTransactionsUseCase getTransactionsUseCase;

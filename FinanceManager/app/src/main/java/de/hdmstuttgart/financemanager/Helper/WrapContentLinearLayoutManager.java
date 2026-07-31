@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.Helper;
+package com.hdmstuttgart.financemanager.Helper;
 
 import android.content.Context;
 import android.util.Log;

@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'de.hdmstuttgart.financemanager'
+    namespace 'com.hdmstuttgart.financemanager'
     compileSdk 35
 
     defaultConfig {
-        applicationId "de.hdmstuttgart.financemanager"
+        applicationId "com.hdmstuttgart.financemanager"
         minSdk 26
         targetSdk 35
         versionCode 2

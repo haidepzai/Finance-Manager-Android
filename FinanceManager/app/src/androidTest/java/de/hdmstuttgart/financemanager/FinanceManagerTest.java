@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package com.hdmstuttgart.financemanager;
 
 import android.content.res.Resources;
 import android.view.View;
@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Objects;
 
-import de.hdmstuttgart.financemanager.presentation.ui.MainActivity;
+import com.hdmstuttgart.financemanager.presentation.ui.MainActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;

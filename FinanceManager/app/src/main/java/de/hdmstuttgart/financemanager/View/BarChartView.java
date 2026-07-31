@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.View;
+package com.hdmstuttgart.financemanager.View;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import java.util.Locale;
 
-import de.hdmstuttgart.financemanager.presentation.ui.StatisticFragment;
+import com.hdmstuttgart.financemanager.presentation.ui.StatisticFragment;
 
 public class BarChartView extends View {
 

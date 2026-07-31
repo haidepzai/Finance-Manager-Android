@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.data.local;
+package com.hdmstuttgart.financemanager.data.local;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

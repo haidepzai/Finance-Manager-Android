@@ -1,13 +1,13 @@
-package de.hdmstuttgart.financemanager.data.repository;
+package com.hdmstuttgart.financemanager.data.repository;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import de.hdmstuttgart.financemanager.data.local.TransactionDao;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
-import de.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
+import com.hdmstuttgart.financemanager.data.local.TransactionDao;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
 
 public class TransactionRepositoryImpl implements TransactionRepository {
     private final TransactionDao transactionDao;

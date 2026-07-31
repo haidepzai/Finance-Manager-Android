@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
-import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> implements Filterable {
 

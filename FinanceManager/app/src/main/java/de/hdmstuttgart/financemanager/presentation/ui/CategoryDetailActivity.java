@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import de.hdmstuttgart.financemanager.FinanceManagerApp;
-import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
+import com.hdmstuttgart.financemanager.FinanceManagerApp;
+import com.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
 
 public class CategoryDetailActivity extends AppCompatActivity {
 

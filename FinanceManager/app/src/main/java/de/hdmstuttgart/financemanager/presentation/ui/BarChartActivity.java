@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.Locale;
 
-import de.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.R;
 
 public class BarChartActivity extends AppCompatActivity {
 

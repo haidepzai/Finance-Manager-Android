@@ -1,7 +1,7 @@
-package de.hdmstuttgart.financemanager.data.repository;
+package com.hdmstuttgart.financemanager.data.repository;
 
-import de.hdmstuttgart.financemanager.data.local.TransactionEntity;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.data.local.TransactionEntity;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
 import java.util.ArrayList;
 import java.util.List;
 

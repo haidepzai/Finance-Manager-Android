@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.Helper;
+package com.hdmstuttgart.financemanager.Helper;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

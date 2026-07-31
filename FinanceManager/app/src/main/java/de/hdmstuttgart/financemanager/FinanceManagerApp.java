@@ -1,7 +1,7 @@
-package de.hdmstuttgart.financemanager;
+package com.hdmstuttgart.financemanager;
 
 import android.app.Application;
-import de.hdmstuttgart.financemanager.di.AppContainer;
+import com.hdmstuttgart.financemanager.di.AppContainer;
 
 public class FinanceManagerApp extends Application {
     public AppContainer appContainer;

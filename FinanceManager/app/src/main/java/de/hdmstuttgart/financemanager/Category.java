@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager;
+package com.hdmstuttgart.financemanager;
 
 import java.util.ArrayList;
 

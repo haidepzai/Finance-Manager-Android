@@ -1,12 +1,12 @@
-package de.hdmstuttgart.financemanager.di;
+package com.hdmstuttgart.financemanager.di;
 
 import android.content.Context;
-import de.hdmstuttgart.financemanager.data.local.AppDatabase;
-import de.hdmstuttgart.financemanager.data.repository.TransactionRepositoryImpl;
-import de.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
-import de.hdmstuttgart.financemanager.domain.usecase.AddTransactionUseCase;
-import de.hdmstuttgart.financemanager.domain.usecase.DeleteTransactionUseCase;
-import de.hdmstuttgart.financemanager.domain.usecase.GetTransactionsUseCase;
+import com.hdmstuttgart.financemanager.data.local.AppDatabase;
+import com.hdmstuttgart.financemanager.data.repository.TransactionRepositoryImpl;
+import com.hdmstuttgart.financemanager.domain.repository.TransactionRepository;
+import com.hdmstuttgart.financemanager.domain.usecase.AddTransactionUseCase;
+import com.hdmstuttgart.financemanager.domain.usecase.DeleteTransactionUseCase;
+import com.hdmstuttgart.financemanager.domain.usecase.GetTransactionsUseCase;
 
 /**
  * Manual Dependency Injection container.

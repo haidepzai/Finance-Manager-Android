@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -31,16 +31,16 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 import java.util.Objects;
 
-import de.hdmstuttgart.financemanager.presentation.ui.ItemDetailActivity;
-import de.hdmstuttgart.financemanager.Category;
-import de.hdmstuttgart.financemanager.FinanceManagerApp;
-import de.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
-import de.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
-import de.hdmstuttgart.financemanager.PaymentMethods;
-import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.domain.model.TransactionDetail;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
+import com.hdmstuttgart.financemanager.presentation.ui.ItemDetailActivity;
+import com.hdmstuttgart.financemanager.Category;
+import com.hdmstuttgart.financemanager.FinanceManagerApp;
+import com.hdmstuttgart.financemanager.Helper.CurrencyFormatter;
+import com.hdmstuttgart.financemanager.Helper.WrapContentLinearLayoutManager;
+import com.hdmstuttgart.financemanager.PaymentMethods;
+import com.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.domain.model.TransactionDetail;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
 
 public class MainFragment extends Fragment {
     private RecyclerView mRecyclerView;

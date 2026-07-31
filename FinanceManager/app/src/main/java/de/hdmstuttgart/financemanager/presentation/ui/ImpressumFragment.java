@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import de.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.R;
 
 public class ImpressumFragment extends Fragment {
     @Nullable

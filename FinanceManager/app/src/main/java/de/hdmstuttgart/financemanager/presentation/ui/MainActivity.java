@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.presentation.ui;
+package com.hdmstuttgart.financemanager.presentation.ui;
 
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
@@ -21,10 +21,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 
-import de.hdmstuttgart.financemanager.FinanceManagerApp;
-import de.hdmstuttgart.financemanager.R;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
-import de.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
+import com.hdmstuttgart.financemanager.FinanceManagerApp;
+import com.hdmstuttgart.financemanager.R;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModel;
+import com.hdmstuttgart.financemanager.presentation.viewmodel.MainViewModelFactory;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;

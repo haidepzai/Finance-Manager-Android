@@ -1,4 +1,4 @@
-package de.hdmstuttgart.financemanager.data.local;
+package com.hdmstuttgart.financemanager.data.local;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
