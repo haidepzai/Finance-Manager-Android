@@ -13,12 +13,10 @@
         <activity android:name=".presentation.ui.CategoryDetailActivity" android:exported="false"/>
         <activity
             android:name=".presentation.ui.BarChartActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".presentation.ui.IntroActivity"
-            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,12 +26,10 @@
         </activity>
         <activity
             android:name=".presentation.ui.ItemDetailActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".presentation.ui.MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
     </application>
